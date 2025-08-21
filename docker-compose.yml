@@ -1,0 +1,35 @@
+version: '3.2'
+services:
+  app:
+    image: node:22.12.0
+    container_name: plate-vision-api
+    user: 'root'
+    restart: always
+    working_dir: /app
+    ports:
+      - '5000:5000'
+    networks:
+      - default_net
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+    command: bash -c "npm install; npm i -g @nestjs/cli; npm run migration:run; npm run seed:run; npm run start:debug"
+
+  db:
+    container_name: plate-vision-database
+    image: postgres
+    restart: always
+    networks:
+      - default_net
+    shm_size: 10g
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: plate-vision-db
+
+networks:
+  default_net:
+    driver: bridge
