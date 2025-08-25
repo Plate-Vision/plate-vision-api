@@ -16,6 +16,21 @@ services:
       - db
     command: bash -c "npm install; npm i -g @nestjs/cli; npm run migration:run; npm run seed:run; npm run start:debug"
 
+  engine:
+    build:
+      context: ../plate-vision-engine
+      dockerfile: docker/Dockerfile
+    container_name: plate-vision-engine
+    restart: unless-stopped
+    environment:
+      WEB_API_BASE_URL: http://app:5000
+      ANPR_PROVIDER: dummy
+      PYTHONPATH: /app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - app
+
   db:
     container_name: plate-vision-database
     image: postgres
