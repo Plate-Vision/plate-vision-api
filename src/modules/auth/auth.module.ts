@@ -6,8 +6,8 @@ import { EnvironmentVariablesModule } from '@core/enviroment-variables/enviromen
 import { EnvironmentVariablesProvider } from '@core/enviroment-variables/providers/enviroment-variables.provider';
 
 import { AuthGuard } from './domain/guards/auth.guard';
-import { AuthService } from './services/auth.service';
-import { AuthControllers } from './controllers/auth.controller';
+import { AuthService } from './domain/services/auth.service';
+import { AuthControllers } from './application/controllers/auth.controller';
 
 @Global()
 @Module({
