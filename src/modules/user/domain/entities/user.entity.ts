@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { JoinColumn, ManyToOne } from 'typeorm';
+import { Index, JoinColumn, ManyToOne } from 'typeorm';
 
 import { BaseEntity } from '@core/database/domain/entities/base.entity';
 import { EntityTable } from '@core/database/domain/decorators/table-entity.decorator';
@@ -27,6 +27,7 @@ export class UserEntity extends BaseEntity {
     example: 'João da Silva',
     description: 'Nome do usuário',
   })
+  @Index()
   public name: string;
 
   @ColumnEntity({
@@ -37,6 +38,7 @@ export class UserEntity extends BaseEntity {
     example: 'joao@email.com',
     description: 'Endereço de email do usuário',
   })
+  @Index()
   public email: string;
 
   @Exclude()

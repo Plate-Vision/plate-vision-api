@@ -5,7 +5,11 @@ import {
   PrimaryColumnOptions,
 } from 'typeorm';
 import { applyDecorators } from '@nestjs/common';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import {
+  ApiProperty,
+  ApiPropertyOptional,
+  ApiPropertyOptions,
+} from '@nestjs/swagger';
 
 /**
  * Definição da ligação de uma  coluna da base de dados para/com a entidade do sistema
@@ -19,25 +23,25 @@ export function ColumnEntity(
     description: string;
   },
 ) {
+  const apiOptions: ApiPropertyOptions = {
+    description: options.description,
+    example: options.example,
+    format: options.format,
+  };
+
+  if (options.length) {
+    apiOptions.maxLength = Number(options.length);
+  }
+
   if (options.nullable) {
     return applyDecorators(
       Column({ ...options, comment: options.description }),
-      ApiPropertyOptional({
-        ...options,
-        name: undefined,
-        type: undefined,
-        maxLength: parseInt(`${options.length}`),
-      }),
+      ApiPropertyOptional(apiOptions),
     );
   }
   return applyDecorators(
     Column({ ...options, comment: options.description }),
-    ApiProperty({
-      ...options,
-      type: undefined,
-      name: undefined,
-      maxLength: parseInt(`${options.length}`),
-    }),
+    ApiProperty(apiOptions),
   );
 }
 
@@ -48,12 +52,18 @@ export function PrimaryColumnEntity(
     description: string;
   },
 ) {
+  const apiOptions: ApiPropertyOptions = {
+    description: options.description,
+    example: options.example,
+    format: options.format,
+  };
+
+  if (options.length) {
+    apiOptions.maxLength = Number(options.length);
+  }
+
   return applyDecorators(
     PrimaryColumn({ ...options, comment: options.description }),
-    ApiProperty({
-      ...options,
-      type: undefined,
-      maxLength: parseInt(`${options.length}`),
-    }),
+    ApiProperty(apiOptions),
   );
 }
