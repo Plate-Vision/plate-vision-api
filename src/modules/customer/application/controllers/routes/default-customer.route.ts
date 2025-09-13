@@ -127,34 +127,30 @@ export class DefaultCustomerController {
   //     });
   //   }
 
-  //   @Endpoint.delete({
-  //     url: '/:id',
-  //     description: 'Apagar um usuário com base em seu ID',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Usuário deletado com sucesso',
-  //         status: 200,
-  //       },
-  //       {
-  //         description: 'Usuário não encontrado',
-  //         status: 404,
-  //       },
-  //       {
-  //         description: 'Não é possível deletar o próprio usuário',
-  //         status: 404,
-  //       },
-  //     ],
-  //   })
-  //   public async delete(
-  //     @Param('id') id: number,
-  //     @AuthUser() authUser: UserEntity,
-  //   ) {
-  //     return await this.service.delete.execute({
-  //       id,
-  //       authUser,
-  //     });
-  //   }
+  @Endpoint.delete({
+    url: '/:id',
+    description: 'Apagar um cliente com base em seu ID',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Cliente deletado com sucesso',
+        status: 200,
+      },
+      {
+        description: 'Cliente não encontrado',
+        status: 404,
+      },
+    ],
+  })
+  public async delete(
+    @Param('id') id: number,
+    @AuthUser() authUser: UserEntity,
+  ) {
+    return await this.service.delete.execute({
+      id,
+      authUser,
+    });
+  }
 }
