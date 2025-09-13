@@ -25,7 +25,7 @@ export class ParkingRecordEntity extends BaseEntity {
 
   @ColumnEntity({
     name: 'entry_time',
-    type: 'timestamp',
+    type: 'timestamp with time zone',
     description: 'Data e hora em que o veículo entrou',
     example: '2023-03-15 10:00:00',
   })
@@ -34,7 +34,7 @@ export class ParkingRecordEntity extends BaseEntity {
 
   @ColumnEntity({
     name: 'exit_time',
-    type: 'timestamp',
+    type: 'timestamp with time zone',
     description: 'Data e hora em que o veículo saiu',
     example: '2023-03-15 10:00:00',
     nullable: true,

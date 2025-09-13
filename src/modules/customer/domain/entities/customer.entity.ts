@@ -4,6 +4,7 @@ import { BaseEntity } from '@core/database/domain/entities/base.entity';
 import { Index, JoinColumn, ManyToOne } from 'typeorm';
 import { ECustomerStatus } from '../enums/customer-status.enum';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
+import { ECustomerType } from '../enums/customer-type.enum';
 
 @EntityTable('customers', 'Tabela para armazenar os dados de clientes', [
   'name',
@@ -48,4 +49,13 @@ export class CustomerEntity extends BaseEntity {
   })
   @Index()
   public document: string;
+
+  @ColumnEntity({
+    type: 'enum',
+    enum: ECustomerType,
+    description: 'Tipo do cliente no portal',
+    example: ECustomerType.JU,
+  })
+  @Index()
+  public type: ECustomerType;
 }
