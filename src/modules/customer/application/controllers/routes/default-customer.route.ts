@@ -8,6 +8,7 @@ import { CustomerEntity } from '@modules/customer/domain/entities/customer.entit
 import { CreateCustomerDTO } from '@modules/customer/domain/dtos/create-customer.dto';
 import { AuthGuard } from '@modules/auth/domain/guards/auth.guard';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
+import { UpdateCustomerDTO } from '@modules/customer/domain/dtos/update-customer.dto';
 
 @CustomerController.default()
 export class DefaultCustomerController {
@@ -92,40 +93,40 @@ export class DefaultCustomerController {
     });
   }
 
-  //   @Endpoint.put({
-  //     url: '/:id',
-  //     description: 'Editar um usuário existente utilizando seu ID',
-  //     dtoName: 'UpdateUserDTO',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Usuário editado com sucesso',
-  //         status: 200,
-  //         response: UserEntity,
-  //       },
-  //       {
-  //         description: 'Usuário não encontrado',
-  //         status: 404,
-  //       },
-  //       {
-  //         description: 'Ocorreu um erro de validação do objeto enviado',
-  //         status: 412,
-  //       },
-  //     ],
-  //   })
-  //   public async update(
-  //     @Param('id') id: number,
-  //     @Body() data: UpdateUserDTO,
-  //     @AuthUser() authUser: UserEntity,
-  //   ) {
-  //     return await this.service.update.execute({
-  //       id,
-  //       data,
-  //       authUser,
-  //     });
-  //   }
+  @Endpoint.patch({
+    url: '/:id',
+    description: 'Editar um cliente existente utilizando seu ID',
+    dtoName: 'UpdateCustomerDTO',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Cliente editado com sucesso',
+        status: 200,
+        response: CustomerEntity,
+      },
+      {
+        description: 'Cliente não encontrado',
+        status: 404,
+      },
+      {
+        description: 'Ocorreu um erro de validação do objeto enviado',
+        status: 412,
+      },
+    ],
+  })
+  public async update(
+    @Param('id') id: number,
+    @Body() data: UpdateCustomerDTO,
+    @AuthUser() authUser: UserEntity,
+  ) {
+    return await this.service.update.execute({
+      id,
+      data,
+      authUser,
+    });
+  }
 
   @Endpoint.delete({
     url: '/:id',
