@@ -1,5 +1,4 @@
 import { CustomerRepository } from '@modules/customer/infra/repositories/customer.repository';
-import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { HttpException } from '@nestjs/common';
 
 import { MessagePayload } from '@shared/payloads/message.payload';
@@ -8,10 +7,7 @@ import { CustomerEntity } from '../../entities/customer.entity';
 export class DeleteCustomerProvider {
   public constructor(private readonly customerRepository: CustomerRepository) {}
 
-  public async execute(data: {
-    id: number;
-    authUser: UserEntity;
-  }): Promise<MessagePayload> {
+  public async execute(data: { id: number }): Promise<MessagePayload> {
     const customer = await this.findCustomer(data.id);
 
     await this.customerRepository.transaction(async (queryRunner) => {

@@ -37,29 +37,26 @@ export class DefaultCustomerController {
     });
   }
 
-  //   @Endpoint.get({
-  //     url: '/:id',
-  //     description: 'Listar um único usuário com base em seu id',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Dados do usuário',
-  //         status: 200,
-  //         response: UserEntity,
-  //       },
-  //     ],
-  //   })
-  //   public async findOne(
-  //     @Param('id') id: number,
-  //     @AuthUser() authUser: UserEntity,
-  //   ) {
-  //     return await this.service.findOne.execute({
-  //       id,
-  //       authUser,
-  //     });
-  //   }
+  @Endpoint.get({
+    url: '/:id',
+    description: 'Listar um único cliente com base em seu id',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Dados do cliente',
+        status: 200,
+        response: CustomerEntity,
+      },
+    ],
+  })
+  @UseGuards(AuthGuard)
+  public async findOne(@Param('id') id: number) {
+    return await this.service.findOne.execute({
+      id,
+    });
+  }
 
   @Endpoint.post({
     url: '/',
@@ -145,13 +142,9 @@ export class DefaultCustomerController {
     ],
   })
   @UseGuards(AuthGuard)
-  public async delete(
-    @Param('id') id: number,
-    @AuthUser() authUser: UserEntity,
-  ) {
+  public async delete(@Param('id') id: number) {
     return await this.service.delete.execute({
       id,
-      authUser,
     });
   }
 }
