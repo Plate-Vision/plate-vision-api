@@ -9,35 +9,33 @@ import { CreateCustomerDTO } from '@modules/customer/domain/dtos/create-customer
 import { AuthGuard } from '@modules/auth/domain/guards/auth.guard';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { UpdateCustomerDTO } from '@modules/customer/domain/dtos/update-customer.dto';
+import { FindManyCustomerDTO } from '@modules/customer/domain/dtos/find-many-customer.dto';
 
 @CustomerController.default()
 export class DefaultCustomerController {
   public constructor(private readonly service: CustomerService) {}
 
-  //   @Endpoint.get({
-  //     url: '/',
-  //     description: 'Listar usuários',
-  //     dtoName: 'FindManyUserDTO',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Listagem dos usuários',
-  //         status: 200,
-  //         findManyModel: UserEntity,
-  //       },
-  //     ],
-  //   })
-  //   public async findMany(
-  //     @Query() dto: FindManyUserDTO,
-  //     @AuthUser() authUser: UserEntity,
-  //   ) {
-  //     return await this.service.findMany.execute({
-  //       dto,
-  //       authUser,
-  //     });
-  //   }
+  @Endpoint.get({
+    url: '/',
+    description: 'Listar clientes',
+    dtoName: 'FindManyCustomerDTO',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Listagem dos clientes',
+        status: 200,
+        findManyModel: CustomerEntity,
+      },
+    ],
+  })
+  @UseGuards(AuthGuard)
+  public async findMany(@Query() dto: FindManyCustomerDTO) {
+    return await this.service.findMany.execute({
+      dto,
+    });
+  }
 
   //   @Endpoint.get({
   //     url: '/:id',
@@ -116,6 +114,7 @@ export class DefaultCustomerController {
       },
     ],
   })
+  @UseGuards(AuthGuard)
   public async update(
     @Param('id') id: number,
     @Body() data: UpdateCustomerDTO,
@@ -145,6 +144,7 @@ export class DefaultCustomerController {
       },
     ],
   })
+  @UseGuards(AuthGuard)
   public async delete(
     @Param('id') id: number,
     @AuthUser() authUser: UserEntity,

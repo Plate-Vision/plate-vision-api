@@ -5,7 +5,7 @@ import { EUserStatus } from '../enums/user-status.enum';
 
 export class FindManyUserDTO extends FindManyDTO {
   @ApiPropertyOptional({
-    description: 'Filtro por nome e/ou e-mail do usuários',
+    description: 'Filtro por nome e/ou e-mail dos usuários',
   })
   @IsString()
   @IsOptional()
