@@ -4,6 +4,6 @@ export enum ECustomerType {
 }
 
 export enum ECustomerTypeTranslate {
-  JU = 'Jurídica',
-  FI = 'Física',
+  JU = 'Jurídico',
+  FI = 'Físico',
 }

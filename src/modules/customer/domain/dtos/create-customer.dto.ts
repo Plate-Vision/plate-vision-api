@@ -18,9 +18,7 @@ export class CreateCustomerDTO {
   })
   @IsString()
   @IsNotEmpty({ message: 'O documento do cliente não pode estar vazio' })
-  @IsDocument({
-    message: 'Documento inválido para o tipo de cliente informado',
-  })
+  @IsDocument()
   public document: string;
 
   @ApiProperty({

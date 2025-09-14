@@ -34,11 +34,11 @@ export class IsDocumentConstraint implements ValidatorConstraintInterface {
     const type = object.type;
 
     if (type === ECustomerType.JU) {
-      return 'O CNPJ (documento) para pessoa jurídica deve conter 14 dígitos.';
+      return 'O CNPJ (documento) para cliente jurídico deve conter 14 dígitos.';
     }
 
     if (type === ECustomerType.FI) {
-      return 'O CPF (documento) para pessoa física deve conter 11 dígitos.';
+      return 'O CPF (documento) para cliente físico deve conter 11 dígitos.';
     }
 
     return 'Tipo de cliente inválido para validação do documento.';

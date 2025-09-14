@@ -18,11 +18,11 @@ export class FindManyCustomerProvider {
       where[0].status = params.dto.status;
     }
 
-    if (params.dto.search) {
-      where = [
-        { ...where[0], name: ILike(`%${params.dto.search}%`) },
-        { ...where[0], document: ILike(`%${params.dto.search}%`) },
-      ];
+    if (params.dto.name) {
+      where[0].name = ILike(`%${params.dto.name}%`);
+    }
+    if (params.dto.document) {
+      where[0].document = ILike(`%${params.dto.document}%`);
     }
 
     if (params.dto.orderBy) {
@@ -38,10 +38,18 @@ export class FindManyCustomerProvider {
       order,
       take,
       skip,
-      withDeleted: true,
     });
 
     const pages = total ? Math.round(total / (take || total)) : 0;
+
+    if (!data.length) {
+      return {
+        data,
+        total,
+        pages,
+        message: 'Nenhum cliente encontrado pelo filtro selecionado',
+      };
+    }
 
     return {
       data,

@@ -1,11 +1,10 @@
-import { ILike, QueryRunner } from 'typeorm';
+import { ILike } from 'typeorm';
 import { HttpException } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { CustomerRepository } from '@modules/customer/infra/repositories/customer.repository';
 import { UpdateCustomerDTO } from '../../dtos/update-customer.dto';
-import { ECustomerStatus } from '../../enums/customer-status.enum';
 import { CustomerEntity } from '../../entities/customer.entity';
 
 export class UpdateCustomerProvider {
@@ -34,18 +33,13 @@ export class UpdateCustomerProvider {
       where: {
         id,
       },
-      withDeleted: true,
     });
 
-    if (!foundCustomer) {
-      throw new HttpException('Cliente não encontrado', 404);
+    if (foundCustomer) {
+      return foundCustomer;
     }
 
-    if (foundCustomer.status === ECustomerStatus.INACTIVE) {
-      throw new HttpException('Cliente está inativo', 422);
-    }
-
-    return foundCustomer;
+    throw new HttpException('Cliente não encontrado', 404);
   }
 
   private async validateDocument(document: string, id: number) {
@@ -68,7 +62,7 @@ export class UpdateCustomerProvider {
   ) {
     return plainToInstance(
       CustomerEntity,
-      { ...customer, ...data, userUpdated: user, updatedAt: new Date() },
+      { ...customer, ...data, userUpdated: user },
       { ignoreDecorators: true },
     );
   }

@@ -4,7 +4,6 @@ import { HttpException } from '@nestjs/common';
 
 import { MessagePayload } from '@shared/payloads/message.payload';
 import { CustomerEntity } from '../../entities/customer.entity';
-import { ECustomerStatus } from '../../enums/customer-status.enum';
 
 export class DeleteCustomerProvider {
   public constructor(private readonly customerRepository: CustomerRepository) {}
@@ -16,15 +15,7 @@ export class DeleteCustomerProvider {
     const customer = await this.findCustomer(data.id);
 
     await this.customerRepository.transaction(async (queryRunner) => {
-      await queryRunner.manager.update(
-        CustomerEntity,
-        { id: customer.id },
-        {
-          deletedAt: new Date(),
-          status: ECustomerStatus.INACTIVE,
-          userUpdated: data.authUser,
-        },
-      );
+      await queryRunner.manager.softDelete(CustomerEntity, { id: customer.id });
     });
 
     return { message: 'Cliente deletado com sucesso' };
@@ -35,17 +26,12 @@ export class DeleteCustomerProvider {
       where: {
         id,
       },
-      withDeleted: true,
     });
 
-    if (!customer) {
-      throw new HttpException('Cliente não encontrado', 404);
+    if (customer) {
+      return customer;
     }
 
-    if (customer.status === ECustomerStatus.INACTIVE) {
-      throw new HttpException('Cliente já está inativo', 422);
-    }
-
-    return customer;
+    throw new HttpException('Cliente não encontrado', 404);
   }
 }
