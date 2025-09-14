@@ -19,7 +19,7 @@ export class PlateReadingEntity extends BaseEntity {
 
   @ColumnEntity({
     name: 'processed_at',
-    type: 'timestamp',
+    type: 'timestamp with time zone',
     description: 'Data e hora em que a leitura foi processada',
     example: '2023-03-15 10:00:00',
     nullable: true,
