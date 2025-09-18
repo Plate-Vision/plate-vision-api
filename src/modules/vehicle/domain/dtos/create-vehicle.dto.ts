@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
-  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -9,7 +8,6 @@ import {
   Length,
   MinLength,
 } from 'class-validator';
-import { EVehicleSource } from '../enums/vehicle-source.enum';
 
 export class CreateVehicleDTO {
   @ApiProperty({ description: 'Placa do Veículo', example: 'ABC1D23' })

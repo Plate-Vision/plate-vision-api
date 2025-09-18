@@ -8,6 +8,7 @@ import { CreateVehicleDTO } from '@modules/vehicle/domain/dtos/create-vehicle.dt
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
 import { FindManyVehicleDTO } from '@modules/vehicle/domain/dtos/find-many-vehicle.dto';
+import { UpdateVehicleDTO } from '@modules/vehicle/domain/dtos/update-vehicle.dto';
 
 @VehicleController.default()
 export class DefaultVehicleController {
@@ -82,40 +83,40 @@ export class DefaultVehicleController {
     });
   }
 
-  //   @Endpoint.put({
-  //     url: '/:id',
-  //     description: 'Editar um cliente existente utilizando seu ID',
-  //     dtoName: 'UpdateCustomerDTO',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Cliente editado com sucesso',
-  //         status: 200,
-  //         response: CustomerEntity,
-  //       },
-  //       {
-  //         description: 'Cliente não encontrado',
-  //         status: 404,
-  //       },
-  //       {
-  //         description: 'Ocorreu um erro de validação do objeto enviado',
-  //         status: 412,
-  //       },
-  //     ],
-  //   })
-  //   public async update(
-  //     @Param('id') id: number,
-  //     @Body() data: UpdateCustomerDTO,
-  //     @AuthUser() authUser: UserEntity,
-  //   ) {
-  //     return await this.service.update.execute({
-  //       id,
-  //       data,
-  //       authUser,
-  //     });
-  //   }
+  @Endpoint.put({
+    url: '/:id',
+    description: 'Editar um veículo existente utilizando seu ID',
+    dtoName: 'UpdateVehicleDTO',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Veículo editado com sucesso',
+        status: 200,
+        response: VehicleEntity,
+      },
+      {
+        description: 'Veículo não encontrado',
+        status: 404,
+      },
+      {
+        description: 'Ocorreu um erro de validação do objeto enviado',
+        status: 412,
+      },
+    ],
+  })
+  public async update(
+    @Param('id') id: number,
+    @Body() data: UpdateVehicleDTO,
+    @AuthUser() authUser: UserEntity,
+  ) {
+    return await this.service.update.execute({
+      id,
+      data,
+      authUser,
+    });
+  }
 
   @Endpoint.delete({
     url: '/:id',
