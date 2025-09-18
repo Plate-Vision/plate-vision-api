@@ -3,6 +3,7 @@ import {
   IsBoolean,
   IsEnum,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   Length,
@@ -45,4 +46,12 @@ export class CreateVehicleDTO {
   @IsBoolean()
   @IsOptional()
   public isServiceVehicle?: boolean;
+
+  @ApiProperty({
+    description: 'ID do cliente ao qual o veículo pertence',
+    example: 5,
+  })
+  @IsNumber()
+  @IsOptional()
+  public customerId?: number;
 }
