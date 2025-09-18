@@ -31,25 +31,26 @@ export class DefaultVehicleController {
   //       dto,
   //     });
   //   }
-  //   @Endpoint.get({
-  //     url: '/:id',
-  //     description: 'Listar um único cliente com base em seu id',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Dados do cliente',
-  //         status: 200,
-  //         response: CustomerEntity,
-  //       },
-  //     ],
-  //   })
-  //   public async findOne(@Param('id') id: number) {
-  //     return await this.service.findOne.execute({
-  //       id,
-  //     });
-  //   }
+
+  @Endpoint.get({
+    url: '/:id',
+    description: 'Listar um único veículo com base em seu id',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Dados do veículo',
+        status: 200,
+        response: VehicleEntity,
+      },
+    ],
+  })
+  public async findOne(@Param('id') id: number) {
+    return await this.service.findOne.execute({
+      id,
+    });
+  }
 
   @Endpoint.post({
     url: '/manual',
