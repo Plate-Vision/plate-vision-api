@@ -7,30 +7,31 @@ import { VehicleEntity } from '@modules/vehicle/domain/entities/vehicle.entity';
 import { CreateVehicleDTO } from '@modules/vehicle/domain/dtos/create-vehicle.dto';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
+import { FindManyVehicleDTO } from '@modules/vehicle/domain/dtos/find-many-vehicle.dto';
 
 @VehicleController.default()
 export class DefaultVehicleController {
   public constructor(private readonly service: VehicleService) {}
-  //   @Endpoint.get({
-  //     url: '/',
-  //     description: 'Listar clientes',
-  //     dtoName: 'FindManyCustomerDTO',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Listagem dos clientes',
-  //         status: 200,
-  //         findManyModel: CustomerEntity,
-  //       },
-  //     ],
-  //   })
-  //   public async findMany(@Query() dto: FindManyCustomerDTO) {
-  //     return await this.service.findMany.execute({
-  //       dto,
-  //     });
-  //   }
+  @Endpoint.get({
+    url: '/',
+    description: 'Listar veículos',
+    dtoName: 'FindManyVehicleDTO',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Listagem dos veículos',
+        status: 200,
+        findManyModel: VehicleEntity,
+      },
+    ],
+  })
+  public async findMany(@Query() dto: FindManyVehicleDTO) {
+    return await this.service.findMany.execute({
+      dto,
+    });
+  }
 
   @Endpoint.get({
     url: '/:id',
