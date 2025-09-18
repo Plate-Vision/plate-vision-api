@@ -84,7 +84,7 @@ export class DefaultCustomerController {
     });
   }
 
-  @Endpoint.patch({
+  @Endpoint.put({
     url: '/:id',
     description: 'Editar um cliente existente utilizando seu ID',
     dtoName: 'UpdateCustomerDTO',
