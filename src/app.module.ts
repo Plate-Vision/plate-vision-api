@@ -14,6 +14,7 @@ import { VehicleModule } from '@modules/vehicle/vehicle.module';
 import { CustomerModule } from '@modules/customer/customer.module';
 import { ParkingRecordModule } from '@modules/parking-record/parking-record.module';
 import { PlateReadingModule } from '@modules/plate-reading/plate-reading.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PlateReadingModule } from '@modules/plate-reading/plate-reading.module'
       rootPath: join(__dirname, '..', 'public'),
       serveRoot: '/api/public',
     }),
+    ScheduleModule.forRoot(),
     MulterModule.register({}),
     EnvironmentVariablesModule,
     DatabaseModule,
