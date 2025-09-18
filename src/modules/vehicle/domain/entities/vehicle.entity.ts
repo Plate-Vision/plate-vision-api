@@ -38,7 +38,7 @@ export class VehicleEntity extends BaseEntity {
     name: 'license_plate',
     type: 'varchar',
     length: 15,
-    description: 'Placa do veículo',
+    description: 'Placa do Veículo',
     example: 'ABC1D23',
   })
   @Index()
@@ -58,7 +58,7 @@ export class VehicleEntity extends BaseEntity {
   @ColumnEntity({
     type: 'text',
     description: 'Descrição do veículo',
-    example: 'Veículo de cor azul, 2 portas, modelo antigo.',
+    example: 'Veículo de cor azul, 2 portas, modelo antigo',
     nullable: true,
   })
   public description?: string | null;
