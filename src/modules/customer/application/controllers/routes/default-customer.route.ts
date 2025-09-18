@@ -1,4 +1,4 @@
-import { Body, Param, Query, UseGuards } from '@nestjs/common';
+import { Body, Param, Query } from '@nestjs/common';
 
 import { Endpoint } from '@core/base/decorators/endpoint.decorator';
 import { AuthUser } from '@modules/auth/domain/decorators/auth-user.decorator';
@@ -6,7 +6,6 @@ import { CustomerController } from '../../decorators/customer-controller.decorat
 import { CustomerService } from '@modules/customer/domain/services/customer.service';
 import { CustomerEntity } from '@modules/customer/domain/entities/customer.entity';
 import { CreateCustomerDTO } from '@modules/customer/domain/dtos/create-customer.dto';
-import { AuthGuard } from '@modules/auth/domain/guards/auth.guard';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { UpdateCustomerDTO } from '@modules/customer/domain/dtos/update-customer.dto';
 import { FindManyCustomerDTO } from '@modules/customer/domain/dtos/find-many-customer.dto';
@@ -30,7 +29,6 @@ export class DefaultCustomerController {
       },
     ],
   })
-  @UseGuards(AuthGuard)
   public async findMany(@Query() dto: FindManyCustomerDTO) {
     return await this.service.findMany.execute({
       dto,
@@ -51,7 +49,6 @@ export class DefaultCustomerController {
       },
     ],
   })
-  @UseGuards(AuthGuard)
   public async findOne(@Param('id') id: number) {
     return await this.service.findOne.execute({
       id,
@@ -77,7 +74,6 @@ export class DefaultCustomerController {
       },
     ],
   })
-  @UseGuards(AuthGuard)
   public async create(
     @Body() dto: CreateCustomerDTO,
     @AuthUser() authUser: UserEntity,
@@ -111,7 +107,6 @@ export class DefaultCustomerController {
       },
     ],
   })
-  @UseGuards(AuthGuard)
   public async update(
     @Param('id') id: number,
     @Body() data: UpdateCustomerDTO,
@@ -141,7 +136,6 @@ export class DefaultCustomerController {
       },
     ],
   })
-  @UseGuards(AuthGuard)
   public async delete(@Param('id') id: number) {
     return await this.service.delete.execute({
       id,
