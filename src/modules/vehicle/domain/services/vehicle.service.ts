@@ -6,6 +6,7 @@ import { FindOneVehicleProvider } from './providers/find-one-vehicle.provider';
 import { FindManyVehicleProvider } from './providers/find-many.vehicle.provider';
 import { CustomerRepository } from '@modules/customer/infra/repositories/customer.repository';
 import { UpdateVehicleProvider } from './providers/update-vehicle.provider';
+import { CreateVehicleIaProvider } from './providers/create-vehicle-ia.provider';
 
 @Injectable()
 export class VehicleService {
@@ -14,6 +15,7 @@ export class VehicleService {
   public findOne: FindOneVehicleProvider;
   public findMany: FindManyVehicleProvider;
   public update: UpdateVehicleProvider;
+  public createIa: CreateVehicleIaProvider;
 
   public constructor(
     private readonly vehicleRepository: VehicleRepository,
@@ -29,6 +31,10 @@ export class VehicleService {
     this.update = new UpdateVehicleProvider(
       this.vehicleRepository,
       this.customerRepository,
+    );
+    this.createIa = new CreateVehicleIaProvider(
+      this.vehicleRepository,
+      this.update,
     );
   }
 }

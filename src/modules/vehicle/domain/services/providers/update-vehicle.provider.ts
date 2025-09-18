@@ -18,7 +18,7 @@ export class UpdateVehicleProvider {
   public async execute(data: {
     id: number;
     data: UpdateVehicleDTO;
-    authUser: UserEntity;
+    authUser?: UserEntity;
   }): Promise<VehicleEntity> {
     const vehicle = await this.findVehicle(data.id);
 
