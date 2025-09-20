@@ -26,7 +26,7 @@ export class FindManyPlateReadingProvider {
 
     if (result) {
       return {
-        message: `Foram atualizadas ${result.length} leituras de placas.`,
+        message: `Dados atualizados`,
       };
     }
   }
