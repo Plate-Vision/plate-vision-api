@@ -118,26 +118,26 @@ export class DefaultParkingRecordController {
     });
   }
 
-  //   @Endpoint.delete({
-  //     url: '/:id',
-  //     description: 'Apagar um cliente com base em seu ID',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Cliente deletado com sucesso',
-  //         status: 200,
-  //       },
-  //       {
-  //         description: 'Cliente não encontrado',
-  //         status: 404,
-  //       },
-  //     ],
-  //   })
-  //   public async delete(@Param('id') id: number) {
-  //     return await this.service.delete.execute({
-  //       id,
-  //     });
-  //   }
+  @Endpoint.delete({
+    url: '/:id',
+    description: 'Apagar um registro com base em seu ID',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Registro deletado com sucesso',
+        status: 200,
+      },
+      {
+        description: 'Registro não encontrado',
+        status: 404,
+      },
+    ],
+  })
+  public async delete(@Param('id') id: number) {
+    return await this.service.delete.execute({
+      id,
+    });
+  }
 }
