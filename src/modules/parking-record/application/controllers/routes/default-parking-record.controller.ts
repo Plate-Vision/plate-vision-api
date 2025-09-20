@@ -34,25 +34,25 @@ export class DefaultParkingRecordController {
   //     });
   //   }
 
-  //   @Endpoint.get({
-  //     url: '/:id',
-  //     description: 'Listar um único cliente com base em seu id',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Dados do cliente',
-  //         status: 200,
-  //         response: CustomerEntity,
-  //       },
-  //     ],
-  //   })
-  //   public async findOne(@Param('id') id: number) {
-  //     return await this.service.findOne.execute({
-  //       id,
-  //     });
-  //   }
+  @Endpoint.get({
+    url: '/:id',
+    description: 'Listar um único registro com base em seu id',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Dados do registro',
+        status: 200,
+        response: ParkingRecordEntity,
+      },
+    ],
+  })
+  public async findOne(@Param('id') id: number) {
+    return await this.service.findOne.execute({
+      id,
+    });
+  }
 
   @Endpoint.post({
     url: '/',

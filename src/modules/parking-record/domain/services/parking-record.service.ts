@@ -4,12 +4,14 @@ import { ParkingRecordRepository } from '@modules/parking-record/infra/repositor
 import { VehicleRepository } from '@modules/vehicle/infra/repositories/vehicle.repository';
 import { UpdateParkingRecordManualProvider } from './providers/update-parking-record-manual.provider';
 import { DeleteParkingRecordProvider } from './providers/delete-parking-record.provider';
+import { FindOneParkingRecordProvider } from './providers/find-one-parking-record.provider';
 
 @Injectable()
 export class ParkingRecordService {
   public create: CreateParkingRecordManualProvider;
   public update: UpdateParkingRecordManualProvider;
   public delete: DeleteParkingRecordProvider;
+  public findOne: FindOneParkingRecordProvider;
 
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
@@ -23,5 +25,8 @@ export class ParkingRecordService {
       this.parkingRecordRepository,
     );
     this.delete = new DeleteParkingRecordProvider(this.parkingRecordRepository);
+    this.findOne = new FindOneParkingRecordProvider(
+      this.parkingRecordRepository,
+    );
   }
 }
