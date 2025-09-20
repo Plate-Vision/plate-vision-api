@@ -8,31 +8,32 @@ import { ParkingRecordEntity } from '@modules/parking-record/domain/entities/par
 import { CreateParkingRecordDTO } from '@modules/parking-record/domain/dtos/create-parking-record.dto';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { UpdateParkingRecordDTO } from '@modules/parking-record/domain/dtos/update-parking-record.dto';
+import { FindManyParkingRecordDTO } from '@modules/parking-record/domain/dtos/find-many-parking-record.dto';
 
 @ParkingRecordController.default()
 export class DefaultParkingRecordController {
   public constructor(private readonly service: ParkingRecordService) {}
 
-  //   @Endpoint.get({
-  //     url: '/',
-  //     description: 'Listar clientes',
-  //     dtoName: 'FindManyCustomerDTO',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Listagem dos clientes',
-  //         status: 200,
-  //         findManyModel: CustomerEntity,
-  //       },
-  //     ],
-  //   })
-  //   public async findMany(@Query() dto: FindManyCustomerDTO) {
-  //     return await this.service.findMany.execute({
-  //       dto,
-  //     });
-  //   }
+  @Endpoint.get({
+    url: '/',
+    description: 'Listar registros',
+    dtoName: 'FindManyParkingRecordDTO',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Listagem dos registros',
+        status: 200,
+        findManyModel: ParkingRecordEntity,
+      },
+    ],
+  })
+  public async findMany(@Query() dto: FindManyParkingRecordDTO) {
+    return await this.service.findMany.execute({
+      dto,
+    });
+  }
 
   @Endpoint.get({
     url: '/:id',

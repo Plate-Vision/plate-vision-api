@@ -12,7 +12,7 @@ export class FindOneParkingRecordProvider {
       where: {
         id: data.id,
       },
-      relations: ['userCreated', 'userUpdated'],
+      relations: ['userCreated', 'userUpdated', 'vehicle', 'vehicle.customer'],
     });
 
     if (parkingRecord) return parkingRecord;
