@@ -55,7 +55,7 @@ export class DefaultVehicleController {
   }
 
   @Endpoint.post({
-    url: '/manual',
+    url: '/',
     description: 'Criar um novo veículo manual',
     dtoName: 'CreateVehicleDTO',
     roles: [],
