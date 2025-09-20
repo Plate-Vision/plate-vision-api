@@ -14,7 +14,7 @@ export class CreateCustomerProvider {
     queryRunner,
   }: {
     dto: CreateCustomerDTO;
-    authUser?: UserEntity;
+    authUser: UserEntity;
     queryRunner?: QueryRunner;
   }): Promise<CustomerEntity> {
     await this.validateDocument(dto.document);

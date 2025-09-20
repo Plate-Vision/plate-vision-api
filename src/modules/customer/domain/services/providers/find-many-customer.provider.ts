@@ -21,6 +21,7 @@ export class FindManyCustomerProvider {
     if (params.dto.name) {
       where[0].name = ILike(`%${params.dto.name}%`);
     }
+
     if (params.dto.document) {
       where[0].document = ILike(`%${params.dto.document}%`);
     }
