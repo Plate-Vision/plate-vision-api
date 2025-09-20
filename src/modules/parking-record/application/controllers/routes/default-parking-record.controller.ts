@@ -7,6 +7,7 @@ import { ParkingRecordService } from '@modules/parking-record/domain/services/pa
 import { ParkingRecordEntity } from '@modules/parking-record/domain/entities/parking-record.entity';
 import { CreateParkingRecordDTO } from '@modules/parking-record/domain/dtos/create-parking-record.dto';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
+import { UpdateParkingRecordDTO } from '@modules/parking-record/domain/dtos/update-parking-record.dto';
 
 @ParkingRecordController.default()
 export class DefaultParkingRecordController {
@@ -82,40 +83,40 @@ export class DefaultParkingRecordController {
     });
   }
 
-  //   @Endpoint.put({
-  //     url: '/:id',
-  //     description: 'Editar um cliente existente utilizando seu ID',
-  //     dtoName: 'UpdateCustomerDTO',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Cliente editado com sucesso',
-  //         status: 200,
-  //         response: CustomerEntity,
-  //       },
-  //       {
-  //         description: 'Cliente não encontrado',
-  //         status: 404,
-  //       },
-  //       {
-  //         description: 'Ocorreu um erro de validação do objeto enviado',
-  //         status: 412,
-  //       },
-  //     ],
-  //   })
-  //   public async update(
-  //     @Param('id') id: number,
-  //     @Body() data: UpdateCustomerDTO,
-  //     @AuthUser() authUser: UserEntity,
-  //   ) {
-  //     return await this.service.update.execute({
-  //       id,
-  //       data,
-  //       authUser,
-  //     });
-  //   }
+  @Endpoint.put({
+    url: '/:id',
+    description: 'Editar um registro existente utilizando seu ID',
+    dtoName: 'UpdateParkingRecordDTO',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Registro editado com sucesso',
+        status: 200,
+        response: ParkingRecordEntity,
+      },
+      {
+        description: 'Registro não encontrado',
+        status: 404,
+      },
+      {
+        description: 'Ocorreu um erro de validação do objeto enviado',
+        status: 412,
+      },
+    ],
+  })
+  public async update(
+    @Param('id') id: number,
+    @Body() data: UpdateParkingRecordDTO,
+    @AuthUser() authUser: UserEntity,
+  ) {
+    return await this.service.update.execute({
+      id,
+      data,
+      authUser,
+    });
+  }
 
   //   @Endpoint.delete({
   //     url: '/:id',
