@@ -7,16 +7,18 @@ import { TaskProvider } from './domain/services/providers/task.provider';
 import { PlateReadingService } from './domain/services/plate-reading.service';
 import { FindManyPlateReadingProvider } from './domain/services/providers/find-many.plate-reading.provider';
 import { PlateReadingControllers } from './application/controllers/plate-reading.controller';
+import { UpdatePlateReadingProvider } from './domain/services/providers/update.plate-reading.provider';
 
 @Module({
   imports: [TypeOrmModule.forFeature([PlateReadingEntity])],
   providers: [
     PlateReadingRepository,
     TaskProvider,
-    PlateReadingService,
     FindManyPlateReadingProvider,
+    UpdatePlateReadingProvider,
+    PlateReadingService,
   ],
   controllers: [...PlateReadingControllers],
-  exports: [],
+  exports: [PlateReadingRepository],
 })
 export class PlateReadingModule {}

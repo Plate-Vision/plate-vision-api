@@ -10,14 +10,14 @@ export class TaskProvider {
     private readonly findManyPlateReadingProvider: FindManyPlateReadingProvider,
   ) {}
 
-  @Cron(CronExpression.EVERY_30_SECONDS)
-  private async handleCron() {
-    this.logger.debug('Disparando job via CRON...');
-    try {
-      const result = await this.findManyPlateReadingProvider.execute();
-      this.logger.log(`Job finalizado via CRON. ${result.message}`);
-    } catch (error) {
-      this.logger.error('Falha ao executar o job via CRON', error.stack);
-    }
-  }
+  // @Cron(CronExpression.EVERY_30_SECONDS)
+  // private async handleCron() {
+  //   this.logger.debug('Disparando job via CRON...');
+  //   try {
+  //     const result = await this.findManyPlateReadingProvider.execute();
+  //     this.logger.log(`Job finalizado via CRON. ${result.message}`);
+  //   } catch (error) {
+  //     this.logger.error('Falha ao executar o job via CRON', error.stack);
+  //   }
+  // }
 }
