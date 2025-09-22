@@ -53,13 +53,11 @@ export class CreateParkingRecordManualProvider {
       order: { id: 'DESC' },
     });
 
-    if (parkingRecord) {
-      if (parkingRecord.exitTime === null) {
-        throw new HttpException(
-          'Já existe um registro para esse veículo sem data e hora de saída',
-          422,
-        );
-      }
+    if (parkingRecord && parkingRecord.exitTime === null) {
+      throw new HttpException(
+        'Já existe um registro para esse veículo sem data e hora de saída',
+        422,
+      );
     }
   }
 
@@ -77,13 +75,11 @@ export class CreateParkingRecordManualProvider {
   }
 
   private async serialize(dto: CreateParkingRecordDTO, authUser: UserEntity) {
-    const serializedData: Partial<ParkingRecordEntity> = {
+    return {
       ...dto,
       vehicle: { id: dto.vehicleId } as VehicleEntity,
       userCreated: authUser,
       entrySource: EParkingRecordSource.MA,
     };
-
-    return serializedData;
   }
 }

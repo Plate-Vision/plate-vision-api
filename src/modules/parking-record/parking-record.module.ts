@@ -14,6 +14,6 @@ import { VehicleModule } from '@modules/vehicle/vehicle.module';
   ],
   providers: [ParkingRecordRepository, ParkingRecordService],
   controllers: [...ParkingRecordControllers],
-  exports: [ParkingRecordRepository],
+  exports: [ParkingRecordRepository, ParkingRecordService],
 })
 export class ParkingRecordModule {}

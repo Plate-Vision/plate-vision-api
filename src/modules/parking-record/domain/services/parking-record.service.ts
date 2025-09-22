@@ -6,6 +6,8 @@ import { DeleteParkingRecordProvider } from './providers/delete-parking-record.p
 import { FindOneParkingRecordProvider } from './providers/find-one-parking-record.provider';
 import { FindManyParkingRecordProvider } from './providers/find-many-parking-record.provider';
 import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
+import { UpdateParkingRecordIaProvider } from './providers/update-parking-record-ia.provider';
+import { CreateParkingRecordIaProvider } from './providers/create-parking-record-ia.provider';
 
 @Injectable()
 export class ParkingRecordService {
@@ -14,6 +16,8 @@ export class ParkingRecordService {
   public delete: DeleteParkingRecordProvider;
   public findOne: FindOneParkingRecordProvider;
   public findMany: FindManyParkingRecordProvider;
+  public createIa: CreateParkingRecordIaProvider;
+  public updateIa: UpdateParkingRecordIaProvider;
 
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
@@ -32,6 +36,14 @@ export class ParkingRecordService {
       this.parkingRecordRepository,
     );
     this.findMany = new FindManyParkingRecordProvider(
+      this.parkingRecordRepository,
+    );
+    this.createIa = new CreateParkingRecordIaProvider(
+      this.parkingRecordRepository,
+      this.vehicleService,
+      this,
+    );
+    this.updateIa = new UpdateParkingRecordIaProvider(
       this.parkingRecordRepository,
     );
   }
