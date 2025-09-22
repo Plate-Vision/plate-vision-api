@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { FindManyPlateReadingProvider } from './providers/find-many.plate-reading.provider';
+import { FindManyPlateReadingProvider } from './providers/find-many-plate-reading.provider';
 import { PlateReadingRepository } from '@modules/plate-reading/infra/repositories/plate-reading.repository';
-import { UpdatePlateReadingProvider } from './providers/update.plate-reading.provider';
+import { UpdatePlateReadingProvider } from './providers/update-plate-reading.provider';
 
 @Injectable()
 export class PlateReadingService {

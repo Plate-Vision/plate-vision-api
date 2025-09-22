@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { FindManyPlateReadingProvider } from './find-many.plate-reading.provider';
+import { FindManyPlateReadingProvider } from './find-many-plate-reading.provider';
 
 @Injectable()
 export class TaskProvider {

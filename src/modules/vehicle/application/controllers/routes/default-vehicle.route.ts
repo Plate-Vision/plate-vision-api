@@ -77,7 +77,7 @@ export class DefaultVehicleController {
     @Body() dto: CreateVehicleDTO,
     @AuthUser() authUser: UserEntity,
   ) {
-    return await this.service.createManual.execute({
+    return await this.service.create.execute({
       dto,
       authUser,
     });

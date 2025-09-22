@@ -6,13 +6,13 @@ import { VehicleEntity } from '../../entities/vehicle.entity';
 import { HttpException } from '@nestjs/common';
 import { CustomerEntity } from '@modules/customer/domain/entities/customer.entity';
 import { EVehicleSource } from '../../enums/vehicle-source.enum';
-import { CustomerRepository } from '@modules/customer/infra/repositories/customer.repository';
 import { ECustomerStatus } from '@modules/customer/domain/enums/customer-status.enum';
+import { CustomerService } from '@modules/customer/domain/services/customer.service';
 
 export class CreateVehicleManualProvider {
   public constructor(
     private readonly vehicleRepository: VehicleRepository,
-    private readonly customerRepository: CustomerRepository,
+    private readonly customerService: CustomerService,
   ) {}
 
   public async execute({
@@ -27,7 +27,16 @@ export class CreateVehicleManualProvider {
     await this.validateLicensePlate(dto.licensePlate);
 
     if (dto.customerId) {
-      await this.validateCustomer(dto.customerId);
+      const customer = await this.customerService.findOne.execute({
+        id: dto.customerId,
+      });
+
+      if (customer.status === ECustomerStatus.INACTIVE) {
+        throw new HttpException(
+          'Não é possível vincular um veículo a um cliente inativo',
+          412,
+        );
+      }
     }
 
     if (queryRunner) {
@@ -49,16 +58,6 @@ export class CreateVehicleManualProvider {
         'Já existe um veículo cadastrado com a placa informada',
         412,
       );
-  }
-
-  private async validateCustomer(customerId: number) {
-    const customer = await this.customerRepository.manager.findOne({
-      where: { id: customerId },
-    });
-
-    if (!customer || customer.status === ECustomerStatus.INACTIVE) {
-      throw new HttpException('Cliente não encontrado ou inativo', 412);
-    }
   }
 
   private async saveVehicleWithTransaction(

@@ -1,6 +1,6 @@
 import { PlateReadingRepository } from '@modules/plate-reading/infra/repositories/plate-reading.repository';
 import { Injectable } from '@nestjs/common';
-import { UpdatePlateReadingProvider } from './update.plate-reading.provider';
+import { UpdatePlateReadingProvider } from './update-plate-reading.provider';
 import { IsNull } from 'typeorm';
 
 @Injectable()
