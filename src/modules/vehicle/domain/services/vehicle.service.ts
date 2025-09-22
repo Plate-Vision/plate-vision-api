@@ -15,6 +15,7 @@ export class VehicleService {
   public findOne: FindOneVehicleProvider;
   public findMany: FindManyVehicleProvider;
   public update: UpdateVehicleProvider;
+  public createIa: CreateVehicleIaProvider;
 
   public constructor(
     private readonly vehicleRepository: VehicleRepository,
@@ -31,5 +32,6 @@ export class VehicleService {
       this.vehicleRepository,
       this.customerService,
     );
+    this.createIa = new CreateVehicleIaProvider(this.vehicleRepository);
   }
 }

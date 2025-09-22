@@ -3,13 +3,9 @@ import { CreateVehicleDTO } from '../../dtos/create-vehicle.dto';
 import { ILike, QueryRunner } from 'typeorm';
 import { VehicleEntity } from '../../entities/vehicle.entity';
 import { EVehicleSource } from '../../enums/vehicle-source.enum';
-import { UpdateVehicleProvider } from './update-vehicle.provider';
 
 export class CreateVehicleIaProvider {
-  public constructor(
-    private readonly vehicleRepository: VehicleRepository,
-    private readonly updateVehicleProvider: UpdateVehicleProvider,
-  ) {}
+  public constructor(private readonly vehicleRepository: VehicleRepository) {}
 
   public async execute({
     dto,
@@ -21,10 +17,7 @@ export class CreateVehicleIaProvider {
     const vehicleForUpdate = await this.validateLicensePlate(dto.licensePlate);
 
     if (vehicleForUpdate) {
-      return this.updateVehicleProvider.execute({
-        id: vehicleForUpdate.id,
-        data: vehicleForUpdate,
-      });
+      return vehicleForUpdate;
     }
 
     if (queryRunner) {
