@@ -3,15 +3,16 @@ import { ParkingRecordEntity } from '../../entities/parking-record.entity';
 import { CreateParkingRecordDTO } from '../../dtos/create-parking-record.dto';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { QueryRunner } from 'typeorm';
-import { VehicleRepository } from '@modules/vehicle/infra/repositories/vehicle.repository';
 import { HttpException } from '@nestjs/common';
 import { EParkingRecordSource } from '../../enums/parking-record-source.enum';
 import { VehicleEntity } from '@modules/vehicle/domain/entities/vehicle.entity';
+import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
+import { EVehicleStatus } from '@modules/vehicle/domain/enums/vehicle-status.enum';
 
 export class CreateParkingRecordManualProvider {
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
-    private readonly vehicleRepository: VehicleRepository,
+    private readonly vehicleService: VehicleService,
   ) {}
 
   public async execute({
@@ -23,7 +24,14 @@ export class CreateParkingRecordManualProvider {
     authUser: UserEntity;
     queryRunner?: QueryRunner;
   }): Promise<ParkingRecordEntity> {
-    await this.validateVehicle(dto.vehicleId);
+    const vehicle = await this.vehicleService.findOne.execute({
+      id: dto.vehicleId,
+    });
+
+    if (vehicle.status === EVehicleStatus.INACTIVE) {
+      throw new HttpException('Veículo inativo', 422);
+    }
+
     await this.validateParkingRecord(dto.vehicleId);
 
     if (queryRunner) {
@@ -34,17 +42,9 @@ export class CreateParkingRecordManualProvider {
       );
     }
 
-    return await this.vehicleRepository.transaction(async (query) => {
+    return await this.parkingRecordRepository.transaction(async (query) => {
       return await this.saveParkingRecordWithTransaction(dto, authUser, query);
     });
-  }
-
-  private async validateVehicle(id: number) {
-    const vehicle = await this.vehicleRepository.manager.findOne({
-      where: { id },
-    });
-
-    if (!vehicle) throw new HttpException('Veículo não encontrado', 412);
   }
 
   private async validateParkingRecord(id: number) {

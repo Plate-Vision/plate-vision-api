@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { CreateParkingRecordManualProvider } from './providers/create-parking-record-manual.provider';
 import { ParkingRecordRepository } from '@modules/parking-record/infra/repositories/parking-record.repository';
-import { VehicleRepository } from '@modules/vehicle/infra/repositories/vehicle.repository';
 import { UpdateParkingRecordManualProvider } from './providers/update-parking-record-manual.provider';
 import { DeleteParkingRecordProvider } from './providers/delete-parking-record.provider';
 import { FindOneParkingRecordProvider } from './providers/find-one-parking-record.provider';
 import { FindManyParkingRecordProvider } from './providers/find-many-parking-record.provider';
+import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
 
 @Injectable()
 export class ParkingRecordService {
@@ -17,11 +17,12 @@ export class ParkingRecordService {
 
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
-    private readonly vehicleRepository: VehicleRepository,
+    @Inject(forwardRef(() => VehicleService))
+    private readonly vehicleService: VehicleService,
   ) {
     this.create = new CreateParkingRecordManualProvider(
       this.parkingRecordRepository,
-      this.vehicleRepository,
+      this.vehicleService,
     );
     this.update = new UpdateParkingRecordManualProvider(
       this.parkingRecordRepository,

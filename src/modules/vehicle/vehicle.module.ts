@@ -11,6 +11,6 @@ import { VehicleControllers } from './application/controllers/vehicle.controller
   imports: [TypeOrmModule.forFeature([VehicleEntity]), CustomerModule],
   providers: [VehicleRepository, VehicleService],
   controllers: [...VehicleControllers],
-  exports: [VehicleRepository],
+  exports: [VehicleRepository, VehicleService],
 })
 export class VehicleModule {}
