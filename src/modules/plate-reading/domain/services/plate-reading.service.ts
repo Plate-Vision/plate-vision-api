@@ -6,14 +6,15 @@ import { UpdatePlateReadingProvider } from './providers/update-plate-reading.pro
 @Injectable()
 export class PlateReadingService {
   public findMany: FindManyPlateReadingProvider;
+  public update: UpdatePlateReadingProvider;
 
   public constructor(
     private readonly plateReadingRepository: PlateReadingRepository,
-    private readonly updatePlateReadingProvider: UpdatePlateReadingProvider,
   ) {
     this.findMany = new FindManyPlateReadingProvider(
       this.plateReadingRepository,
-      this.updatePlateReadingProvider,
+      this,
     );
+    this.update = new UpdatePlateReadingProvider(this.plateReadingRepository);
   }
 }
