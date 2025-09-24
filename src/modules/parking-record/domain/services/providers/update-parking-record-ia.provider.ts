@@ -5,6 +5,7 @@ import { ParkingRecordRepository } from '@modules/parking-record/infra/repositor
 import { UpdateParkingRecordDTO } from '../../dtos/update-parking-record.dto';
 import { ParkingRecordEntity } from '../../entities/parking-record.entity';
 import { EParkingRecordSource } from '../../enums/parking-record-source.enum';
+import { QueryRunner } from 'typeorm';
 
 export class UpdateParkingRecordIaProvider {
   public constructor(
@@ -14,27 +15,36 @@ export class UpdateParkingRecordIaProvider {
   public async execute(data: {
     id: number;
     data: UpdateParkingRecordDTO;
+    queryRunner?: QueryRunner;
   }): Promise<ParkingRecordEntity> {
-    const parkingRecord = await this.findParkingRecord(data.id);
+    const parkingRecord = await this.findParkingRecord(
+      data.id,
+      data.queryRunner,
+    );
 
     await this.validateDate(data.data, parkingRecord);
 
-    return await this.parkingRecordRepository.transaction(async (query) => {
-      const updatedParkingRecord = await query.manager.save(
-        await this.serializeCustomerData(parkingRecord, data.data),
-      );
+    const serializedData = await this.serializeCustomerData(
+      parkingRecord,
+      data.data,
+    );
 
-      return updatedParkingRecord;
-    });
+    if (data.queryRunner) {
+      return await data.queryRunner.manager.save(
+        ParkingRecordEntity,
+        serializedData,
+      );
+    }
   }
 
-  private async findParkingRecord(id: number) {
-    const foundParkingRecord =
-      await this.parkingRecordRepository.manager.findOne({
-        where: {
-          id,
-        },
-      });
+  private async findParkingRecord(id: number, queryRunner?: QueryRunner) {
+    const manager = queryRunner
+      ? queryRunner.manager
+      : this.parkingRecordRepository.manager;
+
+    const foundParkingRecord = await manager.findOne(ParkingRecordEntity, {
+      where: { id },
+    });
 
     if (foundParkingRecord) {
       return foundParkingRecord;
@@ -62,20 +72,16 @@ export class UpdateParkingRecordIaProvider {
     parkingRecord: ParkingRecordEntity,
     data: UpdateParkingRecordDTO,
   ) {
-    return plainToInstance(
-      ParkingRecordEntity,
-      {
-        ...parkingRecord,
-        ...data,
-        entryReading: parkingRecord.entryReading,
-        exitReading: data.exitReadingId
-          ? { id: data.exitReadingId }
-          : parkingRecord.exitReading,
-        entryTime: parkingRecord.entryTime,
-        exitTime: data.exitTime,
-        exitSource: EParkingRecordSource.AI,
-      },
-      { ignoreDecorators: true },
-    );
+    return {
+      ...parkingRecord,
+      ...data,
+      entryReading: parkingRecord.entryReading,
+      exitReading: data.exitReadingId
+        ? { id: data.exitReadingId }
+        : parkingRecord.exitReading,
+      entryTime: parkingRecord.entryTime,
+      exitTime: data.exitTime,
+      exitSource: EParkingRecordSource.AI,
+    };
   }
 }

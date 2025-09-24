@@ -14,7 +14,10 @@ export class CreateVehicleIaProvider {
     dto: CreateVehicleDTO;
     queryRunner?: QueryRunner;
   }): Promise<VehicleEntity> {
-    const vehicleForUpdate = await this.validateLicensePlate(dto.licensePlate);
+    const vehicleForUpdate = await this.validateLicensePlate(
+      dto.licensePlate,
+      queryRunner,
+    );
 
     if (vehicleForUpdate) {
       return vehicleForUpdate;
@@ -29,8 +32,15 @@ export class CreateVehicleIaProvider {
     });
   }
 
-  private async validateLicensePlate(licensePlate: string) {
-    const vehicle = await this.vehicleRepository.manager.findOne({
+  private async validateLicensePlate(
+    licensePlate: string,
+    queryRunner?: QueryRunner,
+  ) {
+    const manager = queryRunner
+      ? queryRunner.manager
+      : this.vehicleRepository.manager;
+
+    const vehicle = await manager.findOne(VehicleEntity, {
       where: { licensePlate: ILike(licensePlate) },
     });
 

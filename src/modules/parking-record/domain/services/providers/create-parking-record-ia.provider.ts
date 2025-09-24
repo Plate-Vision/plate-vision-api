@@ -26,11 +26,13 @@ export class CreateParkingRecordIaProvider {
   }): Promise<ParkingRecordEntity> {
     const vehicle = await this.vehicleService.findOne.execute({
       id: dto.vehicleId,
+      queryRunner,
     });
 
     const parkingRecordUpdate = await this.validateParkingRecord(
       vehicle.id,
       dtoUpdate,
+      queryRunner,
     );
 
     if (parkingRecordUpdate) {
@@ -46,8 +48,16 @@ export class CreateParkingRecordIaProvider {
     });
   }
 
-  private async validateParkingRecord(id: number, dto: UpdateParkingRecordDTO) {
-    const parkingRecord = await this.parkingRecordRepository.manager.findOne({
+  private async validateParkingRecord(
+    id: number,
+    dto: UpdateParkingRecordDTO,
+    queryRunner?: QueryRunner,
+  ) {
+    const manager = queryRunner
+      ? queryRunner.manager
+      : this.parkingRecordRepository.manager;
+
+    const parkingRecord = await manager.findOne(ParkingRecordEntity, {
       where: { vehicle: { id } },
       order: { id: 'DESC' },
     });
@@ -56,6 +66,7 @@ export class CreateParkingRecordIaProvider {
       return this.parkingRecordService.updateIa.execute({
         id: parkingRecord.id,
         data: dto,
+        queryRunner,
       });
     }
   }
