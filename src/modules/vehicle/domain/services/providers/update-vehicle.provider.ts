@@ -6,13 +6,13 @@ import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { VehicleRepository } from '@modules/vehicle/infra/repositories/vehicle.repository';
 import { UpdateVehicleDTO } from '../../dtos/update-vehicle.dto';
 import { VehicleEntity } from '../../entities/vehicle.entity';
-import { CustomerRepository } from '@modules/customer/infra/repositories/customer.repository';
 import { ECustomerStatus } from '@modules/customer/domain/enums/customer-status.enum';
+import { CustomerService } from '@modules/customer/domain/services/customer.service';
 
 export class UpdateVehicleProvider {
   public constructor(
     private readonly vehicleRepository: VehicleRepository,
-    private readonly customerRepository: CustomerRepository,
+    private readonly customerService: CustomerService,
   ) {}
 
   public async execute(data: {
@@ -23,7 +23,16 @@ export class UpdateVehicleProvider {
     const vehicle = await this.findVehicle(data.id);
 
     if (data.data.customerId) {
-      await this.validateCustomer(data.data.customerId);
+      const customer = await this.customerService.findOne.execute({
+        id: data.data.customerId,
+      });
+
+      if (customer.status === ECustomerStatus.INACTIVE) {
+        throw new HttpException(
+          'Não é possível vincular um veículo a um cliente inativo',
+          412,
+        );
+      }
     }
 
     await this.validateLicensePlate(data.data.licensePlate, vehicle.id);
@@ -61,16 +70,6 @@ export class UpdateVehicleProvider {
         'Já existe um veículo cadastrado com a placa informada',
         412,
       );
-    }
-  }
-
-  private async validateCustomer(customerId: number) {
-    const customer = await this.customerRepository.manager.findOne({
-      where: { id: customerId },
-    });
-
-    if (!customer || customer.status === ECustomerStatus.INACTIVE) {
-      throw new HttpException('Cliente não encontrado ou inativo', 412);
     }
   }
 

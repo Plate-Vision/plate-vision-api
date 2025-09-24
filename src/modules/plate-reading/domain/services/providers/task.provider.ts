@@ -1,34 +1,23 @@
-import { PlateReadingRepository } from '@modules/plate-reading/infra/repositories/plate-reading.repository';
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { PlateReadingService } from '../plate-reading.service';
 
 @Injectable()
 export class TaskProvider {
   private readonly logger = new Logger(TaskProvider.name);
 
   public constructor(
-    private readonly plateReadingRepository: PlateReadingRepository,
+    private readonly plateReadingService: PlateReadingService,
   ) {}
 
   @Cron(CronExpression.EVERY_30_MINUTES)
-  public async handleCron() {
-    this.logger.debug('Executando job...');
-
+  private async handleCron() {
+    this.logger.debug('Disparando job via CRON...');
     try {
-      const vehicles = await this.plateReadingRepository.manager.find({
-        where: { processedAt: null },
-      });
-
-      if (vehicles.length === 0) {
-        this.logger.debug('Nenhum dado para atualizar.');
-        return;
-      }
-
-      this.logger.log(vehicles);
-
-      // TODO chamar funções de regras de negócio para entra e saída de veículos
+      const result = await this.plateReadingService.findMany.execute();
+      this.logger.log(`${result.message}`);
     } catch (error) {
-      this.logger.error('Falha ao executar o job', error.stack);
+      this.logger.error('Falha ao executar o job via CRON', error.stack);
     }
   }
 }

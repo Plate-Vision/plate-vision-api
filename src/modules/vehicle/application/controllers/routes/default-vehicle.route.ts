@@ -55,7 +55,7 @@ export class DefaultVehicleController {
   }
 
   @Endpoint.post({
-    url: '/manual',
+    url: '/',
     description: 'Criar um novo veículo manual',
     dtoName: 'CreateVehicleDTO',
     roles: [],
@@ -77,7 +77,7 @@ export class DefaultVehicleController {
     @Body() dto: CreateVehicleDTO,
     @AuthUser() authUser: UserEntity,
   ) {
-    return await this.service.createManual.execute({
+    return await this.service.create.execute({
       dto,
       authUser,
     });
