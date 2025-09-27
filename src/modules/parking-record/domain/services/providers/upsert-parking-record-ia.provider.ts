@@ -8,7 +8,7 @@ import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service
 import { ParkingRecordService } from '../parking-record.service';
 import { UpdateParkingRecordDTO } from '../../dtos/update-parking-record.dto';
 
-export class CreateParkingRecordIaProvider {
+export class UpsertParkingRecordIaProvider {
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
     private readonly vehicleService: VehicleService,

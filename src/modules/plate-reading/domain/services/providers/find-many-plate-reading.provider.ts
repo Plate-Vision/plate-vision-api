@@ -59,7 +59,7 @@ export class FindManyPlateReadingProvider {
       });
 
       if (vehicle) {
-        await this.parkingRecordService.createIa.execute({
+        await this.parkingRecordService.upsertIa.execute({
           dto: {
             vehicleId: vehicle.id,
             entryTime: plate.createdAt,
