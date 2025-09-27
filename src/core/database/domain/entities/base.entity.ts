@@ -3,6 +3,7 @@ import {
   DeleteDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
+  Column,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
@@ -39,4 +40,13 @@ export abstract class BaseEntity {
     comment: 'Data de deleção do registro',
   })
   public deletedAt?: Date;
+
+  @ApiProperty({ description: 'UUID do registro' })
+  @Column({
+    type: 'uuid',
+    unique: true,
+    generated: 'uuid',
+    comment: 'UUID do registro',
+  })
+  public uuid?: string;
 }
