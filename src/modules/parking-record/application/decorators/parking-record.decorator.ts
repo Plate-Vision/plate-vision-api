@@ -2,7 +2,7 @@ import { ControllerDecorator } from '@core/base/decorators/route.decorator';
 
 class Controller extends ControllerDecorator {
   public constructor() {
-    super('parkings/records', 'Gerenciamento de registros de estacionamento');
+    super('parkings', 'Gerenciamento de registros de estacionamento');
   }
 
   public default() {
