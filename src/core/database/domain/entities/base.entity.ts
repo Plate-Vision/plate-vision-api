@@ -4,6 +4,7 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   Column,
+  Index,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
@@ -48,5 +49,6 @@ export abstract class BaseEntity {
     generated: 'uuid',
     comment: 'UUID do registro',
   })
+  @Index()
   public uuid?: string;
 }
