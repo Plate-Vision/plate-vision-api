@@ -25,5 +25,5 @@ export class PlateReadingEntity extends BaseEntity {
     nullable: true,
   })
   @Index()
-  public processedAt?: Date | null;
+  public processedAt?: Date;
 }
