@@ -9,27 +9,27 @@ import { RoleRepository } from '@modules/role/infra/repositories/role.repository
 export class DeleteRoleProvider {
   public constructor(private readonly roleRepository: RoleRepository) {}
 
-  public async execute(id: number): Promise<MessagePayload> {
-    await this.validate(id);
+  public async execute(uuid: string): Promise<MessagePayload> {
+    await this.validate(uuid);
 
     await this.roleRepository.transaction(async (queryRunner) => {
       await Promise.all([
-        queryRunner.manager.delete(RoleAbilityEntity, { role: { id } }),
-        queryRunner.manager.softDelete(RoleEntity, { id }),
+        queryRunner.manager.delete(RoleAbilityEntity, { role: { uuid } }),
+        queryRunner.manager.softDelete(RoleEntity, { uuid }),
       ]);
     });
 
     return { message: 'Perfil de usuário excluído com sucesso' };
   }
 
-  private async validate(id: number): Promise<void> {
+  private async validate(uuid: string): Promise<void> {
     const roleFound = await this.roleRepository.manager.findOne({
       select: {
         id: true,
         users: true,
       },
       where: {
-        id,
+        uuid,
       },
       relations: ['users'],
     });

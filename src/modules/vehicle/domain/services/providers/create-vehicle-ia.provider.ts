@@ -3,9 +3,13 @@ import { CreateVehicleDTO } from '../../dtos/create-vehicle.dto';
 import { ILike, QueryRunner } from 'typeorm';
 import { VehicleEntity } from '../../entities/vehicle.entity';
 import { EVehicleSource } from '../../enums/vehicle-source.enum';
+import { VehicleService } from '../vehicle.service';
 
 export class CreateVehicleIaProvider {
-  public constructor(private readonly vehicleRepository: VehicleRepository) {}
+  public constructor(
+    private readonly vehicleRepository: VehicleRepository,
+    private readonly vehicleService: VehicleService,
+  ) {}
 
   public async execute({
     dto,
@@ -14,10 +18,11 @@ export class CreateVehicleIaProvider {
     dto: CreateVehicleDTO;
     queryRunner?: QueryRunner;
   }): Promise<VehicleEntity> {
-    const vehicleForUpdate = await this.validateLicensePlate(
-      dto.licensePlate,
-      queryRunner,
-    );
+    const vehicleForUpdate =
+      await this.vehicleService.findOne.executeByLicensePlate(
+        dto.licensePlate,
+        queryRunner,
+      );
 
     if (vehicleForUpdate) {
       return vehicleForUpdate;
@@ -30,21 +35,6 @@ export class CreateVehicleIaProvider {
     return await this.vehicleRepository.transaction(async (query) => {
       return await this.saveVehicleWithTransaction(dto, query);
     });
-  }
-
-  private async validateLicensePlate(
-    licensePlate: string,
-    queryRunner?: QueryRunner,
-  ) {
-    const manager = queryRunner
-      ? queryRunner.manager
-      : this.vehicleRepository.manager;
-
-    const vehicle = await manager.findOne(VehicleEntity, {
-      where: { licensePlate: ILike(licensePlate) },
-    });
-
-    if (vehicle) return vehicle;
   }
 
   private async saveVehicleWithTransaction(

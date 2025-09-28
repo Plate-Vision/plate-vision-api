@@ -36,8 +36,8 @@ export class DefaultCustomerController {
   }
 
   @Endpoint.get({
-    url: '/:id',
-    description: 'Listar um único cliente com base em seu id',
+    url: '/:uuid',
+    description: 'Listar um único cliente com base em seu uuid',
     roles: [],
     actions: [],
     abilities: [],
@@ -49,9 +49,9 @@ export class DefaultCustomerController {
       },
     ],
   })
-  public async findOne(@Param('id') id: number) {
+  public async findOne(@Param('uuid') uuid: string) {
     return await this.service.findOne.execute({
-      id,
+      uuid,
     });
   }
 
@@ -85,8 +85,8 @@ export class DefaultCustomerController {
   }
 
   @Endpoint.put({
-    url: '/:id',
-    description: 'Editar um cliente existente utilizando seu ID',
+    url: '/:uuid',
+    description: 'Editar um cliente existente utilizando seu uuid',
     dtoName: 'UpdateCustomerDTO',
     roles: [],
     actions: [],
@@ -108,20 +108,20 @@ export class DefaultCustomerController {
     ],
   })
   public async update(
-    @Param('id') id: number,
+    @Param('uuid') uuid: string,
     @Body() data: UpdateCustomerDTO,
     @AuthUser() authUser: UserEntity,
   ) {
     return await this.service.update.execute({
-      id,
+      uuid,
       data,
       authUser,
     });
   }
 
   @Endpoint.delete({
-    url: '/:id',
-    description: 'Apagar um cliente com base em seu ID',
+    url: '/:uuid',
+    description: 'Apagar um cliente com base em seu uuid',
     roles: [],
     actions: [],
     abilities: [],
@@ -136,9 +136,9 @@ export class DefaultCustomerController {
       },
     ],
   })
-  public async delete(@Param('id') id: number) {
+  public async delete(@Param('uuid') uuid: string) {
     return await this.service.delete.execute({
-      id,
+      uuid,
     });
   }
 }

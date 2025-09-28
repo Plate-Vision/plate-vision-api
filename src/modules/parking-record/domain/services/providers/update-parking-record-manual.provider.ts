@@ -6,18 +6,22 @@ import { ParkingRecordRepository } from '@modules/parking-record/infra/repositor
 import { UpdateParkingRecordDTO } from '../../dtos/update-parking-record.dto';
 import { ParkingRecordEntity } from '../../entities/parking-record.entity';
 import { EParkingRecordSource } from '../../enums/parking-record-source.enum';
+import { ParkingRecordService } from '../parking-record.service';
 
 export class UpdateParkingRecordManualProvider {
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
+    private readonly parkingRecordService: ParkingRecordService,
   ) {}
 
   public async execute(data: {
-    id: number;
+    uuid: string;
     data: UpdateParkingRecordDTO;
     authUser: UserEntity;
   }): Promise<ParkingRecordEntity> {
-    const parkingRecord = await this.findParkingRecord(data.id);
+    const parkingRecord = await this.parkingRecordService.findOne.execute({
+      uuid: data.uuid,
+    });
 
     await this.validateDate(data.data, parkingRecord);
 
@@ -32,21 +36,6 @@ export class UpdateParkingRecordManualProvider {
 
       return updatedParkingRecord;
     });
-  }
-
-  private async findParkingRecord(id: number) {
-    const foundParkingRecord =
-      await this.parkingRecordRepository.manager.findOne({
-        where: {
-          id,
-        },
-      });
-
-    if (foundParkingRecord) {
-      return foundParkingRecord;
-    }
-
-    throw new HttpException('Registro não encontrado', 404);
   }
 
   private async validateDate(

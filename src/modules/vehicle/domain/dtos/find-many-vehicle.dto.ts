@@ -5,18 +5,11 @@ import { EVehicleStatus } from '../enums/vehicle-status.enum';
 
 export class FindManyVehicleDTO extends FindManyDTO {
   @ApiPropertyOptional({
-    description: 'Filtro específico por placa de veículo',
+    description: 'Filtro por placa e/ou modelo dos veículos',
   })
   @IsString()
   @IsOptional()
-  public licensePlate?: string;
-
-  @ApiPropertyOptional({
-    description: 'Filtro específico por modelo do veículo',
-  })
-  @IsString()
-  @IsOptional()
-  public modelName?: string;
+  public search?: string;
 
   @ApiPropertyOptional({
     description: 'Filtro específico por se é ou não veículo de serviço',

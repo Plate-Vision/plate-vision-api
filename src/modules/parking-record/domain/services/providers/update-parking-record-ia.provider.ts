@@ -1,15 +1,16 @@
 import { HttpException } from '@nestjs/common';
-import { plainToInstance } from 'class-transformer';
 
 import { ParkingRecordRepository } from '@modules/parking-record/infra/repositories/parking-record.repository';
 import { UpdateParkingRecordDTO } from '../../dtos/update-parking-record.dto';
 import { ParkingRecordEntity } from '../../entities/parking-record.entity';
 import { EParkingRecordSource } from '../../enums/parking-record-source.enum';
 import { QueryRunner } from 'typeorm';
+import { ParkingRecordService } from '../parking-record.service';
 
 export class UpdateParkingRecordIaProvider {
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
+    private readonly parkingRecordService: ParkingRecordService,
   ) {}
 
   public async execute(data: {
@@ -17,10 +18,10 @@ export class UpdateParkingRecordIaProvider {
     data: UpdateParkingRecordDTO;
     queryRunner?: QueryRunner;
   }): Promise<ParkingRecordEntity> {
-    const parkingRecord = await this.findParkingRecord(
-      data.id,
-      data.queryRunner,
-    );
+    const parkingRecord = await this.parkingRecordService.findOne.executeById({
+      id: data.id,
+      queryRunner: data.queryRunner,
+    });
 
     await this.validateDate(data.data, parkingRecord);
 
@@ -35,22 +36,6 @@ export class UpdateParkingRecordIaProvider {
         serializedData,
       );
     }
-  }
-
-  private async findParkingRecord(id: number, queryRunner?: QueryRunner) {
-    const manager = queryRunner
-      ? queryRunner.manager
-      : this.parkingRecordRepository.manager;
-
-    const foundParkingRecord = await manager.findOne(ParkingRecordEntity, {
-      where: { id },
-    });
-
-    if (foundParkingRecord) {
-      return foundParkingRecord;
-    }
-
-    throw new HttpException('Registro não encontrado', 404);
   }
 
   private async validateDate(

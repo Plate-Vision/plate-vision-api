@@ -6,18 +6,24 @@ import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { CustomerRepository } from '@modules/customer/infra/repositories/customer.repository';
 import { UpdateCustomerDTO } from '../../dtos/update-customer.dto';
 import { CustomerEntity } from '../../entities/customer.entity';
+import { CustomerService } from '../customer.service';
 
 export class UpdateCustomerProvider {
-  public constructor(private readonly customerRepository: CustomerRepository) {}
+  public constructor(
+    private readonly customerRepository: CustomerRepository,
+    private readonly customerSerivce: CustomerService,
+  ) {}
 
   public async execute(data: {
-    id: number;
+    uuid: string;
     data: UpdateCustomerDTO;
     authUser: UserEntity;
   }): Promise<CustomerEntity> {
-    const customer = await this.findCustomer(data.id);
+    const customer = await this.customerSerivce.findOne.execute({
+      uuid: data.uuid,
+    });
 
-    await this.validateDocument(data.data.document, customer.id);
+    await this.validateDocument(data.data.document, customer.uuid);
 
     return await this.customerRepository.transaction(async (query) => {
       const updatedCustomer = await query.manager.save(
@@ -28,26 +34,12 @@ export class UpdateCustomerProvider {
     });
   }
 
-  private async findCustomer(id: number) {
-    const foundCustomer = await this.customerRepository.manager.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (foundCustomer) {
-      return foundCustomer;
-    }
-
-    throw new HttpException('Cliente não encontrado', 404);
-  }
-
-  private async validateDocument(document: string, id: number) {
+  private async validateDocument(document: string, uuid: string) {
     const customer = await this.customerRepository.manager.findOne({
       where: { document: ILike(document) },
     });
 
-    if (customer && customer.id !== id) {
+    if (customer && customer.uuid !== uuid) {
       throw new HttpException(
         'Já existe um cliente cadastrado com o documento informado',
         412,

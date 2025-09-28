@@ -24,14 +24,16 @@ export class VehicleService {
     this.create = new CreateVehicleManualProvider(
       this.vehicleRepository,
       this.customerService,
+      this,
     );
-    this.delete = new DeleteVehicleProvider(this.vehicleRepository);
+    this.delete = new DeleteVehicleProvider(this.vehicleRepository, this);
     this.findOne = new FindOneVehicleProvider(this.vehicleRepository);
     this.findMany = new FindManyVehicleProvider(this.vehicleRepository);
     this.update = new UpdateVehicleProvider(
       this.vehicleRepository,
       this.customerService,
+      this,
     );
-    this.createIa = new CreateVehicleIaProvider(this.vehicleRepository);
+    this.createIa = new CreateVehicleIaProvider(this.vehicleRepository, this);
   }
 }

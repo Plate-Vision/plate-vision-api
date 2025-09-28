@@ -1,5 +1,5 @@
 import { ParkingRecordRepository } from '@modules/parking-record/infra/repositories/parking-record.repository';
-import { FindOptionsOrder, FindOptionsWhere, ILike } from 'typeorm';
+import { Between, FindOptionsOrder, FindOptionsWhere, ILike } from 'typeorm';
 import { FindManyParkingRecordDTO } from '../../dtos/find-many-parking-record.dto';
 import { ParkingRecordEntity } from '../../entities/parking-record.entity';
 
@@ -25,11 +25,27 @@ export class FindManyParkingRecordProvider {
     }
 
     if (params.dto.entryTime) {
-      where[0].entryTime = params.dto.entryTime;
+      const date = new Date(params.dto.entryTime);
+
+      const startDate = new Date(date);
+      startDate.setUTCHours(0, 0, 0, 0);
+
+      const endDate = new Date(date);
+      endDate.setUTCHours(23, 59, 59, 999);
+
+      where[0].entryTime = Between(startDate, endDate);
     }
 
     if (params.dto.exitTime) {
-      where[0].exitTime = params.dto.exitTime;
+      const date = new Date(params.dto.exitTime);
+
+      const startDate = new Date(date);
+      startDate.setUTCHours(0, 0, 0, 0);
+
+      const endDate = new Date(date);
+      endDate.setUTCHours(23, 59, 59, 999);
+
+      where[0].exitTime = Between(startDate, endDate);
     }
 
     if (params.dto.orderBy) {

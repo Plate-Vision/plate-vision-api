@@ -16,8 +16,8 @@ export class CustomerService {
 
   public constructor(private readonly customerRepository: CustomerRepository) {
     this.create = new CreateCustomerProvider(this.customerRepository);
-    this.delete = new DeleteCustomerProvider(this.customerRepository);
-    this.update = new UpdateCustomerProvider(this.customerRepository);
+    this.delete = new DeleteCustomerProvider(this.customerRepository, this);
+    this.update = new UpdateCustomerProvider(this.customerRepository, this);
     this.findMany = new FindManyCustomerProvider(this.customerRepository);
     this.findOne = new FindOneCustomerProvider(this.customerRepository);
   }

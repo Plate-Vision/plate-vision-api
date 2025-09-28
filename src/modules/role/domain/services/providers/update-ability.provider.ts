@@ -9,16 +9,16 @@ export class UpdateAbilityProvider {
   constructor(private readonly abilityRepository: AbilityRepository) {}
 
   public async execute(
-    id: number,
+    uuid: string,
     dto: UpdateAbilityDTO,
   ): Promise<AbilityEntity> {
     const ability = await this.abilityRepository.manager.findOne({
-      where: { id },
+      where: { uuid },
     });
 
     if (!ability) throw new HttpException('Habilidade não encontrada', 404);
 
-    await this.abilityRepository.manager.update(id, { name: dto.name });
+    await this.abilityRepository.manager.update(uuid, { name: dto.name });
 
     return plainToInstance(AbilityEntity, {
       ...ability,

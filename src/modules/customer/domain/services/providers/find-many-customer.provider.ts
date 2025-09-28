@@ -18,12 +18,11 @@ export class FindManyCustomerProvider {
       where[0].status = params.dto.status;
     }
 
-    if (params.dto.name) {
-      where[0].name = ILike(`%${params.dto.name}%`);
-    }
-
-    if (params.dto.document) {
-      where[0].document = ILike(`%${params.dto.document}%`);
+    if (params.dto.search) {
+      where = [
+        { ...where[0], name: ILike(`%${params.dto.search}%`) },
+        { ...where[0], document: ILike(`%${params.dto.search}%`) },
+      ];
     }
 
     if (params.dto.orderBy) {

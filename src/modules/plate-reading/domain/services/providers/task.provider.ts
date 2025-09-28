@@ -14,7 +14,7 @@ export class TaskProvider {
   private async handleCron() {
     this.logger.debug('Disparando job via CRON...');
     try {
-      const result = await this.plateReadingService.findMany.execute();
+      const result = await this.plateReadingService.processor.execute();
       this.logger.log(`${result.message}`);
     } catch (error) {
       this.logger.error('Falha ao executar o job via CRON', error.stack);

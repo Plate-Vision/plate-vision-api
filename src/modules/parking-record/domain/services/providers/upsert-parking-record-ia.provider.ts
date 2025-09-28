@@ -24,7 +24,7 @@ export class UpsertParkingRecordIaProvider {
     dtoUpdate: UpdateParkingRecordDTO;
     queryRunner?: QueryRunner;
   }): Promise<ParkingRecordEntity> {
-    const vehicle = await this.vehicleService.findOne.execute({
+    const vehicle = await this.vehicleService.findOne.executeById({
       id: dto.vehicleId,
       queryRunner,
     });
@@ -53,11 +53,9 @@ export class UpsertParkingRecordIaProvider {
     dto: UpdateParkingRecordDTO,
     queryRunner?: QueryRunner,
   ) {
-    const manager = queryRunner
-      ? queryRunner.manager
-      : this.parkingRecordRepository.manager;
+    let parkingRecord: ParkingRecordEntity | null;
 
-    const parkingRecord = await manager.findOne(ParkingRecordEntity, {
+    parkingRecord = await queryRunner.manager.findOne(ParkingRecordEntity, {
       where: { vehicle: { id } },
       order: { id: 'DESC' },
     });

@@ -21,7 +21,7 @@ export class DefaultPlateReadingController {
       },
     ],
   })
-  public async findMany() {
-    return await this.service.findMany.execute();
+  public async processor() {
+    return await this.service.processor.execute();
   }
 }

@@ -6,18 +6,11 @@ import { ECustomerType } from '../enums/customer-type.enum';
 
 export class FindManyCustomerDTO extends FindManyDTO {
   @ApiPropertyOptional({
-    description: 'Filtro específico por nome do cliente',
+    description: 'Filtro por nome e/ou documento dos clientes',
   })
   @IsString()
   @IsOptional()
-  public name?: string;
-
-  @ApiPropertyOptional({
-    description: 'Filtro específico por documento do cliente',
-  })
-  @IsString()
-  @IsOptional()
-  public document?: string;
+  public search?: string;
 
   @ApiPropertyOptional({
     description: 'Filtro por status do cliente',

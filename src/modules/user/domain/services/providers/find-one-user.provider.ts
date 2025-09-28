@@ -7,12 +7,12 @@ export class FindOneUserProvider {
   public constructor(private readonly userRepository: UserRepository) {}
 
   public async execute(data: {
-    id: number;
+    uuid: string;
     authUser: UserEntity;
   }): Promise<UserEntity> {
     const user = await this.userRepository.manager.findOne({
       where: {
-        id: data.id,
+        uuid: data.uuid,
       },
       relations: ['role'],
     });

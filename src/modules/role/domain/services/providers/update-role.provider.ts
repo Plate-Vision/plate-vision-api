@@ -17,21 +17,21 @@ export class UpdateRoleProvider {
     private readonly abilityRepository: AbilityRepository,
   ) {}
 
-  public async execute(id: number, data: UpdateRoleDTO): Promise<RoleEntity> {
-    await this.validateRoleId(id);
+  public async execute(uuid: string, data: UpdateRoleDTO): Promise<RoleEntity> {
+    await this.validateRoleId(uuid);
 
     return await this.roleRepository.transaction(async (queryRunner) => {
-      await queryRunner.manager.delete(RoleAbilityEntity, { role: { id } });
+      await queryRunner.manager.delete(RoleAbilityEntity, { role: { uuid } });
 
       const role = this.serializeRole(data);
 
       const roleAbilities = await this.serializeRoleAbilities(
-        id,
+        uuid,
         data.abilities,
       );
 
       const [_, roleAbilitiesSaved] = await Promise.all([
-        queryRunner.manager.update(RoleEntity, id, role),
+        queryRunner.manager.update(RoleEntity, uuid, role),
         queryRunner.manager.save(RoleAbilityEntity, roleAbilities),
       ]);
 
@@ -49,7 +49,7 @@ export class UpdateRoleProvider {
   }
 
   private async serializeRoleAbilities(
-    roleId: number,
+    roleId: string,
     abilities: Array<UpdateRoleAbilitiesDTO>,
   ): Promise<Array<RoleAbilityEntity>> {
     const foundAbilities = await this.findAbilities(
@@ -85,13 +85,13 @@ export class UpdateRoleProvider {
     });
   }
 
-  private async validateRoleId(id: number): Promise<void> {
+  private async validateRoleId(uuid: string): Promise<void> {
     const roleFound = await this.roleRepository.manager.findOne({
       select: {
         id: true,
       },
       where: {
-        id,
+        uuid,
       },
     });
 

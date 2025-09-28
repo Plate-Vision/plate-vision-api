@@ -33,8 +33,8 @@ export class RoleRoute {
   }
 
   @Endpoint.get({
-    url: '/:id',
-    description: 'Listar um perfil de usuário com base em seu id',
+    url: '/:uuid',
+    description: 'Listar um perfil de usuário com base em seu uuid',
     roles: [],
     actions: [],
     abilities: [],
@@ -46,8 +46,8 @@ export class RoleRoute {
       },
     ],
   })
-  public async findOne(@Param('id') id: number) {
-    return await this.service.findOne.execute(id);
+  public async findOne(@Param('uuid') uuid: string) {
+    return await this.service.findOne.execute(uuid);
   }
 
   @Endpoint.post({
@@ -74,8 +74,8 @@ export class RoleRoute {
   }
 
   @Endpoint.put({
-    url: '/:id',
-    description: 'Editar um perfil de usuário existente utilizando seu ID',
+    url: '/:uuid',
+    description: 'Editar um perfil de usuário existente utilizando seu uuid',
     dtoName: 'UpdateRoleDTO',
     roles: [],
     actions: [],
@@ -96,13 +96,16 @@ export class RoleRoute {
       },
     ],
   })
-  public async update(@Param('id') id: number, @Body() data: UpdateRoleDTO) {
-    return await this.service.update.execute(id, data);
+  public async update(
+    @Param('uuid') uuid: string,
+    @Body() data: UpdateRoleDTO,
+  ) {
+    return await this.service.update.execute(uuid, data);
   }
 
   @Endpoint.delete({
-    url: '/:id',
-    description: 'Apagar um perfil de usuário com base em seu ID',
+    url: '/:uuid',
+    description: 'Apagar um perfil de usuário com base em seu uuid',
     roles: [],
     actions: [],
     abilities: [],
@@ -121,7 +124,7 @@ export class RoleRoute {
       },
     ],
   })
-  public async delete(@Param('id') id: number) {
-    return await this.service.delete.execute(id);
+  public async delete(@Param('uuid') uuid: string) {
+    return await this.service.delete.execute(uuid);
   }
 }

@@ -1,16 +1,19 @@
 import { ParkingRecordRepository } from '@modules/parking-record/infra/repositories/parking-record.repository';
-import { HttpException } from '@nestjs/common';
 
 import { MessagePayload } from '@shared/payloads/message.payload';
 import { ParkingRecordEntity } from '../../entities/parking-record.entity';
+import { ParkingRecordService } from '../parking-record.service';
 
 export class DeleteParkingRecordProvider {
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
+    private readonly parkingRcordService: ParkingRecordService,
   ) {}
 
-  public async execute(data: { id: number }): Promise<MessagePayload> {
-    const parkingRecord = await this.findParkingRecord(data.id);
+  public async execute(data: { uuid: string }): Promise<MessagePayload> {
+    const parkingRecord = await this.parkingRcordService.findOne.execute({
+      uuid: data.uuid,
+    });
 
     await this.parkingRecordRepository.transaction(async (queryRunner) => {
       await queryRunner.manager.softDelete(ParkingRecordEntity, {
@@ -19,19 +22,5 @@ export class DeleteParkingRecordProvider {
     });
 
     return { message: 'Registro deletado com sucesso' };
-  }
-
-  private async findParkingRecord(id: number) {
-    const parkingRecord = await this.parkingRecordRepository.manager.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (parkingRecord) {
-      return parkingRecord;
-    }
-
-    throw new HttpException('Registro não encontrado', 404);
   }
 }

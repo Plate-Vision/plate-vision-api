@@ -9,29 +9,29 @@ export class DeleteUserProvider {
   public constructor(private readonly userRepository: UserRepository) {}
 
   public async execute(data: {
-    id: number;
+    uuid: string;
     authUser: UserEntity;
   }): Promise<MessagePayload> {
-    if (data.authUser.id == data.id) {
+    if (data.authUser.uuid == data.uuid) {
       throw new HttpException(
         'Não é possível realizar a deleção do próprio usuário',
         409,
       );
     }
 
-    const user = await this.findUser(data.id);
+    const user = await this.findUser(data.uuid);
 
     await this.userRepository.transaction(async (queryRunner) => {
-      await queryRunner.manager.softDelete(UserEntity, { id: user.id });
+      await queryRunner.manager.softDelete(UserEntity, { uuid: user.uuid });
     });
 
     return { message: 'Usuário deletado com sucesso' };
   }
 
-  private async findUser(id: number) {
+  private async findUser(uuid: string) {
     const user = await this.userRepository.manager.findOne({
       where: {
-        id,
+        uuid,
       },
       relations: [],
     });

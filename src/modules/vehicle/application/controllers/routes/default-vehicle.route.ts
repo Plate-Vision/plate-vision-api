@@ -35,8 +35,8 @@ export class DefaultVehicleController {
   }
 
   @Endpoint.get({
-    url: '/:id',
-    description: 'Listar um único veículo com base em seu id',
+    url: '/:uuid',
+    description: 'Listar um único veículo com base em seu uuid',
     roles: [],
     actions: [],
     abilities: [],
@@ -48,10 +48,8 @@ export class DefaultVehicleController {
       },
     ],
   })
-  public async findOne(@Param('id') id: number) {
-    return await this.service.findOne.execute({
-      id,
-    });
+  public async findOne(@Param('uuid') uuid: string) {
+    return await this.service.findOne.execute(uuid);
   }
 
   @Endpoint.post({
@@ -84,8 +82,8 @@ export class DefaultVehicleController {
   }
 
   @Endpoint.put({
-    url: '/:id',
-    description: 'Editar um veículo existente utilizando seu ID',
+    url: '/:uuid',
+    description: 'Editar um veículo existente utilizando seu uuid',
     dtoName: 'UpdateVehicleDTO',
     roles: [],
     actions: [],
@@ -107,20 +105,20 @@ export class DefaultVehicleController {
     ],
   })
   public async update(
-    @Param('id') id: number,
+    @Param('uuid') uuid: string,
     @Body() data: UpdateVehicleDTO,
     @AuthUser() authUser: UserEntity,
   ) {
     return await this.service.update.execute({
-      id,
+      uuid,
       data,
       authUser,
     });
   }
 
   @Endpoint.delete({
-    url: '/:id',
-    description: 'Apagar um veículo com base em seu ID',
+    url: '/:uuid',
+    description: 'Apagar um veículo com base em seu uuid',
     roles: [],
     actions: [],
     abilities: [],
@@ -135,9 +133,9 @@ export class DefaultVehicleController {
       },
     ],
   })
-  public async delete(@Param('id') id: number) {
+  public async delete(@Param('uuid') uuid: string) {
     return await this.service.delete.execute({
-      id,
+      uuid,
     });
   }
 }

@@ -1,10 +1,9 @@
 import { PlateReadingRepository } from '@modules/plate-reading/infra/repositories/plate-reading.repository';
 import { PlateReadingEntity } from '../../entities/plate-reading.entity';
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { In, QueryRunner } from 'typeorm';
 
-@Injectable()
 export class UpdatePlateReadingProvider {
   public constructor(
     private readonly plateReadingRepository: PlateReadingRepository,

@@ -14,12 +14,11 @@ export class FindManyVehicleProvider {
       where[0].status = params.dto.status;
     }
 
-    if (params.dto.licensePlate) {
-      where[0].licensePlate = ILike(`%${params.dto.licensePlate}%`);
-    }
-
-    if (params.dto.modelName) {
-      where[0].modelName = ILike(`%${params.dto.modelName}%`);
+    if (params.dto.search) {
+      where = [
+        { ...where[0], modelName: ILike(`%${params.dto.search}%`) },
+        { ...where[0], licensePlate: ILike(`%${params.dto.search}%`) },
+      ];
     }
 
     if (params.dto.isServiceVehicle) {

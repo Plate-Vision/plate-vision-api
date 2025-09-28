@@ -40,8 +40,8 @@ export class DefaultUserController {
   }
 
   @Endpoint.get({
-    url: '/:id',
-    description: 'Listar um único usuário com base em seu id',
+    url: '/:uuid',
+    description: 'Listar um único usuário com base em seu uuid',
     roles: [],
     actions: [],
     abilities: [],
@@ -54,11 +54,11 @@ export class DefaultUserController {
     ],
   })
   public async findOne(
-    @Param('id') id: number,
+    @Param('uuid') uuid: string,
     @AuthUser() authUser: UserEntity,
   ) {
     return await this.service.findOne.execute({
-      id,
+      uuid,
       authUser,
     });
   }
@@ -93,8 +93,8 @@ export class DefaultUserController {
   }
 
   @Endpoint.put({
-    url: '/:id',
-    description: 'Editar um usuário existente utilizando seu ID',
+    url: '/:uuid',
+    description: 'Editar um usuário existente utilizando seu uuid',
     dtoName: 'UpdateUserDTO',
     roles: [],
     actions: [],
@@ -116,20 +116,20 @@ export class DefaultUserController {
     ],
   })
   public async update(
-    @Param('id') id: number,
+    @Param('uuid') uuid: string,
     @Body() data: UpdateUserDTO,
     @AuthUser() authUser: UserEntity,
   ) {
     return await this.service.update.execute({
-      id,
+      uuid,
       data,
       authUser,
     });
   }
 
   @Endpoint.delete({
-    url: '/:id',
-    description: 'Apagar um usuário com base em seu ID',
+    url: '/:uuid',
+    description: 'Apagar um usuário com base em seu uuid',
     roles: [],
     actions: [],
     abilities: [],
@@ -149,11 +149,11 @@ export class DefaultUserController {
     ],
   })
   public async delete(
-    @Param('id') id: number,
+    @Param('uuid') uuid: string,
     @AuthUser() authUser: UserEntity,
   ) {
     return await this.service.delete.execute({
-      id,
+      uuid,
       authUser,
     });
   }

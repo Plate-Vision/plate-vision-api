@@ -3,31 +3,23 @@ import { HttpException } from '@nestjs/common';
 
 import { MessagePayload } from '@shared/payloads/message.payload';
 import { VehicleEntity } from '../../entities/vehicle.entity';
+import { VehicleService } from '../vehicle.service';
 
 export class DeleteVehicleProvider {
-  public constructor(private readonly vehicleRepository: VehicleRepository) {}
+  public constructor(
+    private readonly vehicleRepository: VehicleRepository,
+    private readonly vehicleService: VehicleService,
+  ) {}
 
-  public async execute(data: { id: number }): Promise<MessagePayload> {
-    const customer = await this.findCustomer(data.id);
+  public async execute(data: { uuid: string }): Promise<MessagePayload> {
+    const vehicle = await this.vehicleService.findOne.execute(data.uuid);
 
     await this.vehicleRepository.transaction(async (queryRunner) => {
-      await queryRunner.manager.softDelete(VehicleEntity, { id: customer.id });
+      await queryRunner.manager.softDelete(VehicleEntity, {
+        uuid: vehicle.uuid,
+      });
     });
 
     return { message: 'Veículo deletado com sucesso' };
-  }
-
-  private async findCustomer(id: number) {
-    const customer = await this.vehicleRepository.manager.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (customer) {
-      return customer;
-    }
-
-    throw new HttpException('Veículo não encontrado', 404);
   }
 }

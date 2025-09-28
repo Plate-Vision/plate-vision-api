@@ -12,11 +12,11 @@ export class UpdateUserProvider {
   public constructor(private readonly userRepository: UserRepository) {}
 
   public async execute(data: {
-    id: number;
+    uuid: string;
     data: UpdateUserDTO;
     authUser: UserEntity;
   }): Promise<UserEntity> {
-    const user = await this.findUser(data.id);
+    const user = await this.findUser(data.uuid);
 
     await this.validateUserEmail(data.data.email, user);
 
@@ -33,10 +33,10 @@ export class UpdateUserProvider {
     });
   }
 
-  private async findUser(id: number) {
+  private async findUser(uuid: string) {
     const foundUser = await this.userRepository.manager.findOne({
       where: {
-        id,
+        uuid,
       },
       relations: [],
     });

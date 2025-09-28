@@ -6,9 +6,9 @@ import { AbilityRepository } from '@modules/role/infra/repositories/ability.repo
 export class FindOneAbilityProvider {
   public constructor(private readonly abilityRepository: AbilityRepository) {}
 
-  public async execute(id: number): Promise<AbilityEntity> {
+  public async execute(uuid: string): Promise<AbilityEntity> {
     const ability = await this.abilityRepository.manager.findOne({
-      where: { id },
+      where: { uuid },
     });
 
     if (!ability) throw new HttpException('Habilidade não encontrada', 404);

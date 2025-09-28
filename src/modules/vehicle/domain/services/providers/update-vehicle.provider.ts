@@ -8,22 +8,24 @@ import { UpdateVehicleDTO } from '../../dtos/update-vehicle.dto';
 import { VehicleEntity } from '../../entities/vehicle.entity';
 import { ECustomerStatus } from '@modules/customer/domain/enums/customer-status.enum';
 import { CustomerService } from '@modules/customer/domain/services/customer.service';
+import { VehicleService } from '../vehicle.service';
 
 export class UpdateVehicleProvider {
   public constructor(
     private readonly vehicleRepository: VehicleRepository,
     private readonly customerService: CustomerService,
+    private readonly vehicleService: VehicleService,
   ) {}
 
   public async execute(data: {
-    id: number;
+    uuid: string;
     data: UpdateVehicleDTO;
     authUser?: UserEntity;
   }): Promise<VehicleEntity> {
-    const vehicle = await this.findVehicle(data.id);
+    const vehicle = await this.vehicleService.findOne.execute(data.uuid);
 
     if (data.data.customerId) {
-      const customer = await this.customerService.findOne.execute({
+      const customer = await this.customerService.findOne.executeById({
         id: data.data.customerId,
       });
 
@@ -46,24 +48,9 @@ export class UpdateVehicleProvider {
     });
   }
 
-  private async findVehicle(id: number) {
-    const foundVehicle = await this.vehicleRepository.manager.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (foundVehicle) {
-      return foundVehicle;
-    }
-
-    throw new HttpException('Veículo não encontrado', 404);
-  }
-
   private async validateLicensePlate(licensePlate: string, id: number) {
-    const vehicle = await this.vehicleRepository.manager.findOne({
-      where: { licensePlate: ILike(licensePlate) },
-    });
+    const vehicle =
+      await this.vehicleService.findOne.executeByLicensePlate(licensePlate);
 
     if (vehicle && vehicle.id !== id) {
       throw new HttpException(

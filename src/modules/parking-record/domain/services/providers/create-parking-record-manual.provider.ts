@@ -24,7 +24,7 @@ export class CreateParkingRecordManualProvider {
     authUser: UserEntity;
     queryRunner?: QueryRunner;
   }): Promise<ParkingRecordEntity> {
-    const vehicle = await this.vehicleService.findOne.execute({
+    const vehicle = await this.vehicleService.findOne.executeById({
       id: dto.vehicleId,
     });
 

@@ -8,11 +8,13 @@ import { CustomerEntity } from '@modules/customer/domain/entities/customer.entit
 import { EVehicleSource } from '../../enums/vehicle-source.enum';
 import { ECustomerStatus } from '@modules/customer/domain/enums/customer-status.enum';
 import { CustomerService } from '@modules/customer/domain/services/customer.service';
+import { VehicleService } from '../vehicle.service';
 
 export class CreateVehicleManualProvider {
   public constructor(
     private readonly vehicleRepository: VehicleRepository,
     private readonly customerService: CustomerService,
+    private readonly vehicleService: VehicleService,
   ) {}
 
   public async execute({
@@ -24,10 +26,18 @@ export class CreateVehicleManualProvider {
     authUser: UserEntity;
     queryRunner?: QueryRunner;
   }): Promise<VehicleEntity> {
-    await this.validateLicensePlate(dto.licensePlate);
+    const validateLicensePlate =
+      await this.vehicleService.findOne.executeByLicensePlate(dto.licensePlate);
+
+    if (validateLicensePlate) {
+      throw new HttpException(
+        'Já existe um veículo cadastrado com a placa informada',
+        412,
+      );
+    }
 
     if (dto.customerId) {
-      const customer = await this.customerService.findOne.execute({
+      const customer = await this.customerService.findOne.executeById({
         id: dto.customerId,
       });
 
@@ -46,18 +56,6 @@ export class CreateVehicleManualProvider {
     return await this.vehicleRepository.transaction(async (query) => {
       return await this.saveVehicleWithTransaction(dto, authUser, query);
     });
-  }
-
-  private async validateLicensePlate(licensePlate: string) {
-    const vehicle = await this.vehicleRepository.manager.findOne({
-      where: { licensePlate: ILike(licensePlate) },
-    });
-
-    if (vehicle)
-      throw new HttpException(
-        'Já existe um veículo cadastrado com a placa informada',
-        412,
-      );
   }
 
   private async saveVehicleWithTransaction(

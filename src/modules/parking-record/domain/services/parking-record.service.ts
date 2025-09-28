@@ -30,8 +30,12 @@ export class ParkingRecordService {
     );
     this.update = new UpdateParkingRecordManualProvider(
       this.parkingRecordRepository,
+      this,
     );
-    this.delete = new DeleteParkingRecordProvider(this.parkingRecordRepository);
+    this.delete = new DeleteParkingRecordProvider(
+      this.parkingRecordRepository,
+      this,
+    );
     this.findOne = new FindOneParkingRecordProvider(
       this.parkingRecordRepository,
     );
@@ -45,6 +49,7 @@ export class ParkingRecordService {
     );
     this.updateIa = new UpdateParkingRecordIaProvider(
       this.parkingRecordRepository,
+      this,
     );
   }
 }

@@ -6,9 +6,9 @@ import { RoleRepository } from '@modules/role/infra/repositories/role.repository
 export class FindOneRoleProvider {
   public constructor(private readonly roleRepository: RoleRepository) {}
 
-  public async execute(id: number): Promise<RoleEntity> {
+  public async execute(uuid: string): Promise<RoleEntity> {
     const role = await this.roleRepository.manager.findOne({
-      where: { id },
+      where: { uuid },
       relations: ['roleAbilities.ability'],
     });
 

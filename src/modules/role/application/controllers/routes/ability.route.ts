@@ -33,8 +33,8 @@ export class AbilityRoute {
   }
 
   @Endpoint.get({
-    url: '/:id',
-    description: 'Listar uma habilidade com base em seu id',
+    url: '/:uuid',
+    description: 'Listar uma habilidade com base em seu uuid',
     roles: [],
     actions: [],
     abilities: [],
@@ -46,8 +46,8 @@ export class AbilityRoute {
       },
     ],
   })
-  public async findOne(@Param('id') id: number) {
-    return await this.service.findOne.execute(id);
+  public async findOne(@Param('uuid') uuid: string) {
+    return await this.service.findOne.execute(uuid);
   }
 
   @Endpoint.post({
@@ -74,8 +74,8 @@ export class AbilityRoute {
   }
 
   @Endpoint.put({
-    url: '/:id',
-    description: 'Editar uma habilidade existente utilizando seu ID',
+    url: '/:uuid',
+    description: 'Editar uma habilidade existente utilizando seu uuid',
     dtoName: 'UpdateAbilityDTO',
     roles: [],
     actions: [],
@@ -96,13 +96,16 @@ export class AbilityRoute {
       },
     ],
   })
-  public async update(@Param('id') id: number, @Body() dto: UpdateAbilityDTO) {
-    return await this.service.update.execute(id, dto);
+  public async update(
+    @Param('uuid') uuid: string,
+    @Body() dto: UpdateAbilityDTO,
+  ) {
+    return await this.service.update.execute(uuid, dto);
   }
 
   @Endpoint.delete({
-    url: '/:id',
-    description: 'Apagar uma habildiade com base em seu ID',
+    url: '/:uuid',
+    description: 'Apagar uma habildiade com base em seu uuid',
     roles: [],
     actions: [],
     abilities: [],
@@ -121,7 +124,7 @@ export class AbilityRoute {
       },
     ],
   })
-  public async delete(@Param('id') id: number) {
-    return await this.service.delete.execute(id);
+  public async delete(@Param('uuid') uuid: string) {
+    return await this.service.delete.execute(uuid);
   }
 }
