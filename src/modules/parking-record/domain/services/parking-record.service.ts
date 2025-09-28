@@ -27,6 +27,7 @@ export class ParkingRecordService {
     this.create = new CreateParkingRecordManualProvider(
       this.parkingRecordRepository,
       this.vehicleService,
+      this,
     );
     this.update = new UpdateParkingRecordManualProvider(
       this.parkingRecordRepository,

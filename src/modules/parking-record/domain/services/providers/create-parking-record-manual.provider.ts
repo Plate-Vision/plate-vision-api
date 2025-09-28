@@ -8,11 +8,13 @@ import { EParkingRecordSource } from '../../enums/parking-record-source.enum';
 import { VehicleEntity } from '@modules/vehicle/domain/entities/vehicle.entity';
 import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
 import { EVehicleStatus } from '@modules/vehicle/domain/enums/vehicle-status.enum';
+import { ParkingRecordService } from '../parking-record.service';
 
 export class CreateParkingRecordManualProvider {
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
     private readonly vehicleService: VehicleService,
+    private readonly parkingRecordService: ParkingRecordService,
   ) {}
 
   public async execute({
@@ -48,10 +50,8 @@ export class CreateParkingRecordManualProvider {
   }
 
   private async validateParkingRecord(id: number) {
-    const parkingRecord = await this.parkingRecordRepository.manager.findOne({
-      where: { vehicle: { id } },
-      order: { id: 'DESC' },
-    });
+    const parkingRecord =
+      await this.parkingRecordService.findOne.executeByLastOneVehicle(id);
 
     if (parkingRecord && parkingRecord.exitTime === null) {
       throw new HttpException(

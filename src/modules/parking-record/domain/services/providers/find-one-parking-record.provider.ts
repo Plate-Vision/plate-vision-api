@@ -51,4 +51,27 @@ export class FindOneParkingRecordProvider {
 
     throw new HttpException('Registro não encontrado', 404);
   }
+
+  public async executeByLastOneVehicle(
+    id: number,
+    queryRunner?: QueryRunner,
+  ): Promise<ParkingRecordEntity> {
+    let parkingRecord: ParkingRecordEntity | null;
+
+    if (queryRunner) {
+      parkingRecord = await queryRunner.manager.findOne(ParkingRecordEntity, {
+        where: { vehicle: { id } },
+        order: { id: 'DESC' },
+      });
+    } else {
+      parkingRecord = await this.parkingRecordRepository.manager.findOne({
+        where: { vehicle: { id } },
+        order: { id: 'DESC' },
+      });
+    }
+
+    if (parkingRecord) {
+      return parkingRecord;
+    }
+  }
 }
