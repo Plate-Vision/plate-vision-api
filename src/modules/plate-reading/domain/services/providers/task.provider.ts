@@ -10,7 +10,7 @@ export class TaskProvider {
     private readonly plateReadingService: PlateReadingService,
   ) {}
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_5_SECONDS)
   private async handleCron() {
     this.logger.debug('Disparando job via CRON...');
     try {
