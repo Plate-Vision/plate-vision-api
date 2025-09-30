@@ -49,7 +49,7 @@ export class ProcessorPlateReadingProvider {
         queryRunner,
       });
 
-      if (vehicle) {
+      if (vehicle && vehicle.isServiceVehicle === false) {
         await this.parkingRecordService.upsertIa.execute({
           dto: {
             vehicleId: vehicle.id,

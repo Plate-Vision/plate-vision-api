@@ -34,6 +34,13 @@ export class CreateParkingRecordManualProvider {
       throw new HttpException('Veículo inativo', 422);
     }
 
+    if (vehicle.isServiceVehicle === true) {
+      throw new HttpException(
+        'Não é possível registrar entrada ou saída de um veículo de serviço',
+        422,
+      );
+    }
+
     await this.validateParkingRecord(dto.vehicleId);
 
     if (queryRunner) {
