@@ -2,7 +2,7 @@ import { ColumnEntity } from '@core/database/domain/decorators/column-entity.dec
 import { EntityTable } from '@core/database/domain/decorators/table-entity.decorator';
 import { BaseEntity } from '@core/database/domain/entities/base.entity';
 import { CustomerEntity } from '@modules/customer/domain/entities/customer.entity';
-import { In, Index, JoinColumn, ManyToOne } from 'typeorm';
+import { Index, JoinColumn, ManyToOne } from 'typeorm';
 import { EVehicleStatus } from '../enums/vehicle-status.enum';
 import { EVehicleSource } from '../enums/vehicle-source.enum';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
