@@ -7,8 +7,8 @@ import {
 import { Request } from 'express';
 
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
-import { AuthService } from '@modules/auth/services/auth.service';
-import { UserRepository } from '@modules/user/domain/repositories/user.repository';
+import { AuthService } from '@modules/auth/domain/services/auth.service';
+import { UserRepository } from '@modules/user/infra/repositories/user.repository';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

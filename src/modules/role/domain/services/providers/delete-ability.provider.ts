@@ -1,0 +1,30 @@
+import { AbilityRepository } from '@modules/role/infra/repositories/ability.repository';
+import { RoleAbilityRepository } from '@modules/role/infra/repositories/role-ability.repository';
+import { HttpException } from '@nestjs/common';
+
+import { MessagePayload } from '@shared/payloads/message.payload';
+
+export class DeleteAbilityProvider {
+  constructor(
+    private readonly abilityRepository: AbilityRepository,
+    private readonly roleAbilityRepository: RoleAbilityRepository,
+  ) {}
+
+  public async execute(uuid: string): Promise<MessagePayload> {
+    const role = await this.abilityRepository.manager.findOne({
+      where: { uuid },
+    });
+
+    if (!role) throw new HttpException('Habilidade não encontrada', 404);
+
+    const hasRoleAbilities = await this.roleAbilityRepository.manager.count({
+      where: { ability: { uuid } },
+    });
+
+    if (hasRoleAbilities) throw new HttpException('Habilidade em uso', 422);
+
+    await this.abilityRepository.manager.softDelete(uuid);
+
+    return { message: 'Habilidade excluída com sucesso' };
+  }
+}

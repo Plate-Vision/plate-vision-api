@@ -10,6 +10,11 @@ import { MetricsModule } from '@core/metrics/metrics.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { UserModule } from '@modules/user/user.module';
 import { RoleModule } from '@modules/role/role.module';
+import { VehicleModule } from '@modules/vehicle/vehicle.module';
+import { CustomerModule } from '@modules/customer/customer.module';
+import { ParkingRecordModule } from '@modules/parking-record/parking-record.module';
+import { PlateReadingModule } from '@modules/plate-reading/plate-reading.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -17,6 +22,7 @@ import { RoleModule } from '@modules/role/role.module';
       rootPath: join(__dirname, '..', 'public'),
       serveRoot: '/api/public',
     }),
+    ScheduleModule.forRoot(),
     MulterModule.register({}),
     EnvironmentVariablesModule,
     DatabaseModule,
@@ -24,6 +30,10 @@ import { RoleModule } from '@modules/role/role.module';
     AuthModule,
     UserModule,
     RoleModule,
+    VehicleModule,
+    CustomerModule,
+    PlateReadingModule,
+    ParkingRecordModule,
   ],
   controllers: [],
   providers: [],
