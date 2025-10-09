@@ -30,14 +30,10 @@ export class CreateOccurrenceDTO {
     description: 'ID do veículo vinculado à ocorrência',
     example: 5,
   })
+  @Type(() => Number)
   @IsNotEmpty({ message: 'O ID do veículo não pode estar vazia' })
   @IsNumber()
   public vehicleId: number;
-
-  @ApiProperty({ description: 'URL da imagem', example: 'www.image.com.br' })
-  @IsString()
-  @IsOptional()
-  public urlImage?: string | null;
 
   @ApiProperty({
     description: 'Latitude da localização',

@@ -1,4 +1,13 @@
-import { Body, Param, Query } from '@nestjs/common';
+import {
+  Body,
+  FileTypeValidator,
+  MaxFileSizeValidator,
+  Param,
+  ParseFilePipe,
+  Query,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 
 import { Endpoint } from '@core/base/decorators/endpoint.decorator';
 import { AuthUser } from '@modules/auth/domain/decorators/auth-user.decorator';
@@ -7,6 +16,7 @@ import { OccurrenceService } from '@modules/occurrence/domain/services/occurrenc
 import { OccurrenceEntity } from '@modules/occurrence/domain/entities/occurrence.entity';
 import { CreateOccurrenceDTO } from '@modules/occurrence/domain/dtos/create-occurrence.dto';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @OccurrenceController.default()
 export class DefaultOccurrenceController {
@@ -69,13 +79,24 @@ export class DefaultOccurrenceController {
       },
     ],
   })
+  @UseInterceptors(FileInterceptor('imageFile'))
   public async create(
     @Body() dto: CreateOccurrenceDTO,
     @AuthUser() authUser: UserEntity,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 5 }),
+          new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
+        ],
+      }),
+    )
+    file?: Express.Multer.File,
   ) {
     return await this.service.create.execute({
       dto,
       authUser,
+      file,
     });
   }
 
