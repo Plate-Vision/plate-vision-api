@@ -1,11 +1,9 @@
-// image-upload.service.ts
-
 import { HttpException, Logger } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary';
 import { Readable } from 'stream';
 
-export class ImageUploadProvider {
-  private readonly logger = new Logger(ImageUploadProvider.name);
+export class CreateImageProvider {
+  private readonly logger = new Logger(CreateImageProvider.name);
 
   async execute(
     file: Express.Multer.File, // O tipo de arquivo que o Multer nos dá

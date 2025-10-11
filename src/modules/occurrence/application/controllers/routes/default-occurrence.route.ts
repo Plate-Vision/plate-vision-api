@@ -42,23 +42,23 @@ export class DefaultOccurrenceController {
   //     });
   //   }
 
-  //   @Endpoint.get({
-  //     url: '/:uuid',
-  //     description: 'Listar um único veículo com base em seu uuid',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Dados do veículo',
-  //         status: 200,
-  //         response: VehicleEntity,
-  //       },
-  //     ],
-  //   })
-  //   public async findOne(@Param('uuid') uuid: string) {
-  //     return await this.service.findOne.execute(uuid);
-  //   }
+  @Endpoint.get({
+    url: '/:uuid',
+    description: 'Listar uma única ocorrência com base em seu uuid',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Dados da ocorrência',
+        status: 200,
+        response: OccurrenceEntity,
+      },
+    ],
+  })
+  public async findOne(@Param('uuid') uuid: string) {
+    return await this.service.findOne.execute(uuid);
+  }
 
   @Endpoint.post({
     url: '/',
@@ -135,26 +135,26 @@ export class DefaultOccurrenceController {
   //     });
   //   }
 
-  //   @Endpoint.delete({
-  //     url: '/:uuid',
-  //     description: 'Apagar um veículo com base em seu uuid',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Veículo deletado com sucesso',
-  //         status: 200,
-  //       },
-  //       {
-  //         description: 'Veículo não encontrado',
-  //         status: 404,
-  //       },
-  //     ],
-  //   })
-  //   public async delete(@Param('uuid') uuid: string) {
-  //     return await this.service.delete.execute({
-  //       uuid,
-  //     });
-  //   }
+  @Endpoint.delete({
+    url: '/:uuid',
+    description: 'Apagar uma ocorrência com base em seu uuid',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Ocorrência deletada com sucesso',
+        status: 200,
+      },
+      {
+        description: 'Ocorrência não encontrada',
+        status: 404,
+      },
+    ],
+  })
+  public async delete(@Param('uuid') uuid: string) {
+    return await this.service.delete.execute({
+      uuid,
+    });
+  }
 }

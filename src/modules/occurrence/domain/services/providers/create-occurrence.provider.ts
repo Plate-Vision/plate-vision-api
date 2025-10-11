@@ -41,7 +41,7 @@ export class CreateOccurrenceProvider {
     let imageUrl: string | undefined;
 
     if (file) {
-      imageUrl = await this.occurrenceService.imageUpload.execute(file);
+      imageUrl = await this.occurrenceService.createImage.execute(file);
 
       if (!imageUrl) {
         throw new HttpException('Falha ao processar a imagem', 500);

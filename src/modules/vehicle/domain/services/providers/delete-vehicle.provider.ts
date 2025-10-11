@@ -1,5 +1,4 @@
 import { VehicleRepository } from '@modules/vehicle/infra/repositories/vehicle.repository';
-import { HttpException } from '@nestjs/common';
 
 import { MessagePayload } from '@shared/payloads/message.payload';
 import { VehicleEntity } from '../../entities/vehicle.entity';
