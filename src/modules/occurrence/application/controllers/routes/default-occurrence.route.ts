@@ -17,30 +17,31 @@ import { OccurrenceEntity } from '@modules/occurrence/domain/entities/occurrence
 import { CreateOccurrenceDTO } from '@modules/occurrence/domain/dtos/create-occurrence.dto';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { FindManyOccurrenceDTO } from '@modules/occurrence/domain/dtos/find-many-occurrence.dto';
 
 @OccurrenceController.default()
 export class DefaultOccurrenceController {
   public constructor(private readonly service: OccurrenceService) {}
-  //   @Endpoint.get({
-  //     url: '/',
-  //     description: 'Listar veículos',
-  //     dtoName: 'FindManyVehicleDTO',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Listagem dos veículos',
-  //         status: 200,
-  //         findManyModel: VehicleEntity,
-  //       },
-  //     ],
-  //   })
-  //   public async findMany(@Query() dto: FindManyVehicleDTO) {
-  //     return await this.service.findMany.execute({
-  //       dto,
-  //     });
-  //   }
+  @Endpoint.get({
+    url: '/',
+    description: 'Listar ocorrências',
+    dtoName: 'FindManyOccurrenceDTO',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Listagem das ocorrências',
+        status: 200,
+        findManyModel: OccurrenceEntity,
+      },
+    ],
+  })
+  public async findMany(@Query() dto: FindManyOccurrenceDTO) {
+    return await this.service.findMany.execute({
+      dto,
+    });
+  }
 
   @Endpoint.get({
     url: '/:uuid',

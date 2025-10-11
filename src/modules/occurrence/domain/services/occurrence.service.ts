@@ -6,6 +6,7 @@ import { CreateImageProvider } from './providers/create-image.provider';
 import { FindOneOccurrenceProvider } from './providers/find-one-occurrence.provider';
 import { DeleteImageProvider } from './providers/delete-image.provider';
 import { DeleteOccurrenceProvider } from './providers/delete-occurrence.provider';
+import { FindManyOccurrenceProvider } from './providers/find-many-occurrence.provider';
 
 @Injectable()
 export class OccurrenceService {
@@ -14,6 +15,7 @@ export class OccurrenceService {
   public findOne: FindOneOccurrenceProvider;
   public deleteImage: DeleteImageProvider;
   public delete: DeleteOccurrenceProvider;
+  public findMany: FindManyOccurrenceProvider;
 
   public constructor(
     private readonly occurrenceRepository: OccurrenceRepository,
@@ -28,5 +30,6 @@ export class OccurrenceService {
     this.findOne = new FindOneOccurrenceProvider(this.occurrenceRepository);
     this.deleteImage = new DeleteImageProvider();
     this.delete = new DeleteOccurrenceProvider(this.occurrenceRepository, this);
+    this.findMany = new FindManyOccurrenceProvider(this.occurrenceRepository);
   }
 }
