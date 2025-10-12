@@ -18,6 +18,7 @@ import { CreateOccurrenceDTO } from '@modules/occurrence/domain/dtos/create-occu
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FindManyOccurrenceDTO } from '@modules/occurrence/domain/dtos/find-many-occurrence.dto';
+import { UpdateOccurrenceDTO } from '@modules/occurrence/domain/dtos/update-occurrence.dto';
 
 @OccurrenceController.default()
 export class DefaultOccurrenceController {
@@ -101,40 +102,51 @@ export class DefaultOccurrenceController {
     });
   }
 
-  //   @Endpoint.put({
-  //     url: '/:uuid',
-  //     description: 'Editar um veículo existente utilizando seu uuid',
-  //     dtoName: 'UpdateVehicleDTO',
-  //     roles: [],
-  //     actions: [],
-  //     abilities: [],
-  //     responses: [
-  //       {
-  //         description: 'Veículo editado com sucesso',
-  //         status: 200,
-  //         response: VehicleEntity,
-  //       },
-  //       {
-  //         description: 'Veículo não encontrado',
-  //         status: 404,
-  //       },
-  //       {
-  //         description: 'Ocorreu um erro de validação do objeto enviado',
-  //         status: 412,
-  //       },
-  //     ],
-  //   })
-  //   public async update(
-  //     @Param('uuid') uuid: string,
-  //     @Body() data: UpdateVehicleDTO,
-  //     @AuthUser() authUser: UserEntity,
-  //   ) {
-  //     return await this.service.update.execute({
-  //       uuid,
-  //       data,
-  //       authUser,
-  //     });
-  //   }
+  @Endpoint.put({
+    url: '/:uuid',
+    description: 'Editar uma ocorrência existente utilizando seu uuid',
+    dtoName: 'UpdateOccurrenceDTO',
+    roles: [],
+    actions: [],
+    abilities: [],
+    responses: [
+      {
+        description: 'Ocorrência editada com sucesso',
+        status: 200,
+        response: OccurrenceEntity,
+      },
+      {
+        description: 'Ocorrência não encontrada',
+        status: 404,
+      },
+      {
+        description: 'Ocorreu um erro de validação do objeto enviado',
+        status: 412,
+      },
+    ],
+  })
+  @UseInterceptors(FileInterceptor('imageFile'))
+  public async update(
+    @Param('uuid') uuid: string,
+    @Body() data: UpdateOccurrenceDTO,
+    @AuthUser() authUser: UserEntity,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 5 }),
+          new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
+        ],
+      }),
+    )
+    file?: Express.Multer.File,
+  ) {
+    return await this.service.update.execute({
+      uuid,
+      data,
+      authUser,
+      file,
+    });
+  }
 
   @Endpoint.delete({
     url: '/:uuid',
