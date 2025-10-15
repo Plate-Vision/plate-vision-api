@@ -41,6 +41,14 @@ export class AbilitySeed1734390419270 implements Seeder {
         name: 'Perfis de Usuário',
         reference: EAbilityReference.ROLE,
       },
+      {
+        name: 'Clientes',
+        reference: EAbilityReference.CUSTOMER,
+      },
+      {
+        name: 'Veículos',
+        reference: EAbilityReference.VEHICLE,
+      },
       // warning: add new abilities here whatever of when they are created
     ];
   }
