@@ -1,6 +1,8 @@
 export enum EAbilityReference {
+  DASHBOARD = 'DASHBOARD',
   USER = 'USER',
   ROLE = 'ROLE',
   CUSTOMER = 'CUSTOMER',
   VEHICLE = 'VEHICLE',
+  OCCURRENCE = 'OCCURRENCE',
 }

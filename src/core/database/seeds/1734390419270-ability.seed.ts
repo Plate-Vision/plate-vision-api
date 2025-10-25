@@ -34,6 +34,10 @@ export class AbilitySeed1734390419270 implements Seeder {
   private async getAbilities(): Promise<Array<Partial<AbilityEntity>>> {
     return [
       {
+        name: 'Dashboard',
+        reference: EAbilityReference.DASHBOARD,
+      },
+      {
         name: 'Usuários',
         reference: EAbilityReference.USER,
       },
@@ -48,6 +52,10 @@ export class AbilitySeed1734390419270 implements Seeder {
       {
         name: 'Veículos',
         reference: EAbilityReference.VEHICLE,
+      },
+      {
+        name: 'Ocorrências',
+        reference: EAbilityReference.OCCURRENCE,
       },
       // warning: add new abilities here whatever of when they are created
     ];
