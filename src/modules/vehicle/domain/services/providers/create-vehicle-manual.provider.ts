@@ -1,7 +1,7 @@
 import { VehicleRepository } from '@modules/vehicle/infra/repositories/vehicle.repository';
 import { CreateVehicleDTO } from '../../dtos/create-vehicle.dto';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
-import { ILike, QueryRunner } from 'typeorm';
+import { QueryRunner } from 'typeorm';
 import { VehicleEntity } from '../../entities/vehicle.entity';
 import { HttpException } from '@nestjs/common';
 import { CustomerEntity } from '@modules/customer/domain/entities/customer.entity';
