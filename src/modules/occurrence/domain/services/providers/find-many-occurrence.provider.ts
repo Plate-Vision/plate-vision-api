@@ -31,6 +31,7 @@ export class FindManyOccurrenceProvider {
     const [data, total] = await this.occurrenceRepository.manager.findAndCount({
       where,
       order,
+      relations: { vehicle: true },
       take,
       skip,
     });

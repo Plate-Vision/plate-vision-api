@@ -17,7 +17,7 @@ export class FindOneOccurrenceProvider {
       where: {
         uuid: uuid,
       },
-      relations: ['userCreated', 'userUpdated'],
+      relations: ['userCreated', 'userUpdated', 'vehicle'],
     });
 
     if (occurrence) return occurrence;
