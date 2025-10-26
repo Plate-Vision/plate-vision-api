@@ -15,23 +15,23 @@ export class UpdateRoleProvider {
   public constructor(
     private readonly roleRepository: RoleRepository,
     private readonly abilityRepository: AbilityRepository,
-  ) {}
+  ) { }
 
   public async execute(uuid: string, data: UpdateRoleDTO): Promise<RoleEntity> {
-    await this.validateRoleId(uuid);
+    const roleFound = await this.validateRoleId(uuid);
 
     return await this.roleRepository.transaction(async (queryRunner) => {
-      await queryRunner.manager.delete(RoleAbilityEntity, { role: { uuid } });
+      await queryRunner.manager.delete(RoleAbilityEntity, { role: { id: roleFound.id } });
 
       const role = this.serializeRole(data);
 
       const roleAbilities = await this.serializeRoleAbilities(
-        uuid,
+        roleFound.id,
         data.abilities,
       );
 
       const [_, roleAbilitiesSaved] = await Promise.all([
-        queryRunner.manager.update(RoleEntity, uuid, role),
+        queryRunner.manager.update(RoleEntity, { uuid }, role),
         queryRunner.manager.save(RoleAbilityEntity, roleAbilities),
       ]);
 
@@ -49,7 +49,7 @@ export class UpdateRoleProvider {
   }
 
   private async serializeRoleAbilities(
-    roleId: string,
+    roleId: number,
     abilities: Array<UpdateRoleAbilitiesDTO>,
   ): Promise<Array<RoleAbilityEntity>> {
     const foundAbilities = await this.findAbilities(
@@ -85,10 +85,11 @@ export class UpdateRoleProvider {
     });
   }
 
-  private async validateRoleId(uuid: string): Promise<void> {
+  private async validateRoleId(uuid: string): Promise<RoleEntity> {
     const roleFound = await this.roleRepository.manager.findOne({
       select: {
         id: true,
+        uuid: true,
       },
       where: {
         uuid,
@@ -96,5 +97,7 @@ export class UpdateRoleProvider {
     });
 
     if (!roleFound) throw new HttpException('Perfil não encontrado', 404);
+
+    return roleFound;
   }
 }

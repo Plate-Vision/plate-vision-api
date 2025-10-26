@@ -2,7 +2,7 @@ import { ControllerDecorator } from '@core/base/decorators/route.decorator';
 
 class Controller extends ControllerDecorator {
   public constructor() {
-    super('customers', 'Gerenciamento de clientes');
+    super('clientes', 'Gerenciamento de clientes');
   }
 
   public default() {

@@ -15,6 +15,7 @@ import { CustomerModule } from '@modules/customer/customer.module';
 import { ParkingRecordModule } from '@modules/parking-record/parking-record.module';
 import { PlateReadingModule } from '@modules/plate-reading/plate-reading.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { OccurrenceModule } from '@modules/occurrence/occurrence.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     CustomerModule,
     PlateReadingModule,
     ParkingRecordModule,
+    OccurrenceModule,
   ],
   controllers: [],
   providers: [],
