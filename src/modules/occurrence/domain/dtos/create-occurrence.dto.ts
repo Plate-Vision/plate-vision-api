@@ -39,6 +39,7 @@ export class CreateOccurrenceDTO {
     description: 'Latitude da localização',
     example: '-23.550520',
   })
+  @Type(() => Number)
   @IsNumber(
     { maxDecimalPlaces: 8 },
     { message: 'A latitude deve ter no máximo 8 casas decimais.' },
@@ -50,6 +51,7 @@ export class CreateOccurrenceDTO {
     description: 'Longitude da localização',
     example: '-46.6333080',
   })
+  @Type(() => Number)
   @IsNumber(
     { maxDecimalPlaces: 8 },
     { message: 'A longitude deve ter no máximo 8 casas decimais.' },

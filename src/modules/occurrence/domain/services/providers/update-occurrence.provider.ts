@@ -26,7 +26,7 @@ export class UpdateOccurrenceProvider {
       throw new HttpException('Ocorrência inativa não pode ser editada', 400);
     }
 
-    let newUrlImage: string | null = occurrence.urlImage;
+    let newUrlImage: string | null = occurrence.urlImage ?? null;
 
     if (data.file) {
       if (occurrence.urlImage) {
@@ -38,8 +38,8 @@ export class UpdateOccurrenceProvider {
           await this.occurrenceService.deleteImage.execute(publicId);
         }
       }
+      newUrlImage = await this.occurrenceService.createImage.execute(data.file);
     }
-    newUrlImage = await this.occurrenceService.createImage.execute(data.file);
 
     return await this.occurrenceRepository.transaction(async (query) => {
       const updateOccurrence = await query.manager.save(
