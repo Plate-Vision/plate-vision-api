@@ -30,6 +30,9 @@ services:
       - "8000:8000"
     depends_on:
       - app
+      - db
+    networks:
+      - default_net
 
   db:
     container_name: plate-vision-database
