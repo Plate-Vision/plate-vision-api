@@ -15,7 +15,7 @@ export class CreateParkingRecordManualProvider {
     private readonly parkingRecordRepository: ParkingRecordRepository,
     private readonly vehicleService: VehicleService,
     private readonly parkingRecordService: ParkingRecordService,
-  ) {}
+  ) { }
 
   public async execute({
     dto,
@@ -27,7 +27,7 @@ export class CreateParkingRecordManualProvider {
     queryRunner?: QueryRunner;
   }): Promise<ParkingRecordEntity> {
     const vehicle = await this.vehicleService.findOne.executeById({
-      id: dto.vehicleId,
+      id: dto.vehicle.id,
     });
 
     if (vehicle.status === EVehicleStatus.INACTIVE) {
@@ -41,7 +41,7 @@ export class CreateParkingRecordManualProvider {
       );
     }
 
-    await this.validateParkingRecord(dto.vehicleId);
+    await this.validateParkingRecord(dto.vehicle);
 
     if (queryRunner) {
       return await this.saveParkingRecordWithTransaction(
@@ -56,9 +56,11 @@ export class CreateParkingRecordManualProvider {
     });
   }
 
-  private async validateParkingRecord(id: number) {
+  private async validateParkingRecord(vehicle: VehicleEntity) {
     const parkingRecord =
-      await this.parkingRecordService.findOne.executeByLastOneVehicle(id);
+      await this.parkingRecordService.findOne.executeByLastOneVehicle(vehicle.id);
+
+    console.log('parkingRecord: ', parkingRecord);
 
     if (parkingRecord && parkingRecord.exitTime === null) {
       throw new HttpException(
@@ -82,9 +84,10 @@ export class CreateParkingRecordManualProvider {
   }
 
   private async serialize(dto: CreateParkingRecordDTO, authUser: UserEntity) {
+    console.log('dto: ', dto);
     return {
       ...dto,
-      vehicle: { id: dto.vehicleId } as VehicleEntity,
+      vehicle: dto.vehicle,
       userCreated: authUser,
       entrySource: EParkingRecordSource.MA,
     };
