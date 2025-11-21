@@ -60,8 +60,6 @@ export class CreateParkingRecordManualProvider {
     const parkingRecord =
       await this.parkingRecordService.findOne.executeByLastOneVehicle(vehicle.id);
 
-    console.log('parkingRecord: ', parkingRecord);
-
     if (parkingRecord && parkingRecord.exitTime === null) {
       throw new HttpException(
         'Já existe um registro para esse veículo sem data e hora de saída',
@@ -84,7 +82,6 @@ export class CreateParkingRecordManualProvider {
   }
 
   private async serialize(dto: CreateParkingRecordDTO, authUser: UserEntity) {
-    console.log('dto: ', dto);
     return {
       ...dto,
       vehicle: dto.vehicle,

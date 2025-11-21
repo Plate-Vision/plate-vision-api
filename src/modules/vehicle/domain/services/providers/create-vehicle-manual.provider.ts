@@ -36,8 +36,6 @@ export class CreateVehicleManualProvider {
       );
     }
 
-    console.log('dto.customer: ', dto.customer);
-
     if (dto.customer) {
       const customer = await this.customerService.findOne.executeById({
         id: dto.customer.id,
@@ -74,7 +72,6 @@ export class CreateVehicleManualProvider {
   }
 
   private async serialize(dto: CreateVehicleDTO, authUser: UserEntity) {
-    console.log('dto: ', dto);
     const serializedData: Partial<VehicleEntity> = {
       ...dto,
       userCreated: authUser,
