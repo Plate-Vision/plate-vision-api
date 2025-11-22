@@ -1,14 +1,14 @@
+import { VehicleEntity } from '@modules/vehicle/domain/entities/vehicle.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsDate, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateParkingRecordDTO {
   @ApiProperty({
-    description: 'ID do veículo',
-    example: 5,
+    description: 'Veículo associado ao registro de estacionamento',
+    type: VehicleEntity,
   })
-  @IsNumber()
-  public vehicleId: number;
+  public vehicle?: VehicleEntity;
 
   @ApiProperty({
     description: 'ID da leitura do dado IA',
@@ -17,6 +17,14 @@ export class CreateParkingRecordDTO {
   @IsNumber()
   @IsOptional()
   public entryReadingId?: number | null;
+
+  @ApiProperty({
+    description: 'ID do usuário que criou o registro',
+    example: 10,
+  })
+  @IsNumber()
+  @IsOptional()
+  public vehicleId: number;
 
   @ApiProperty({
     description: 'Data de entrada do veículo',

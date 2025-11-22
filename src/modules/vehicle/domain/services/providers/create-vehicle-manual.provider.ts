@@ -15,7 +15,7 @@ export class CreateVehicleManualProvider {
     private readonly vehicleRepository: VehicleRepository,
     private readonly customerService: CustomerService,
     private readonly vehicleService: VehicleService,
-  ) {}
+  ) { }
 
   public async execute({
     dto,
@@ -36,9 +36,9 @@ export class CreateVehicleManualProvider {
       );
     }
 
-    if (dto.customerId) {
+    if (dto.customer) {
       const customer = await this.customerService.findOne.executeById({
-        id: dto.customerId,
+        id: dto.customer.id,
       });
 
       if (customer.status === ECustomerStatus.INACTIVE) {
@@ -75,13 +75,10 @@ export class CreateVehicleManualProvider {
     const serializedData: Partial<VehicleEntity> = {
       ...dto,
       userCreated: authUser,
+      customer: dto.customer ?? null,
       source: EVehicleSource.MA,
       licensePlate: dto.licensePlate.toUpperCase(),
     };
-
-    if (dto.customerId) {
-      serializedData.customer = { id: dto.customerId } as CustomerEntity;
-    }
 
     return serializedData;
   }

@@ -1,3 +1,4 @@
+import { CustomerEntity } from '@modules/customer/domain/entities/customer.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
@@ -46,10 +47,8 @@ export class CreateVehicleDTO {
   public isServiceVehicle?: boolean;
 
   @ApiProperty({
-    description: 'ID do cliente ao qual o veículo pertence',
-    example: 5,
+    description: 'Cliente ao qual o veículo pertence',
   })
-  @IsNumber()
   @IsOptional()
-  public customerId?: number;
+  public customer?: CustomerEntity;
 }

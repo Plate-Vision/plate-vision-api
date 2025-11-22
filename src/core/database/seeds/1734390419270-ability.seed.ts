@@ -34,8 +34,8 @@ export class AbilitySeed1734390419270 implements Seeder {
   private async getAbilities(): Promise<Array<Partial<AbilityEntity>>> {
     return [
       {
-        name: 'Dashboard',
-        reference: EAbilityReference.DASHBOARD,
+        name: 'Registro de Placas',
+        reference: EAbilityReference.PARKING_RECORD,
       },
       {
         name: 'Usuários',

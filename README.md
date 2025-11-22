@@ -7,7 +7,7 @@ Aplicação back-end com NestJS, TypeORM e Typescript.
 ### Com Docker
 
 ```bash
-$ docker-compose up -d --build
+$ docker compose up -d --build
 ```
 
 ### Sem Docker
