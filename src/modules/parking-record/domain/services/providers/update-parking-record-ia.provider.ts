@@ -1,6 +1,5 @@
 import { HttpException } from '@nestjs/common';
 
-import { ParkingRecordRepository } from '@modules/parking-record/infra/repositories/parking-record.repository';
 import { UpdateParkingRecordDTO } from '../../dtos/update-parking-record.dto';
 import { ParkingRecordEntity } from '../../entities/parking-record.entity';
 import { EParkingRecordSource } from '../../enums/parking-record-source.enum';
@@ -9,7 +8,6 @@ import { ParkingRecordService } from '../parking-record.service';
 
 export class UpdateParkingRecordIaProvider {
   public constructor(
-    private readonly parkingRecordRepository: ParkingRecordRepository,
     private readonly parkingRecordService: ParkingRecordService,
   ) {}
 

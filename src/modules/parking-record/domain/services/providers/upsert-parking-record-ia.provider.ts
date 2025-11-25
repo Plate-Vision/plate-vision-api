@@ -4,14 +4,12 @@ import { CreateParkingRecordDTO } from '../../dtos/create-parking-record.dto';
 import { QueryRunner } from 'typeorm';
 import { EParkingRecordSource } from '../../enums/parking-record-source.enum';
 import { VehicleEntity } from '@modules/vehicle/domain/entities/vehicle.entity';
-import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
 import { ParkingRecordService } from '../parking-record.service';
 import { UpdateParkingRecordDTO } from '../../dtos/update-parking-record.dto';
 
 export class UpsertParkingRecordIaProvider {
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
-    private readonly vehicleService: VehicleService,
     private readonly parkingRecordService: ParkingRecordService,
   ) {}
 
@@ -24,13 +22,8 @@ export class UpsertParkingRecordIaProvider {
     dtoUpdate: UpdateParkingRecordDTO;
     queryRunner?: QueryRunner;
   }): Promise<ParkingRecordEntity> {
-    const vehicle = await this.vehicleService.findOne.executeById({
-      id: dto.vehicleId,
-      queryRunner,
-    });
-
     const parkingRecordUpdate = await this.validateParkingRecord(
-      vehicle.id,
+      dto.vehicle,
       dtoUpdate,
       queryRunner,
     );
@@ -49,14 +42,14 @@ export class UpsertParkingRecordIaProvider {
   }
 
   private async validateParkingRecord(
-    id: number,
+    vehicle: VehicleEntity,
     dto: UpdateParkingRecordDTO,
     queryRunner?: QueryRunner,
   ) {
     let parkingRecord: ParkingRecordEntity | null;
 
     parkingRecord = await queryRunner.manager.findOne(ParkingRecordEntity, {
-      where: { vehicle: { id } },
+      where: { vehicle: { id: vehicle.id } },
       order: { id: 'DESC' },
     });
 
@@ -84,7 +77,7 @@ export class UpsertParkingRecordIaProvider {
   private async serialize(dto: CreateParkingRecordDTO) {
     return {
       ...dto,
-      vehicle: { id: dto.vehicleId } as VehicleEntity,
+      vehicle: dto.vehicle,
       entrySource: EParkingRecordSource.AI,
       entryReading: { id: dto.entryReadingId },
     };

@@ -15,7 +15,7 @@ export class CreateParkingRecordManualProvider {
     private readonly parkingRecordRepository: ParkingRecordRepository,
     private readonly vehicleService: VehicleService,
     private readonly parkingRecordService: ParkingRecordService,
-  ) { }
+  ) {}
 
   public async execute({
     dto,
@@ -41,6 +41,7 @@ export class CreateParkingRecordManualProvider {
       );
     }
 
+    await this.validateDate(dto);
     await this.validateParkingRecord(dto.vehicle);
 
     if (queryRunner) {
@@ -58,12 +59,23 @@ export class CreateParkingRecordManualProvider {
 
   private async validateParkingRecord(vehicle: VehicleEntity) {
     const parkingRecord =
-      await this.parkingRecordService.findOne.executeByLastOneVehicle(vehicle.id);
+      await this.parkingRecordService.findOne.executeByLastOneVehicle(
+        vehicle.id,
+      );
 
     if (parkingRecord && parkingRecord.exitTime === null) {
       throw new HttpException(
         'Já existe um registro para esse veículo sem data e hora de saída',
         422,
+      );
+    }
+  }
+
+  private async validateDate(dto: CreateParkingRecordDTO) {
+    if (dto.entryTime && dto.exitTime && dto.exitTime < dto.entryTime) {
+      throw new HttpException(
+        'A data e hora de saída não pode ser menor que a data e hora de entrada',
+        412,
       );
     }
   }
@@ -87,6 +99,7 @@ export class CreateParkingRecordManualProvider {
       vehicle: dto.vehicle,
       userCreated: authUser,
       entrySource: EParkingRecordSource.MA,
+      exitSource: dto.exitTime ? EParkingRecordSource.MA : null,
     };
   }
 }
