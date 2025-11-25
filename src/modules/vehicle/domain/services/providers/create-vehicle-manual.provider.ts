@@ -15,7 +15,7 @@ export class CreateVehicleManualProvider {
     private readonly vehicleRepository: VehicleRepository,
     private readonly customerService: CustomerService,
     private readonly vehicleService: VehicleService,
-  ) { }
+  ) {}
 
   public async execute({
     dto,
@@ -36,17 +36,11 @@ export class CreateVehicleManualProvider {
       );
     }
 
-    if (dto.customer) {
-      const customer = await this.customerService.findOne.executeById({
-        id: dto.customer.id,
-      });
-
-      if (customer.status === ECustomerStatus.INACTIVE) {
-        throw new HttpException(
-          'Não é possível vincular um veículo a um cliente inativo',
-          412,
-        );
-      }
+    if (dto.customer && dto.customer.status === ECustomerStatus.INACTIVE) {
+      throw new HttpException(
+        'Não é possível vincular um veículo a um cliente inativo',
+        412,
+      );
     }
 
     if (queryRunner) {

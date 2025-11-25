@@ -27,11 +27,7 @@ export class CreateOccurrenceProvider {
     queryRunner?: QueryRunner;
     file?: Express.Multer.File;
   }): Promise<OccurrenceEntity> {
-    const vehicle = await this.vehicleService.findOne.executeById({
-      id: dto.vehicleId,
-    });
-
-    if (vehicle.status === EVehicleStatus.INACTIVE) {
+    if (dto.vehicle.status === EVehicleStatus.INACTIVE) {
       throw new HttpException(
         'Não é possível vincular uma ocorrência a um veículo inativo',
         412,
@@ -89,7 +85,7 @@ export class CreateOccurrenceProvider {
     const serializedData: Partial<OccurrenceEntity> = {
       ...dto,
       userCreated: authUser,
-      vehicle: { id: dto.vehicleId } as VehicleEntity,
+      vehicle: dto.vehicle,
     };
 
     if (imageUrl) {
