@@ -7,14 +7,19 @@ import { RoleAbilityEntity } from '@modules/role/domain/entities/role-ability.en
 import { RoleRepository } from '@modules/role/infra/repositories/role.repository';
 
 export class DeleteRoleProvider {
-  public constructor(private readonly roleRepository: RoleRepository) {}
+  public constructor(private readonly roleRepository: RoleRepository) { }
 
   public async execute(uuid: string): Promise<MessagePayload> {
-    await this.validate(uuid);
+    const role = await this.validate(uuid);
 
     await this.roleRepository.transaction(async (queryRunner) => {
       await Promise.all([
-        queryRunner.manager.delete(RoleAbilityEntity, { role: { uuid } }),
+        queryRunner.manager
+          .createQueryBuilder()
+          .delete()
+          .from(RoleAbilityEntity)
+          .where('role_id = :roleId', { roleId: role.id })
+          .execute(),
         queryRunner.manager.softDelete(RoleEntity, { uuid }),
       ]);
     });
@@ -22,16 +27,15 @@ export class DeleteRoleProvider {
     return { message: 'Perfil de usuário excluído com sucesso' };
   }
 
-  private async validate(uuid: string): Promise<void> {
+  private async validate(uuid: string): Promise<RoleEntity> {
     const roleFound = await this.roleRepository.manager.findOne({
       select: {
         id: true,
-        users: true,
+        uuid: true,
       },
       where: {
         uuid,
       },
-      relations: ['users'],
     });
 
     if (!roleFound)
@@ -39,5 +43,6 @@ export class DeleteRoleProvider {
 
     if (roleFound.users && roleFound.users.length)
       throw new HttpException('Perfil de usuário em uso', 422);
+    return roleFound;
   }
 }
