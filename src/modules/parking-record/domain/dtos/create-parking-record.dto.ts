@@ -11,7 +11,7 @@ export class CreateParkingRecordDTO {
   public vehicle?: VehicleEntity;
 
   @ApiProperty({
-    description: 'ID da leitura do dado IA',
+    description: 'ID da leitura de entrada do dado IA',
     example: 5,
   })
   @IsNumber()
@@ -28,7 +28,7 @@ export class CreateParkingRecordDTO {
   public entryTime: Date;
 
   @ApiProperty({
-    description: 'ID da leitura do dado IA',
+    description: 'ID da leitura de saída do dado IA',
     example: 5,
   })
   @IsNumber()
@@ -36,7 +36,7 @@ export class CreateParkingRecordDTO {
   public exitReadingId?: number | null;
 
   @ApiProperty({
-    description: 'Data de entrada do veículo',
+    description: 'Data de saída do veículo',
     example: '2023-01-01T00:00:00Z',
   })
   @Type(() => Date)
