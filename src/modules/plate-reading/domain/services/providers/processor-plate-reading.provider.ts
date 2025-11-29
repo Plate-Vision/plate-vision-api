@@ -52,12 +52,12 @@ export class ProcessorPlateReadingProvider {
       if (vehicle && vehicle.isServiceVehicle === false) {
         await this.parkingRecordService.upsertIa.execute({
           dto: {
-            vehicleId: vehicle.id,
+            vehicle: vehicle,
             entryTime: plate.createdAt,
             entryReadingId: plate.id,
           },
           dtoUpdate: {
-            vehicleId: vehicle.id,
+            vehicle: vehicle,
             entryTime: plate.createdAt,
             entryReadingId: plate.id,
             exitTime: plate.createdAt,

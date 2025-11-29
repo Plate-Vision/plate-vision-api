@@ -11,20 +11,12 @@ export class CreateParkingRecordDTO {
   public vehicle?: VehicleEntity;
 
   @ApiProperty({
-    description: 'ID da leitura do dado IA',
+    description: 'ID da leitura de entrada do dado IA',
     example: 5,
   })
   @IsNumber()
   @IsOptional()
   public entryReadingId?: number | null;
-
-  @ApiProperty({
-    description: 'ID do usuário que criou o registro',
-    example: 10,
-  })
-  @IsNumber()
-  @IsOptional()
-  public vehicleId: number;
 
   @ApiProperty({
     description: 'Data de entrada do veículo',
@@ -34,4 +26,21 @@ export class CreateParkingRecordDTO {
   @IsDate()
   @IsNotEmpty({ message: 'A data e hora de entrada não pode estar vazia' })
   public entryTime: Date;
+
+  @ApiProperty({
+    description: 'ID da leitura de saída do dado IA',
+    example: 5,
+  })
+  @IsNumber()
+  @IsOptional()
+  public exitReadingId?: number | null;
+
+  @ApiProperty({
+    description: 'Data de saída do veículo',
+    example: '2023-01-01T00:00:00Z',
+  })
+  @Type(() => Date)
+  @IsDate()
+  @IsOptional()
+  public exitTime?: Date | null;
 }

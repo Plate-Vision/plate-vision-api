@@ -38,6 +38,7 @@ export class FindManyVehicleProvider {
       order,
       take,
       skip,
+      relations: ['customer'],
     });
 
     const pages = total ? Math.round(total / (take || total)) : 0;

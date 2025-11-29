@@ -1,3 +1,4 @@
+import { VehicleEntity } from '@modules/vehicle/domain/entities/vehicle.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
@@ -27,13 +28,10 @@ export class CreateOccurrenceDTO {
   public occurrenceTime: Date;
 
   @ApiProperty({
-    description: 'ID do veículo vinculado à ocorrência',
-    example: 5,
+    description: 'Veículo associado à ocorrência',
+    type: VehicleEntity,
   })
-  @Type(() => Number)
-  @IsNotEmpty({ message: 'O ID do veículo não pode estar vazia' })
-  @IsNumber()
-  public vehicleId: number;
+  public vehicle: VehicleEntity;
 
   @ApiProperty({
     description: 'Latitude da localização',
