@@ -11,6 +11,7 @@ import {
 
 import { Endpoint } from '@core/base/decorators/endpoint.decorator';
 import { AuthUser } from '@modules/auth/domain/decorators/auth-user.decorator';
+import { ParseJsonFieldsInterceptor } from '@core/base/interceptors/parse-json-fields.interceptor';
 import { OccurrenceController } from '../../decorators/occurrence-controller.decorator';
 import { OccurrenceService } from '@modules/occurrence/domain/services/occurrence.service';
 import { OccurrenceEntity } from '@modules/occurrence/domain/entities/occurrence.entity';
@@ -81,7 +82,10 @@ export class DefaultOccurrenceController {
       },
     ],
   })
-  @UseInterceptors(FileInterceptor('imageFile'))
+  @UseInterceptors(
+    FileInterceptor('imageFile'),
+    new ParseJsonFieldsInterceptor(['vehicle']),
+  )
   public async create(
     @Body() dto: CreateOccurrenceDTO,
     @AuthUser() authUser: UserEntity,
@@ -126,7 +130,10 @@ export class DefaultOccurrenceController {
       },
     ],
   })
-  @UseInterceptors(FileInterceptor('imageFile'))
+  @UseInterceptors(
+    FileInterceptor('imageFile'),
+    new ParseJsonFieldsInterceptor(['vehicle']),
+  )
   public async update(
     @Param('uuid') uuid: string,
     @Body() data: UpdateOccurrenceDTO,
