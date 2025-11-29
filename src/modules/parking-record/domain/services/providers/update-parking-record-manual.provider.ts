@@ -42,8 +42,14 @@ export class UpdateParkingRecordManualProvider {
     newValues: UpdateParkingRecordDTO,
     originalRecord: ParkingRecordEntity,
   ) {
-    const finalEntryTime = newValues.entryTime || originalRecord.entryTime;
-    const finalExitTime = newValues.exitTime || originalRecord.exitTime;
+    const finalEntryTime =
+      newValues.entryTime !== undefined
+        ? newValues.entryTime
+        : originalRecord.entryTime;
+    const finalExitTime =
+      newValues.exitTime !== undefined
+        ? newValues.exitTime
+        : originalRecord.exitTime;
 
     if (finalEntryTime && finalExitTime && finalExitTime < finalEntryTime) {
       throw new HttpException(
@@ -58,15 +64,19 @@ export class UpdateParkingRecordManualProvider {
     data: UpdateParkingRecordDTO,
     user: UserEntity,
   ) {
-    return plainToInstance(
-      ParkingRecordEntity,
-      {
-        ...parkingRecord,
-        ...data,
-        userUpdated: user,
-        exitSource: EParkingRecordSource.MA,
-      },
-      { ignoreDecorators: true },
-    );
+    const updatedData = {
+      ...parkingRecord,
+      ...data,
+      userUpdated: user,
+      exitSource: EParkingRecordSource.MA,
+    };
+
+    if (!data.exitTime) {
+      updatedData.exitTime = null;
+    }
+
+    return plainToInstance(ParkingRecordEntity, updatedData, {
+      ignoreDecorators: true,
+    });
   }
 }

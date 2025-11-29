@@ -36,17 +36,11 @@ export class CreateVehicleManualProvider {
       );
     }
 
-    if (dto.customerId) {
-      const customer = await this.customerService.findOne.executeById({
-        id: dto.customerId,
-      });
-
-      if (customer.status === ECustomerStatus.INACTIVE) {
-        throw new HttpException(
-          'Não é possível vincular um veículo a um cliente inativo',
-          412,
-        );
-      }
+    if (dto.customer && dto.customer.status === ECustomerStatus.INACTIVE) {
+      throw new HttpException(
+        'Não é possível vincular um veículo a um cliente inativo',
+        412,
+      );
     }
 
     if (queryRunner) {
@@ -75,13 +69,10 @@ export class CreateVehicleManualProvider {
     const serializedData: Partial<VehicleEntity> = {
       ...dto,
       userCreated: authUser,
+      customer: dto.customer ?? null,
       source: EVehicleSource.MA,
       licensePlate: dto.licensePlate.toUpperCase(),
     };
-
-    if (dto.customerId) {
-      serializedData.customer = { id: dto.customerId } as CustomerEntity;
-    }
 
     return serializedData;
   }

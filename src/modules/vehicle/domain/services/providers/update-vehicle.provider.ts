@@ -24,9 +24,9 @@ export class UpdateVehicleProvider {
   }): Promise<VehicleEntity> {
     const vehicle = await this.vehicleService.findOne.execute(data.uuid);
 
-    if (data.data.customerId) {
+    if (data.data.customer?.id) {
       const customer = await this.customerService.findOne.executeById({
-        id: data.data.customerId,
+        id: data.data.customer.id,
       });
 
       if (customer.status === ECustomerStatus.INACTIVE) {
@@ -67,7 +67,12 @@ export class UpdateVehicleProvider {
   ) {
     return plainToInstance(
       VehicleEntity,
-      { ...vehicle, ...data, userUpdated: user, customer: data.customerId },
+      {
+        ...vehicle,
+        ...data,
+        userUpdated: user,
+        customer: data.customer ?? null,
+      },
       { ignoreDecorators: true },
     );
   }

@@ -45,12 +45,8 @@ export class ParkingRecordService {
     );
     this.upsertIa = new UpsertParkingRecordIaProvider(
       this.parkingRecordRepository,
-      this.vehicleService,
       this,
     );
-    this.updateIa = new UpdateParkingRecordIaProvider(
-      this.parkingRecordRepository,
-      this,
-    );
+    this.updateIa = new UpdateParkingRecordIaProvider(this);
   }
 }
