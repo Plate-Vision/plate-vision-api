@@ -1,4 +1,4 @@
-import { HttpException } from '@nestjs/common';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 export function validateParkingPeriod(
   entryTime: Date,
@@ -7,7 +7,7 @@ export function validateParkingPeriod(
   if (entryTime && exitTime && exitTime < entryTime) {
     throw new HttpException(
       'A data e hora de saída não pode ser menor que a data e hora de entrada',
-      412,
+      HttpStatus.PRECONDITION_FAILED,
     );
   }
 }

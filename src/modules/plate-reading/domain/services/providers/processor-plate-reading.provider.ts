@@ -1,4 +1,4 @@
-import { HttpException, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { QueryRunner } from 'typeorm';
 import { FindManyPlateReadingProvider } from './find-many-plate-reading.provider';
 import { UpdatePlateReadingProvider } from './update-plate-reading.provider';
@@ -37,7 +37,10 @@ export class ProcessorPlateReadingProvider {
       );
     } catch (error) {
       this.logger.error('Falha ao processar as leituras de placa', error.stack);
-      throw new HttpException('Falha ao processar as leituras de placa', 404);
+      throw new HttpException(
+        'Falha ao processar as leituras de placa',
+        HttpStatus.NOT_FOUND,
+      );
     }
   }
 
