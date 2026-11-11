@@ -17,14 +17,15 @@ export class PlateReadingService {
     private readonly vehicleService: VehicleService,
     private readonly parkingRecordService: ParkingRecordService,
   ) {
-    this.processor = new ProcessorPlateReadingProvider(
-      this,
-      this.vehicleService,
-      this.parkingRecordService,
-      this.plateReadingRepository,
-    );
     this.update = new UpdatePlateReadingProvider(this.plateReadingRepository);
     this.findMany = new FindManyPlateReadingProvider(
+      this.plateReadingRepository,
+    );
+    this.processor = new ProcessorPlateReadingProvider(
+      this.findMany,
+      this.update,
+      this.vehicleService.createIa,
+      this.parkingRecordService.upsertIa,
       this.plateReadingRepository,
     );
   }

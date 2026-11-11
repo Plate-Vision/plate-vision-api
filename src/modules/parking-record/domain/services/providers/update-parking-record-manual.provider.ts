@@ -6,12 +6,12 @@ import { ParkingRecordRepository } from '@modules/parking-record/infra/repositor
 import { UpdateParkingRecordDTO } from '../../dtos/update-parking-record.dto';
 import { ParkingRecordEntity } from '../../entities/parking-record.entity';
 import { EParkingRecordSource } from '../../enums/parking-record-source.enum';
-import { ParkingRecordService } from '../parking-record.service';
+import { FindOneParkingRecordProvider } from './find-one-parking-record.provider';
 
 export class UpdateParkingRecordManualProvider {
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
-    private readonly parkingRecordService: ParkingRecordService,
+    private readonly findOneParkingRecord: FindOneParkingRecordProvider,
   ) {}
 
   public async execute(data: {
@@ -19,7 +19,7 @@ export class UpdateParkingRecordManualProvider {
     data: UpdateParkingRecordDTO;
     authUser: UserEntity;
   }): Promise<ParkingRecordEntity> {
-    const parkingRecord = await this.parkingRecordService.findOne.execute({
+    const parkingRecord = await this.findOneParkingRecord.execute({
       uuid: data.uuid,
     });
 

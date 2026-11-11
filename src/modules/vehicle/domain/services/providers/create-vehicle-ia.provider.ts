@@ -3,12 +3,12 @@ import { CreateVehicleDTO } from '../../dtos/create-vehicle.dto';
 import { QueryRunner } from 'typeorm';
 import { VehicleEntity } from '../../entities/vehicle.entity';
 import { EVehicleSource } from '../../enums/vehicle-source.enum';
-import { VehicleService } from '../vehicle.service';
+import { FindOneVehicleProvider } from './find-one-vehicle.provider';
 
 export class CreateVehicleIaProvider {
   public constructor(
     private readonly vehicleRepository: VehicleRepository,
-    private readonly vehicleService: VehicleService,
+    private readonly findOneVehicle: FindOneVehicleProvider,
   ) {}
 
   public async execute({
@@ -18,11 +18,10 @@ export class CreateVehicleIaProvider {
     dto: CreateVehicleDTO;
     queryRunner?: QueryRunner;
   }): Promise<VehicleEntity> {
-    const vehicleForUpdate =
-      await this.vehicleService.findOne.executeByLicensePlate(
-        dto.licensePlate,
-        queryRunner,
-      );
+    const vehicleForUpdate = await this.findOneVehicle.executeByLicensePlate(
+      dto.licensePlate,
+      queryRunner,
+    );
 
     if (vehicleForUpdate) {
       return vehicleForUpdate;

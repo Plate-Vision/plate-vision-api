@@ -34,6 +34,9 @@ export class VehicleService {
       this.customerService,
       this,
     );
-    this.createIa = new CreateVehicleIaProvider(this.vehicleRepository, this);
+    this.createIa = new CreateVehicleIaProvider(
+      this.vehicleRepository,
+      this.findOne,
+    );
   }
 }
