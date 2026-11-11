@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { afterEach, describe, expect, it, jest } from '@jest/globals';
 import { Logger } from '@nestjs/common';
+import { Test } from '@nestjs/testing';
 import { QueryRunner } from 'typeorm';
 import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
 import { VehicleRepository } from '@modules/vehicle/infra/repositories/vehicle.repository';
@@ -85,5 +86,69 @@ describe('Service composition', () => {
     expect(save).toHaveBeenLastCalledWith(PlateReadingEntity, [
       expect.objectContaining({ id: 1, processedAt: expect.any(Date) }),
     ]);
+  });
+});
+
+describe('Nest dependency initialization', () => {
+  it('initializes every provider before processing the first reading', async () => {
+    jest.spyOn(Logger.prototype, 'log').mockImplementation(() => undefined);
+    jest.spyOn(Logger.prototype, 'error').mockImplementation(() => undefined);
+    const reading = {
+      id: 1,
+      licensePlate: 'ABC1D23',
+      createdAt: new Date('2026-01-01T12:00:00Z'),
+    };
+    const vehicle = { id: 2, licensePlate: 'ABC1D23', isServiceVehicle: false };
+    const save = jest
+      .fn<(entity: unknown, data: unknown) => Promise<unknown>>()
+      .mockImplementation(async (_entity, data) => data);
+    const runner = {
+      manager: {
+        findOne: jest
+          .fn<() => Promise<unknown>>()
+          .mockResolvedValueOnce(vehicle)
+          .mockResolvedValue(null),
+        save,
+      },
+    };
+    const transaction = jest
+      .fn<
+        (work: (query: QueryRunner) => Promise<unknown>) => Promise<unknown>
+      >()
+      .mockImplementation((work) => work(runner as unknown as QueryRunner));
+    const module = await Test.createTestingModule({
+      providers: [
+        PlateReadingService,
+        ParkingRecordService,
+        VehicleService,
+        { provide: CustomerService, useValue: {} },
+        {
+          provide: PlateReadingRepository,
+          useValue: {
+            manager: {
+              find: jest
+                .fn<() => Promise<unknown>>()
+                .mockResolvedValue([reading]),
+            },
+            transaction,
+          },
+        },
+        { provide: VehicleRepository, useValue: { manager: {} } },
+        { provide: ParkingRecordRepository, useValue: { transaction } },
+      ],
+    }).compile();
+    await module.init();
+    try {
+      const readings = module.get(PlateReadingService);
+      await expect(readings.processor.execute()).resolves.toEqual({
+        message: 'Dados atualizados com sucesso',
+      });
+      expect(save).toHaveBeenCalledWith(
+        ParkingRecordEntity,
+        expect.objectContaining({ entryReading: { id: 1 } }),
+      );
+    } finally {
+      await module.close();
+    }
   });
 });

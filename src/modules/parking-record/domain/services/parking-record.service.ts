@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateParkingRecordManualProvider } from './providers/create-parking-record-manual.provider';
 import { ParkingRecordRepository } from '@modules/parking-record/infra/repositories/parking-record.repository';
 import { UpdateParkingRecordManualProvider } from './providers/update-parking-record-manual.provider';
@@ -21,7 +21,6 @@ export class ParkingRecordService {
 
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
-    @Inject(forwardRef(() => VehicleService))
     private readonly vehicleService: VehicleService,
   ) {
     this.findOne = new FindOneParkingRecordProvider(
