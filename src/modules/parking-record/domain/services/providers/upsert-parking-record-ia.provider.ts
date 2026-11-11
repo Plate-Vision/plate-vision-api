@@ -4,13 +4,13 @@ import { CreateParkingRecordDTO } from '../../dtos/create-parking-record.dto';
 import { QueryRunner } from 'typeorm';
 import { EParkingRecordSource } from '../../enums/parking-record-source.enum';
 import { VehicleEntity } from '@modules/vehicle/domain/entities/vehicle.entity';
-import { ParkingRecordService } from '../parking-record.service';
+import { UpdateParkingRecordIaProvider } from './update-parking-record-ia.provider';
 import { UpdateParkingRecordDTO } from '../../dtos/update-parking-record.dto';
 
 export class UpsertParkingRecordIaProvider {
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
-    private readonly parkingRecordService: ParkingRecordService,
+    private readonly updateParkingRecord: UpdateParkingRecordIaProvider,
   ) {}
 
   public async execute({
@@ -55,7 +55,7 @@ export class UpsertParkingRecordIaProvider {
     );
 
     if (parkingRecord && parkingRecord.exitTime === null) {
-      return this.parkingRecordService.updateIa.execute({
+      return this.updateParkingRecord.execute({
         id: parkingRecord.id,
         data: dto,
         queryRunner,

@@ -6,12 +6,12 @@ import { UpdateParkingRecordManualProvider } from '@modules/parking-record/domai
 import { UpdateParkingRecordIaProvider } from '@modules/parking-record/domain/services/providers/update-parking-record-ia.provider';
 import { UpsertParkingRecordIaProvider } from '@modules/parking-record/domain/services/providers/upsert-parking-record-ia.provider';
 import { ParkingRecordRepository } from '@modules/parking-record/infra/repositories/parking-record.repository';
-import { ParkingRecordService } from '@modules/parking-record/domain/services/parking-record.service';
+import { FindOneParkingRecordProvider } from '@modules/parking-record/domain/services/providers/find-one-parking-record.provider';
 import { ParkingRecordEntity } from '@modules/parking-record/domain/entities/parking-record.entity';
 import { EParkingRecordSource } from '@modules/parking-record/domain/enums/parking-record-source.enum';
 import { CreateParkingRecordDTO } from '@modules/parking-record/domain/dtos/create-parking-record.dto';
 import { UpdateParkingRecordDTO } from '@modules/parking-record/domain/dtos/update-parking-record.dto';
-import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
+import { FindOneVehicleProvider } from '@modules/vehicle/domain/services/providers/find-one-vehicle.provider';
 import { EVehicleStatus } from '@modules/vehicle/domain/enums/vehicle-status.enum';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 
@@ -62,10 +62,10 @@ describe('CreateParkingRecordManualProvider', () => {
     const findLast = jest.fn<() => Promise<unknown>>().mockResolvedValue(null);
     const provider = new CreateParkingRecordManualProvider(
       persistence.repository,
-      { findOne: { executeById: findVehicle } } as unknown as VehicleService,
+      { executeById: findVehicle } as unknown as FindOneVehicleProvider,
       {
-        findOne: { executeByLastOneVehicle: findLast },
-      } as unknown as ParkingRecordService,
+        executeByLastOneVehicle: findLast,
+      } as unknown as FindOneParkingRecordProvider,
     );
     return { ...persistence, findVehicle, findLast, provider };
   };
@@ -186,7 +186,7 @@ describe('UpdateParkingRecordManualProvider', () => {
     const findOne = jest.fn<() => Promise<unknown>>().mockResolvedValue(record);
     const provider = new UpdateParkingRecordManualProvider(
       persistence.repository,
-      { findOne: { execute: findOne } } as unknown as ParkingRecordService,
+      { execute: findOne } as unknown as FindOneParkingRecordProvider,
     );
     const execute = (data: Partial<UpdateParkingRecordDTO>) =>
       provider.execute({
@@ -275,8 +275,8 @@ describe('UpdateParkingRecordIaProvider', () => {
     const persistence = createPersistence();
     const findOne = jest.fn<() => Promise<unknown>>().mockResolvedValue(record);
     const provider = new UpdateParkingRecordIaProvider({
-      findOne: { executeById: findOne },
-    } as unknown as ParkingRecordService);
+      executeById: findOne,
+    } as unknown as FindOneParkingRecordProvider);
     const execute = (
       data: Partial<UpdateParkingRecordDTO>,
       queryRunner: QueryRunner = persistence.runner as unknown as QueryRunner,
@@ -363,8 +363,8 @@ describe('UpsertParkingRecordIaProvider', () => {
       .fn<() => Promise<unknown>>()
       .mockResolvedValue({ id: 3, exitTime });
     const provider = new UpsertParkingRecordIaProvider(persistence.repository, {
-      updateIa: { execute: update },
-    } as unknown as ParkingRecordService);
+      execute: update,
+    } as unknown as UpdateParkingRecordIaProvider);
     const execute = () =>
       provider.execute({
         dto: { ...dto, entryReadingId: 9 },

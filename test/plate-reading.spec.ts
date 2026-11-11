@@ -16,8 +16,8 @@ import { TaskProvider } from '@modules/plate-reading/domain/services/providers/t
 import { PlateReadingEntity } from '@modules/plate-reading/domain/entities/plate-reading.entity';
 import { PlateReadingRepository } from '@modules/plate-reading/infra/repositories/plate-reading.repository';
 import { PlateReadingService } from '@modules/plate-reading/domain/services/plate-reading.service';
-import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
-import { ParkingRecordService } from '@modules/parking-record/domain/services/parking-record.service';
+import { CreateVehicleIaProvider } from '@modules/vehicle/domain/services/providers/create-vehicle-ia.provider';
+import { UpsertParkingRecordIaProvider } from '@modules/parking-record/domain/services/providers/upsert-parking-record-ia.provider';
 
 const createRunner = () => ({
   manager: {
@@ -179,12 +179,10 @@ describe('ProcessorPlateReadingProvider', () => {
       >()
       .mockImplementation((work) => work(runner));
     const provider = new ProcessorPlateReadingProvider(
-      {
-        findMany: { execute: findMany },
-        update: { execute: update },
-      } as unknown as PlateReadingService,
-      { createIa: { execute: createVehicle } } as unknown as VehicleService,
-      { upsertIa: { execute: upsert } } as unknown as ParkingRecordService,
+      { execute: findMany } as unknown as FindManyPlateReadingProvider,
+      { execute: update } as unknown as UpdatePlateReadingProvider,
+      { execute: createVehicle } as unknown as CreateVehicleIaProvider,
+      { execute: upsert } as unknown as UpsertParkingRecordIaProvider,
       { transaction } as unknown as PlateReadingRepository,
     );
     return {

@@ -3,7 +3,7 @@ import { describe, expect, it, jest } from '@jest/globals';
 import { QueryRunner } from 'typeorm';
 import { CreateVehicleIaProvider } from '@modules/vehicle/domain/services/providers/create-vehicle-ia.provider';
 import { VehicleRepository } from '@modules/vehicle/infra/repositories/vehicle.repository';
-import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
+import { FindOneVehicleProvider } from '@modules/vehicle/domain/services/providers/find-one-vehicle.provider';
 import { VehicleEntity } from '@modules/vehicle/domain/entities/vehicle.entity';
 import { EVehicleSource } from '@modules/vehicle/domain/enums/vehicle-source.enum';
 
@@ -21,8 +21,8 @@ const createSubject = () => {
   const provider = new CreateVehicleIaProvider(
     { transaction } as unknown as VehicleRepository,
     {
-      findOne: { executeByLicensePlate: findOne },
-    } as unknown as VehicleService,
+      executeByLicensePlate: findOne,
+    } as unknown as FindOneVehicleProvider,
   );
   return { provider, save, runner, transaction, findOne };
 };

@@ -1,8 +1,9 @@
 import { HttpException, Logger } from '@nestjs/common';
 import { QueryRunner } from 'typeorm';
-import { PlateReadingService } from '../plate-reading.service';
-import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
-import { ParkingRecordService } from '@modules/parking-record/domain/services/parking-record.service';
+import { FindManyPlateReadingProvider } from './find-many-plate-reading.provider';
+import { UpdatePlateReadingProvider } from './update-plate-reading.provider';
+import { CreateVehicleIaProvider } from '@modules/vehicle/domain/services/providers/create-vehicle-ia.provider';
+import { UpsertParkingRecordIaProvider } from '@modules/parking-record/domain/services/providers/upsert-parking-record-ia.provider';
 import { PlateReadingEntity } from '../../entities/plate-reading.entity';
 import { PlateReadingRepository } from '@modules/plate-reading/infra/repositories/plate-reading.repository';
 
@@ -10,13 +11,14 @@ export class ProcessorPlateReadingProvider {
   private readonly logger = new Logger(ProcessorPlateReadingProvider.name);
 
   public constructor(
-    private readonly plateReadingService: PlateReadingService,
-    private readonly vehicleService: VehicleService,
-    private readonly parkingRecordService: ParkingRecordService,
+    private readonly findManyPlateReading: FindManyPlateReadingProvider,
+    private readonly updatePlateReading: UpdatePlateReadingProvider,
+    private readonly createVehicle: CreateVehicleIaProvider,
+    private readonly upsertParkingRecord: UpsertParkingRecordIaProvider,
     private readonly plateReadingRepository: PlateReadingRepository,
   ) {}
   public async execute() {
-    const unprocessedPlates = await this.plateReadingService.findMany.execute();
+    const unprocessedPlates = await this.findManyPlateReading.execute();
 
     if (unprocessedPlates.length === 0) {
       this.logger.log('Nenhum dado para atualizar');
@@ -44,13 +46,13 @@ export class ProcessorPlateReadingProvider {
     queryRunner: QueryRunner,
   ): Promise<void> {
     for (const plate of plates) {
-      const vehicle = await this.vehicleService.createIa.execute({
+      const vehicle = await this.createVehicle.execute({
         dto: { licensePlate: plate.licensePlate },
         queryRunner,
       });
 
       if (vehicle && vehicle.isServiceVehicle === false) {
-        await this.parkingRecordService.upsertIa.execute({
+        await this.upsertParkingRecord.execute({
           dto: {
             vehicle: vehicle,
             entryTime: plate.createdAt,
@@ -68,6 +70,6 @@ export class ProcessorPlateReadingProvider {
       }
     }
     const ids = plates.map((item) => item.id);
-    await this.plateReadingService.update.execute({ ids, queryRunner });
+    await this.updatePlateReading.execute({ ids, queryRunner });
   }
 }

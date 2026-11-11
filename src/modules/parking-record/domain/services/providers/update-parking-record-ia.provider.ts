@@ -4,11 +4,11 @@ import { UpdateParkingRecordDTO } from '../../dtos/update-parking-record.dto';
 import { ParkingRecordEntity } from '../../entities/parking-record.entity';
 import { EParkingRecordSource } from '../../enums/parking-record-source.enum';
 import { QueryRunner } from 'typeorm';
-import { ParkingRecordService } from '../parking-record.service';
+import { FindOneParkingRecordProvider } from './find-one-parking-record.provider';
 
 export class UpdateParkingRecordIaProvider {
   public constructor(
-    private readonly parkingRecordService: ParkingRecordService,
+    private readonly findOneParkingRecord: FindOneParkingRecordProvider,
   ) {}
 
   public async execute(data: {
@@ -16,7 +16,7 @@ export class UpdateParkingRecordIaProvider {
     data: UpdateParkingRecordDTO;
     queryRunner?: QueryRunner;
   }): Promise<ParkingRecordEntity> {
-    const parkingRecord = await this.parkingRecordService.findOne.executeById({
+    const parkingRecord = await this.findOneParkingRecord.executeById({
       id: data.id,
       queryRunner: data.queryRunner,
     });

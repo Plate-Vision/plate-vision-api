@@ -24,29 +24,29 @@ export class ParkingRecordService {
     @Inject(forwardRef(() => VehicleService))
     private readonly vehicleService: VehicleService,
   ) {
+    this.findOne = new FindOneParkingRecordProvider(
+      this.parkingRecordRepository,
+    );
     this.create = new CreateParkingRecordManualProvider(
       this.parkingRecordRepository,
-      this.vehicleService,
-      this,
+      this.vehicleService.findOne,
+      this.findOne,
     );
     this.update = new UpdateParkingRecordManualProvider(
       this.parkingRecordRepository,
-      this,
+      this.findOne,
     );
     this.delete = new DeleteParkingRecordProvider(
       this.parkingRecordRepository,
       this,
     );
-    this.findOne = new FindOneParkingRecordProvider(
-      this.parkingRecordRepository,
-    );
     this.findMany = new FindManyParkingRecordProvider(
       this.parkingRecordRepository,
     );
+    this.updateIa = new UpdateParkingRecordIaProvider(this.findOne);
     this.upsertIa = new UpsertParkingRecordIaProvider(
       this.parkingRecordRepository,
-      this,
+      this.updateIa,
     );
-    this.updateIa = new UpdateParkingRecordIaProvider(this);
   }
 }

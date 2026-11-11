@@ -7,15 +7,15 @@ import { QueryRunner } from 'typeorm';
 import { HttpException } from '@nestjs/common';
 import { EParkingRecordSource } from '../../enums/parking-record-source.enum';
 import { VehicleEntity } from '@modules/vehicle/domain/entities/vehicle.entity';
-import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
+import { FindOneVehicleProvider } from '@modules/vehicle/domain/services/providers/find-one-vehicle.provider';
 import { EVehicleStatus } from '@modules/vehicle/domain/enums/vehicle-status.enum';
-import { ParkingRecordService } from '../parking-record.service';
+import { FindOneParkingRecordProvider } from './find-one-parking-record.provider';
 
 export class CreateParkingRecordManualProvider {
   public constructor(
     private readonly parkingRecordRepository: ParkingRecordRepository,
-    private readonly vehicleService: VehicleService,
-    private readonly parkingRecordService: ParkingRecordService,
+    private readonly findOneVehicle: FindOneVehicleProvider,
+    private readonly findOneParkingRecord: FindOneParkingRecordProvider,
   ) {}
 
   public async execute({
@@ -27,7 +27,7 @@ export class CreateParkingRecordManualProvider {
     authUser: UserEntity;
     queryRunner?: QueryRunner;
   }): Promise<ParkingRecordEntity> {
-    const vehicle = await this.vehicleService.findOne.executeById({
+    const vehicle = await this.findOneVehicle.executeById({
       id: dto.vehicle.id,
     });
 
@@ -60,9 +60,7 @@ export class CreateParkingRecordManualProvider {
 
   private async validateParkingRecord(vehicle: VehicleEntity) {
     const parkingRecord =
-      await this.parkingRecordService.findOne.executeByLastOneVehicle(
-        vehicle.id,
-      );
+      await this.findOneParkingRecord.executeByLastOneVehicle(vehicle.id);
 
     if (parkingRecord && parkingRecord.exitTime === null) {
       throw new HttpException(
