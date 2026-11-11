@@ -18,13 +18,9 @@ export class UpdatePlateReadingProvider {
       return await this.saveProcessedReadings(platesReadings, data.queryRunner);
     }
 
-    return await this.plateReadingRepository.transaction(async (query) => {
-      const updatedPlateReading = await query.manager.save(
-        this.markReadingsProcessed(platesReadings),
-      );
-
-      return updatedPlateReading;
-    });
+    return this.plateReadingRepository.transaction((query) =>
+      query.manager.save(this.markReadingsProcessed(platesReadings)),
+    );
   }
 
   private async findPlatesReadings(ids: number[]) {
@@ -44,16 +40,14 @@ export class UpdatePlateReadingProvider {
     );
   }
 
-  private async saveProcessedReadings(
+  private saveProcessedReadings(
     plateReading: PlateReadingEntity[],
     query: QueryRunner,
   ) {
-    const plateReadings = await query.manager.save(
+    return query.manager.save(
       PlateReadingEntity,
       this.markReadingsProcessed(plateReading),
     );
-
-    return plateReadings;
   }
 
   private markReadingsProcessed(plateReading: PlateReadingEntity[]) {

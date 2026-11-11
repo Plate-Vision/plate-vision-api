@@ -1,0 +1,86 @@
+{
+  "issue": "https://github.com/Plate-Vision/plate-vision-api/issues/26",
+  "team": [
+    "Arthur Ghizi",
+    "Augusto Preis",
+    "Gabriel Jorge"
+  ],
+  "originalCommit": "b360df12edf9c347f981130fdcd0b61266869822",
+  "refactoredBranch": "refactor/clean-code-project",
+  "pullRequests": [
+    {
+      "branch": "refactor/clean-code-01-names",
+      "base": "original",
+      "url": "https://github.com/Plate-Vision/plate-vision-api/pull/27",
+      "title": "refactor: clarify synchronous plate and parking transformations",
+      "smells": "S06",
+      "techniques": "Rename Method; Remove Unnecessary Async",
+      "author": "Arthu085",
+      "reviewer": null,
+      "status": "OPEN"
+    },
+    {
+      "branch": "refactor/clean-code-02-period",
+      "base": "refactor/clean-code-01-names",
+      "url": "https://github.com/Plate-Vision/plate-vision-api/pull/28",
+      "title": "refactor: centralize parking period validation",
+      "smells": "S03, S04",
+      "techniques": "Extract Method; Move Method",
+      "author": "Arthu085",
+      "reviewer": null,
+      "status": "OPEN"
+    },
+    {
+      "branch": "refactor/clean-code-03-dependencies",
+      "base": "refactor/clean-code-02-period",
+      "url": "https://github.com/Plate-Vision/plate-vision-api/pull/29",
+      "title": "refactor: inject focused providers into plate processing",
+      "smells": "S02",
+      "techniques": "Remove Middle Man; Replace Broad Dependencies",
+      "author": "Arthu085",
+      "reviewer": null,
+      "status": "OPEN"
+    },
+    {
+      "branch": "refactor/clean-code-04-processing",
+      "base": "refactor/clean-code-03-dependencies",
+      "url": "https://github.com/Plate-Vision/plate-vision-api/pull/30",
+      "title": "refactor: extract individual plate processing and shared data",
+      "smells": "S01, S05",
+      "techniques": "Extract Method; Extract Variable",
+      "author": "Arthu085",
+      "reviewer": null,
+      "status": "OPEN"
+    },
+    {
+      "branch": "refactor/clean-code-05-statuses",
+      "base": "refactor/clean-code-04-processing",
+      "url": "https://github.com/Plate-Vision/plate-vision-api/pull/31",
+      "title": "refactor: replace HTTP literals with named constants",
+      "smells": "S07",
+      "techniques": "Replace Magic Number with Symbolic Constant",
+      "author": "Arthu085",
+      "reviewer": null,
+      "status": "OPEN"
+    },
+    {
+      "branch": "refactor/clean-code-project",
+      "base": "refactor/clean-code-05-statuses",
+      "url": "https://github.com/Plate-Vision/plate-vision-api/pull/32",
+      "title": "refactor: simplify processing guards and document clean code delivery",
+      "smells": "S01, S06",
+      "techniques": "Replace Nested Conditional with Guard Clauses; Inline Temporary Variable",
+      "author": "Arthu085",
+      "reviewer": null,
+      "status": "OPEN"
+    }
+  ],
+  "humanRequirementsPending": [
+    "Instructor approval of subsystem scope",
+    "At least two authored PRs per member",
+    "At least two peer reviews per member",
+    "Substantive peer comments and one teammate approval per PR",
+    "Authorized integration PR to main",
+    "Remote CI registration/execution evidence (no runs/checks observed; cause unconfirmed)"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "repository": "https://github.com/Plate-Vision/plate-vision-api",
+  "original": {
+    "commit": "b360df12edf9c347f981130fdcd0b61266869822",
+    "locked": true,
+    "enforceAdmins": true
+  },
+  "main": {
+    "commit": "b360df12edf9c347f981130fdcd0b61266869822",
+    "requiredApprovals": 1,
+    "requiredChecks": [
+      "quality"
+    ],
+    "conversationResolutionRequired": true,
+    "enforceAdmins": true
+  },
+  "note": "Main and original contain identical code during this delivery. New code is delivered on review branches without merges."
+}

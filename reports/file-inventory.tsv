@@ -1,0 +1,109 @@
+status	file	purpose
+M	.eslintrc.js	Quality tooling, dependency lock or automation
+A	.github/pull_request_template.md	Quality tooling, dependency lock or automation
+A	.github/workflows/quality.yml	Quality tooling, dependency lock or automation
+M	.gitignore	Quality tooling, dependency lock or automation
+A	.husky/commit-msg	Quality tooling, dependency lock or automation
+A	.husky/pre-commit	Quality tooling, dependency lock or automation
+A	.prettierignore	Quality tooling, dependency lock or automation
+A	CHANGELOG.md	Refactoring and technical documentation
+A	commitlint.config.js	Quality tooling, dependency lock or automation
+A	docs/01-analise-de-smells.md	Refactoring and technical documentation
+A	docs/02-cobertura-de-testes.md	Refactoring and technical documentation
+A	docs/03-ferramentas.md	Refactoring and technical documentation
+A	docs/04-arquitetura-e-dependencias.md	Refactoring and technical documentation
+A	docs/05-repositorio.md	Refactoring and technical documentation
+A	docs/06-documentacao.md	Refactoring and technical documentation
+A	docs/README.md	Refactoring and technical documentation
+A	jest.config.js	Quality tooling, dependency lock or automation
+A	package-lock.json	Quality tooling, dependency lock or automation
+M	package.json	Quality tooling, dependency lock or automation
+M	README.md	Refactoring and technical documentation
+A	reports/architecture.json	Measured evidence
+A	reports/baseline.json	Measured evidence
+A	reports/characterization.json	Measured evidence
+A	reports/ci.json	Measured evidence
+A	reports/coverage-summary.json	Measured evidence
+A	reports/delivery.json	Measured evidence
+A	reports/demo-cleanup.json	Measured evidence
+A	reports/demo-comparison.json	Measured evidence
+A	reports/demo-original.json	Measured evidence
+A	reports/demo-refactored.json	Measured evidence
+A	reports/dependency-audit.json	Measured evidence
+A	reports/file-inventory.tsv	Measured evidence
+A	reports/final.json	Measured evidence
+A	reports/history.txt	Measured evidence
+A	reports/repository-state.json	Measured evidence
+A	reports/review.json	Measured evidence
+A	reports/test-results.json	Measured evidence
+A	reports/verification.txt	Measured evidence
+A	scripts/architecture-report.cjs	Reproducible reports
+A	scripts/demo-compare.cjs	Reproducible reports
+A	scripts/demo-flow.cjs	Reproducible reports
+A	scripts/file-inventory.cjs	Reproducible reports
+A	scripts/project-report.cjs	Reproducible reports
+M	src/core/base/decorators/endpoint.decorator.ts	Mechanical formatting or lint cleanup
+M	src/core/config/security/security.config.ts	Mechanical formatting or lint cleanup
+M	src/core/config/validator/validator-pipe.config.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1733939707701-create-user-table.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1733962676133-create-role-and-ability-table.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1733969260373-add-user-role-relation.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1758994237853-create-customer-table.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1758994394770-create-vehicle-table.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1758994670108-create-plate-reading-table.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1758994749117-create-parking-record-table.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1758995241638-create-uuid-column.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1758996899110-create-index-for-uuid-column.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1759965119360-create-occurrence-table.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1760493332598-add-customer-ability.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1760493449842-add-vehicle-ability.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1761401356193-add-dashboard-ability.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1761401476259-add-occurrence-ability.ts	Mechanical formatting or lint cleanup
+M	src/core/database/migrations/1763600004447-change-ability-name.ts	Mechanical formatting or lint cleanup
+M	src/core/enviroment-variables/providers/enviroment-variables.provider.ts	Mechanical formatting or lint cleanup
+M	src/core/enviroment-variables/providers/variables/application-variables.provider.ts	Mechanical formatting or lint cleanup
+M	src/modules/auth/domain/services/providers/password-recovery.provider.ts	Mechanical formatting or lint cleanup
+M	src/modules/occurrence/domain/services/providers/create-occurrence.provider.ts	Mechanical formatting or lint cleanup
+M	src/modules/occurrence/domain/services/providers/delete-image.provider.ts	Mechanical formatting or lint cleanup
+M	src/modules/parking-record/domain/dtos/find-many-parking-record.dto.ts	Mechanical formatting or lint cleanup
+A	src/modules/parking-record/domain/services/helpers/validate-parking-period.ts	Flow refactoring or service wiring
+M	src/modules/parking-record/domain/services/parking-record.service.ts	Flow refactoring or service wiring
+M	src/modules/parking-record/domain/services/providers/create-parking-record-manual.provider.ts	Flow refactoring or service wiring
+M	src/modules/parking-record/domain/services/providers/find-many-parking-record.provider.ts	Mechanical formatting or lint cleanup
+M	src/modules/parking-record/domain/services/providers/update-parking-record-ia.provider.ts	Flow refactoring or service wiring
+M	src/modules/parking-record/domain/services/providers/update-parking-record-manual.provider.ts	Flow refactoring or service wiring
+M	src/modules/parking-record/domain/services/providers/upsert-parking-record-ia.provider.ts	Flow refactoring or service wiring
+M	src/modules/plate-reading/domain/services/plate-reading.service.ts	Flow refactoring or service wiring
+M	src/modules/plate-reading/domain/services/providers/processor-plate-reading.provider.ts	Flow refactoring or service wiring
+M	src/modules/plate-reading/domain/services/providers/update-plate-reading.provider.ts	Flow refactoring or service wiring
+M	src/modules/role/domain/services/ability.service.ts	Mechanical formatting or lint cleanup
+M	src/modules/role/domain/services/providers/delete-role.provider.ts	Mechanical formatting or lint cleanup
+M	src/modules/role/domain/services/providers/update-role.provider.ts	Mechanical formatting or lint cleanup
+M	src/modules/role/domain/services/role.service.ts	Mechanical formatting or lint cleanup
+M	src/modules/role/infra/repositories/ability.repository.ts	Mechanical formatting or lint cleanup
+M	src/modules/role/infra/repositories/role-ability.repository.ts	Mechanical formatting or lint cleanup
+M	src/modules/role/infra/repositories/role.repository.ts	Mechanical formatting or lint cleanup
+M	src/modules/user/domain/services/providers/find-many-user.provider.ts	Mechanical formatting or lint cleanup
+M	src/modules/vehicle/domain/dtos/create-vehicle.dto.ts	Mechanical formatting or lint cleanup
+M	src/modules/vehicle/domain/services/providers/create-vehicle-ia.provider.ts	Flow refactoring or service wiring
+M	src/modules/vehicle/domain/services/providers/create-vehicle-manual.provider.ts	Mechanical formatting or lint cleanup
+M	src/modules/vehicle/domain/services/providers/find-one-vehicle.provider.ts	Mechanical formatting or lint cleanup
+M	src/modules/vehicle/domain/services/providers/update-vehicle.provider.ts	Mechanical formatting or lint cleanup
+M	src/modules/vehicle/domain/services/vehicle.service.ts	Flow refactoring or service wiring
+A	task.md	Refactoring and technical documentation
+A	test/auth-guards.spec.ts	Regression tests or test support
+A	test/auth-services.spec.ts	Regression tests or test support
+A	test/configuration-and-validation.spec.ts	Regression tests or test support
+A	test/controllers.spec.ts	Regression tests or test support
+A	test/delete-providers.spec.ts	Regression tests or test support
+A	test/document-validator.spec.ts	Regression tests or test support
+A	test/pagination.spec.ts	Regression tests or test support
+A	test/parking-list.spec.ts	Regression tests or test support
+A	test/parking-record.spec.ts	Regression tests or test support
+A	test/plate-reading.spec.ts	Regression tests or test support
+A	test/read-providers.spec.ts	Regression tests or test support
+A	test/service-wiring.spec.ts	Regression tests or test support
+A	test/transactions.spec.ts	Regression tests or test support
+A	test/vehicle-ia.spec.ts	Regression tests or test support
+A	test/vehicle-list.spec.ts	Regression tests or test support
+A	tsconfig.test.json	Quality tooling, dependency lock or automation
