@@ -36,16 +36,11 @@ export class CreateVehicleIaProvider {
     });
   }
 
-  private async saveVehicleWithTransaction(
+  private saveVehicleWithTransaction(
     dto: CreateVehicleDTO,
     query: QueryRunner,
   ) {
-    const vehicle = await query.manager.save(
-      VehicleEntity,
-      this.toAiVehicle(dto),
-    );
-
-    return vehicle;
+    return query.manager.save(VehicleEntity, this.toAiVehicle(dto));
   }
 
   private toAiVehicle(dto: CreateVehicleDTO) {

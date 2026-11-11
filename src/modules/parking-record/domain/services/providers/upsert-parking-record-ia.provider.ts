@@ -63,16 +63,11 @@ export class UpsertParkingRecordIaProvider {
     }
   }
 
-  private async saveParkingRecordWithTransaction(
+  private saveParkingRecordWithTransaction(
     dto: CreateParkingRecordDTO,
     query: QueryRunner,
   ) {
-    const parkingRecord = await query.manager.save(
-      ParkingRecordEntity,
-      this.toAiEntryRecord(dto),
-    );
-
-    return parkingRecord;
+    return query.manager.save(ParkingRecordEntity, this.toAiEntryRecord(dto));
   }
 
   private toAiEntryRecord(dto: CreateParkingRecordDTO) {
