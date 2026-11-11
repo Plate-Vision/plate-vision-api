@@ -1,13 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { FindManyDTO } from '@shared/dtos/find-many.dto';
-import {
-  IsBooleanString,
-  IsDate,
-  IsEnum,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsDate, IsEnum, IsNumber, IsOptional } from 'class-validator';
 import { EParkingRecordSource } from '../enums/parking-record-source.enum';
 import { Type } from 'class-transformer';
 

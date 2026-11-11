@@ -5,7 +5,7 @@ import { UserRepository } from '@modules/user/infra/repositories/user.repository
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 
 export class FindManyUserProvider {
-  public constructor(private readonly userRepository: UserRepository) { }
+  public constructor(private readonly userRepository: UserRepository) {}
 
   public async execute(params: { dto: FindManyUserDTO; authUser: UserEntity }) {
     let where: Array<FindOptionsWhere<UserEntity>> = [{}];

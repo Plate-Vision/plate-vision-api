@@ -39,7 +39,7 @@ export class PasswordRecoveryProvider {
     return userWithEmail;
   }
 
-  private async sendEmail(user: UserEntity, token: string) {
+  private async sendEmail(_user: UserEntity, _token: string) {
     throw new NotImplementedException('Email não implementado');
   }
 }

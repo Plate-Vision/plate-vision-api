@@ -1,5 +1,5 @@
 import { ParkingRecordRepository } from '@modules/parking-record/infra/repositories/parking-record.repository';
-import { Between, FindOptionsOrder, FindOptionsWhere, ILike } from 'typeorm';
+import { Between, FindOptionsOrder, FindOptionsWhere } from 'typeorm';
 import { FindManyParkingRecordDTO } from '../../dtos/find-many-parking-record.dto';
 import { ParkingRecordEntity } from '../../entities/parking-record.entity';
 
@@ -9,7 +9,7 @@ export class FindManyParkingRecordProvider {
   ) {}
 
   public async execute(params: { dto: FindManyParkingRecordDTO }) {
-    let where: Array<FindOptionsWhere<ParkingRecordEntity>> = [{}];
+    const where: Array<FindOptionsWhere<ParkingRecordEntity>> = [{}];
     const order: FindOptionsOrder<ParkingRecordEntity> = {};
 
     if (params.dto.entrySource) {

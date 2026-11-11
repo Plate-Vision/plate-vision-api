@@ -6,7 +6,6 @@ import { CreateOccurrenceDTO } from '../../dtos/create-occurrence.dto';
 import { OccurrenceEntity } from '../../entities/occurrence.entity';
 import { VehicleService } from '@modules/vehicle/domain/services/vehicle.service';
 import { EVehicleStatus } from '@modules/vehicle/domain/enums/vehicle-status.enum';
-import { VehicleEntity } from '@modules/vehicle/domain/entities/vehicle.entity';
 import { OccurrenceService } from '../occurrence.service';
 
 export class CreateOccurrenceProvider {

@@ -1,6 +1,6 @@
 import { VehicleRepository } from '@modules/vehicle/infra/repositories/vehicle.repository';
 import { CreateVehicleDTO } from '../../dtos/create-vehicle.dto';
-import { ILike, QueryRunner } from 'typeorm';
+import { QueryRunner } from 'typeorm';
 import { VehicleEntity } from '../../entities/vehicle.entity';
 import { EVehicleSource } from '../../enums/vehicle-source.enum';
 import { VehicleService } from '../vehicle.service';
@@ -43,13 +43,13 @@ export class CreateVehicleIaProvider {
   ) {
     const vehicle = await query.manager.save(
       VehicleEntity,
-      await this.serialize(dto),
+      this.toAiVehicle(dto),
     );
 
     return vehicle;
   }
 
-  private async serialize(dto: CreateVehicleDTO) {
+  private toAiVehicle(dto: CreateVehicleDTO) {
     return {
       ...dto,
       source: EVehicleSource.AI,

@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 
-
 import { CreateAbilityProvider } from './providers/create-ability.provider';
 import { UpdateAbilityProvider } from './providers/update-ability.provider';
 import { DeleteAbilityProvider } from './providers/delete-ability.provider';

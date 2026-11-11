@@ -27,11 +27,7 @@ export class UpdateParkingRecordManualProvider {
 
     return await this.parkingRecordRepository.transaction(async (query) => {
       const updatedParkingRecord = await query.manager.save(
-        await this.serializeCustomerData(
-          parkingRecord,
-          data.data,
-          data.authUser,
-        ),
+        this.toUpdatedParkingRecord(parkingRecord, data.data, data.authUser),
       );
 
       return updatedParkingRecord;
@@ -59,7 +55,7 @@ export class UpdateParkingRecordManualProvider {
     }
   }
 
-  private async serializeCustomerData(
+  private toUpdatedParkingRecord(
     parkingRecord: ParkingRecordEntity,
     data: UpdateParkingRecordDTO,
     user: UserEntity,

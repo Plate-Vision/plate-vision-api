@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 
-
 import { CreateRoleProvider } from './providers/create-role.provider';
 import { UpdateRoleProvider } from './providers/update-role.provider';
 import { DeleteRoleProvider } from './providers/delete-role.provider';

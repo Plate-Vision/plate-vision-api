@@ -8,9 +8,9 @@ export class SecurityConfig {
    * @param app Instancia da aplicação
    */
   public static start(app: INestApplication) {
-    app.enableCors({ 
-      credentials: true, 
-      origin: ['http://localhost:5173', process.env.API_CLIENT_URL]
+    app.enableCors({
+      credentials: true,
+      origin: ['http://localhost:5173', process.env.API_CLIENT_URL],
     });
     app.use(helmet());
   }

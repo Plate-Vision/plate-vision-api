@@ -5,7 +5,7 @@ import { ILike, QueryRunner } from 'typeorm';
 import { validate as isUUID } from 'uuid';
 
 export class FindOneVehicleProvider {
-  public constructor(private readonly vehicleRepository: VehicleRepository) { }
+  public constructor(private readonly vehicleRepository: VehicleRepository) {}
 
   public async execute(uuid: string): Promise<VehicleEntity> {
     if (!isUUID(uuid)) {

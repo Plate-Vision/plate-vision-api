@@ -87,13 +87,16 @@ export class CreateParkingRecordManualProvider {
   ) {
     const parkingRecord = await query.manager.save(
       ParkingRecordEntity,
-      await this.serialize(dto, authUser),
+      this.toManualParkingRecord(dto, authUser),
     );
 
     return parkingRecord;
   }
 
-  private async serialize(dto: CreateParkingRecordDTO, authUser: UserEntity) {
+  private toManualParkingRecord(
+    dto: CreateParkingRecordDTO,
+    authUser: UserEntity,
+  ) {
     return {
       ...dto,
       vehicle: dto.vehicle,

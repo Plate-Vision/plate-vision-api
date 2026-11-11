@@ -1,6 +1,5 @@
-import { HttpException, Logger } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary';
-import { Readable } from 'stream';
 
 export class DeleteImageProvider {
   private readonly logger = new Logger(DeleteImageProvider.name);

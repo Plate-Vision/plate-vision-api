@@ -4,7 +4,7 @@ export class ApplicationVariablesProvider {
      * Variável para definir a url em que a aplicação será executada
      */
     public url: string,
-    
+
     /**
      * Variável para definir a porta em que a aplicação receberá as requisições
      */

@@ -18,7 +18,7 @@ export class ValidatorPipe implements PipeTransform<any> {
       return value;
     }
     const object = plainToInstance(metatype, value);
-    
+
     if (object) {
       const errors = await validate(object, { forbidUnknownValues: false });
       if (errors.length > 0) {

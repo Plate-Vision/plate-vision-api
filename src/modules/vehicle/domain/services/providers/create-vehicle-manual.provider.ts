@@ -4,7 +4,6 @@ import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { QueryRunner } from 'typeorm';
 import { VehicleEntity } from '../../entities/vehicle.entity';
 import { HttpException } from '@nestjs/common';
-import { CustomerEntity } from '@modules/customer/domain/entities/customer.entity';
 import { EVehicleSource } from '../../enums/vehicle-source.enum';
 import { ECustomerStatus } from '@modules/customer/domain/enums/customer-status.enum';
 import { CustomerService } from '@modules/customer/domain/services/customer.service';

@@ -1,36 +1,79 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateParkingRecordTable1758994749117 implements MigrationInterface {
-    name = 'CreateParkingRecordTable1758994749117'
+  name = 'CreateParkingRecordTable1758994749117';
 
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TYPE "public"."parking_records_entry_source_enum" AS ENUM('MA', 'AI')`);
-        await queryRunner.query(`CREATE TYPE "public"."parking_records_exit_source_enum" AS ENUM('MA', 'AI')`);
-        await queryRunner.query(`CREATE TABLE "parking_records" ("id" SERIAL NOT NULL, "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT ('now'::text)::timestamp(6) with time zone, "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT ('now'::text)::timestamp(6) with time zone, "deleted_at" TIMESTAMP WITH TIME ZONE, "entry_time" TIMESTAMP WITH TIME ZONE NOT NULL, "exit_time" TIMESTAMP WITH TIME ZONE, "entry_source" "public"."parking_records_entry_source_enum" NOT NULL, "exit_source" "public"."parking_records_exit_source_enum", "user_created_id" integer, "user_updated_id" integer, "vehicle_id" integer NOT NULL, "entry_reading_id" integer, "exit_reading_id" integer, CONSTRAINT "PK_2a3ea493b1fea0bec5f61a6ccda" PRIMARY KEY ("id")); COMMENT ON COLUMN "parking_records"."id" IS 'Código de identificação do registro'; COMMENT ON COLUMN "parking_records"."created_at" IS 'Data de criação do registro'; COMMENT ON COLUMN "parking_records"."updated_at" IS 'Data de atualização do registro'; COMMENT ON COLUMN "parking_records"."deleted_at" IS 'Data de deleção do registro'; COMMENT ON COLUMN "parking_records"."entry_time" IS 'Data e hora em que o veículo entrou'; COMMENT ON COLUMN "parking_records"."exit_time" IS 'Data e hora em que o veículo saiu'; COMMENT ON COLUMN "parking_records"."entry_source" IS 'Fonte do veículo na entrada'; COMMENT ON COLUMN "parking_records"."exit_source" IS 'Fonte do veículo na saída'; COMMENT ON COLUMN "parking_records"."user_created_id" IS 'Código de identificação do registro'; COMMENT ON COLUMN "parking_records"."user_updated_id" IS 'Código de identificação do registro'; COMMENT ON COLUMN "parking_records"."vehicle_id" IS 'Código de identificação do registro'; COMMENT ON COLUMN "parking_records"."entry_reading_id" IS 'Código de identificação do registro'; COMMENT ON COLUMN "parking_records"."exit_reading_id" IS 'Código de identificação do registro'`);
-        await queryRunner.query(`CREATE INDEX "IDX_cfd09dd8f3b7089bed3db12462" ON "parking_records" ("entry_time") `);
-        await queryRunner.query(`CREATE INDEX "IDX_ad40b2733ded816f1769810b2a" ON "parking_records" ("exit_time") `);
-        await queryRunner.query(`CREATE INDEX "IDX_c9c909369d0fc247a65192f863" ON "parking_records" ("vehicle_id") `);
-        await queryRunner.query(`COMMENT ON TABLE "parking_records" IS 'Tabela para armazenar os dados de entrada e saída de veículos'`);
-        await queryRunner.query(`ALTER TABLE "parking_records" ADD CONSTRAINT "FK_299e5d02e9c1797986967f99233" FOREIGN KEY ("user_created_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "parking_records" ADD CONSTRAINT "FK_33aa509f25c544d8d4f732a7ac2" FOREIGN KEY ("user_updated_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "parking_records" ADD CONSTRAINT "FK_c9c909369d0fc247a65192f863e" FOREIGN KEY ("vehicle_id") REFERENCES "vehicles"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "parking_records" ADD CONSTRAINT "FK_a457d8d2913aff2fbf4108c2418" FOREIGN KEY ("entry_reading_id") REFERENCES "plate_readings"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "parking_records" ADD CONSTRAINT "FK_0fa0624257c4694f7e8e20641c5" FOREIGN KEY ("exit_reading_id") REFERENCES "plate_readings"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-    }
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `CREATE TYPE "public"."parking_records_entry_source_enum" AS ENUM('MA', 'AI')`,
+    );
+    await queryRunner.query(
+      `CREATE TYPE "public"."parking_records_exit_source_enum" AS ENUM('MA', 'AI')`,
+    );
+    await queryRunner.query(
+      `CREATE TABLE "parking_records" ("id" SERIAL NOT NULL, "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT ('now'::text)::timestamp(6) with time zone, "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT ('now'::text)::timestamp(6) with time zone, "deleted_at" TIMESTAMP WITH TIME ZONE, "entry_time" TIMESTAMP WITH TIME ZONE NOT NULL, "exit_time" TIMESTAMP WITH TIME ZONE, "entry_source" "public"."parking_records_entry_source_enum" NOT NULL, "exit_source" "public"."parking_records_exit_source_enum", "user_created_id" integer, "user_updated_id" integer, "vehicle_id" integer NOT NULL, "entry_reading_id" integer, "exit_reading_id" integer, CONSTRAINT "PK_2a3ea493b1fea0bec5f61a6ccda" PRIMARY KEY ("id")); COMMENT ON COLUMN "parking_records"."id" IS 'Código de identificação do registro'; COMMENT ON COLUMN "parking_records"."created_at" IS 'Data de criação do registro'; COMMENT ON COLUMN "parking_records"."updated_at" IS 'Data de atualização do registro'; COMMENT ON COLUMN "parking_records"."deleted_at" IS 'Data de deleção do registro'; COMMENT ON COLUMN "parking_records"."entry_time" IS 'Data e hora em que o veículo entrou'; COMMENT ON COLUMN "parking_records"."exit_time" IS 'Data e hora em que o veículo saiu'; COMMENT ON COLUMN "parking_records"."entry_source" IS 'Fonte do veículo na entrada'; COMMENT ON COLUMN "parking_records"."exit_source" IS 'Fonte do veículo na saída'; COMMENT ON COLUMN "parking_records"."user_created_id" IS 'Código de identificação do registro'; COMMENT ON COLUMN "parking_records"."user_updated_id" IS 'Código de identificação do registro'; COMMENT ON COLUMN "parking_records"."vehicle_id" IS 'Código de identificação do registro'; COMMENT ON COLUMN "parking_records"."entry_reading_id" IS 'Código de identificação do registro'; COMMENT ON COLUMN "parking_records"."exit_reading_id" IS 'Código de identificação do registro'`,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "IDX_cfd09dd8f3b7089bed3db12462" ON "parking_records" ("entry_time") `,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "IDX_ad40b2733ded816f1769810b2a" ON "parking_records" ("exit_time") `,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "IDX_c9c909369d0fc247a65192f863" ON "parking_records" ("vehicle_id") `,
+    );
+    await queryRunner.query(
+      `COMMENT ON TABLE "parking_records" IS 'Tabela para armazenar os dados de entrada e saída de veículos'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "parking_records" ADD CONSTRAINT "FK_299e5d02e9c1797986967f99233" FOREIGN KEY ("user_created_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "parking_records" ADD CONSTRAINT "FK_33aa509f25c544d8d4f732a7ac2" FOREIGN KEY ("user_updated_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "parking_records" ADD CONSTRAINT "FK_c9c909369d0fc247a65192f863e" FOREIGN KEY ("vehicle_id") REFERENCES "vehicles"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "parking_records" ADD CONSTRAINT "FK_a457d8d2913aff2fbf4108c2418" FOREIGN KEY ("entry_reading_id") REFERENCES "plate_readings"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "parking_records" ADD CONSTRAINT "FK_0fa0624257c4694f7e8e20641c5" FOREIGN KEY ("exit_reading_id") REFERENCES "plate_readings"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`ALTER TABLE "parking_records" DROP CONSTRAINT "FK_0fa0624257c4694f7e8e20641c5"`);
-        await queryRunner.query(`ALTER TABLE "parking_records" DROP CONSTRAINT "FK_a457d8d2913aff2fbf4108c2418"`);
-        await queryRunner.query(`ALTER TABLE "parking_records" DROP CONSTRAINT "FK_c9c909369d0fc247a65192f863e"`);
-        await queryRunner.query(`ALTER TABLE "parking_records" DROP CONSTRAINT "FK_33aa509f25c544d8d4f732a7ac2"`);
-        await queryRunner.query(`ALTER TABLE "parking_records" DROP CONSTRAINT "FK_299e5d02e9c1797986967f99233"`);
-        await queryRunner.query(`COMMENT ON TABLE "parking_records" IS NULL`);
-        await queryRunner.query(`DROP INDEX "public"."IDX_c9c909369d0fc247a65192f863"`);
-        await queryRunner.query(`DROP INDEX "public"."IDX_ad40b2733ded816f1769810b2a"`);
-        await queryRunner.query(`DROP INDEX "public"."IDX_cfd09dd8f3b7089bed3db12462"`);
-        await queryRunner.query(`DROP TABLE "parking_records"`);
-        await queryRunner.query(`DROP TYPE "public"."parking_records_exit_source_enum"`);
-        await queryRunner.query(`DROP TYPE "public"."parking_records_entry_source_enum"`);
-    }
-
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `ALTER TABLE "parking_records" DROP CONSTRAINT "FK_0fa0624257c4694f7e8e20641c5"`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "parking_records" DROP CONSTRAINT "FK_a457d8d2913aff2fbf4108c2418"`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "parking_records" DROP CONSTRAINT "FK_c9c909369d0fc247a65192f863e"`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "parking_records" DROP CONSTRAINT "FK_33aa509f25c544d8d4f732a7ac2"`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "parking_records" DROP CONSTRAINT "FK_299e5d02e9c1797986967f99233"`,
+    );
+    await queryRunner.query(`COMMENT ON TABLE "parking_records" IS NULL`);
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_c9c909369d0fc247a65192f863"`,
+    );
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_ad40b2733ded816f1769810b2a"`,
+    );
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_cfd09dd8f3b7089bed3db12462"`,
+    );
+    await queryRunner.query(`DROP TABLE "parking_records"`);
+    await queryRunner.query(
+      `DROP TYPE "public"."parking_records_exit_source_enum"`,
+    );
+    await queryRunner.query(
+      `DROP TYPE "public"."parking_records_entry_source_enum"`,
+    );
+  }
 }

@@ -15,15 +15,12 @@ export class UpdatePlateReadingProvider {
     const platesReadings = await this.findPlatesReadings(data.ids);
 
     if (data.queryRunner) {
-      return await this.saveParkingRecordWithTransaction(
-        platesReadings,
-        data.queryRunner,
-      );
+      return await this.saveProcessedReadings(platesReadings, data.queryRunner);
     }
 
     return await this.plateReadingRepository.transaction(async (query) => {
       const updatedPlateReading = await query.manager.save(
-        await this.serializeCustomerData(platesReadings),
+        this.markReadingsProcessed(platesReadings),
       );
 
       return updatedPlateReading;
@@ -44,19 +41,19 @@ export class UpdatePlateReadingProvider {
     throw new HttpException('Leituras de placas não encontrada', 404);
   }
 
-  private async saveParkingRecordWithTransaction(
+  private async saveProcessedReadings(
     plateReading: PlateReadingEntity[],
     query: QueryRunner,
   ) {
     const plateReadings = await query.manager.save(
       PlateReadingEntity,
-      await this.serializeCustomerData(plateReading),
+      this.markReadingsProcessed(plateReading),
     );
 
     return plateReadings;
   }
 
-  private async serializeCustomerData(plateReading: PlateReadingEntity[]) {
+  private markReadingsProcessed(plateReading: PlateReadingEntity[]) {
     return plainToInstance(
       PlateReadingEntity,
       plateReading.map((item) => ({ ...item, processedAt: new Date() })),

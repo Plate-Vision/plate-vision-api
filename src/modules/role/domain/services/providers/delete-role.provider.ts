@@ -7,7 +7,7 @@ import { RoleAbilityEntity } from '@modules/role/domain/entities/role-ability.en
 import { RoleRepository } from '@modules/role/infra/repositories/role.repository';
 
 export class DeleteRoleProvider {
-  public constructor(private readonly roleRepository: RoleRepository) { }
+  public constructor(private readonly roleRepository: RoleRepository) {}
 
   public async execute(uuid: string): Promise<MessagePayload> {
     const role = await this.validate(uuid);
