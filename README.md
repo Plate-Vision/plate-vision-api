@@ -6,8 +6,16 @@ Aplicação back-end com NestJS, TypeORM e Typescript.
 
 ### Com Docker
 
+Por padrão, apenas a API e o banco de dados são iniciados:
+
 ```bash
 $ docker compose up -d --build
+```
+
+Para iniciar também o engine, disponibilize o repositório `plate-vision-engine` em `../plate-vision-engine` e habilite o profile `engine`:
+
+```bash
+$ docker compose --profile engine up -d --build
 ```
 
 ### Sem Docker
