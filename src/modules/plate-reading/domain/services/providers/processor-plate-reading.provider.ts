@@ -46,30 +46,37 @@ export class ProcessorPlateReadingProvider {
     queryRunner: QueryRunner,
   ): Promise<void> {
     for (const plate of plates) {
-      const vehicle = await this.createVehicle.execute({
-        dto: { licensePlate: plate.licensePlate },
-        queryRunner,
-      });
-
-      if (vehicle && vehicle.isServiceVehicle === false) {
-        await this.upsertParkingRecord.execute({
-          dto: {
-            vehicle: vehicle,
-            entryTime: plate.createdAt,
-            entryReadingId: plate.id,
-          },
-          dtoUpdate: {
-            vehicle: vehicle,
-            entryTime: plate.createdAt,
-            entryReadingId: plate.id,
-            exitTime: plate.createdAt,
-            exitReadingId: plate.id,
-          },
-          queryRunner,
-        });
-      }
+      await this.processPlate(plate, queryRunner);
     }
     const ids = plates.map((item) => item.id);
     await this.updatePlateReading.execute({ ids, queryRunner });
+  }
+
+  private async processPlate(
+    plate: PlateReadingEntity,
+    queryRunner: QueryRunner,
+  ): Promise<void> {
+    const vehicle = await this.createVehicle.execute({
+      dto: { licensePlate: plate.licensePlate },
+      queryRunner,
+    });
+
+    if (vehicle && vehicle.isServiceVehicle === false) {
+      const parkingEntryData = {
+        vehicle,
+        entryTime: plate.createdAt,
+        entryReadingId: plate.id,
+      };
+
+      await this.upsertParkingRecord.execute({
+        dto: parkingEntryData,
+        dtoUpdate: {
+          ...parkingEntryData,
+          exitTime: plate.createdAt,
+          exitReadingId: plate.id,
+        },
+        queryRunner,
+      });
+    }
   }
 }
