@@ -1,0 +1,13 @@
+{
+  "scenario": "Disposable PostgreSQL Docker port already occupied by a task-owned container",
+  "expectedExit": "nonzero",
+  "exitCode": 1,
+  "taskContainersBefore": [
+    "plate-vision-clean-code-demo-1794424880239"
+  ],
+  "taskContainersAfter": [
+    "plate-vision-clean-code-demo-1794424880239"
+  ],
+  "cleanupSucceeded": true,
+  "userContainersModified": false
+}

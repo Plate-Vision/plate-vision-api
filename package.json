@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write src test scripts docs README.md CHANGELOG.md \"*.json\" \"*.js\" \".github/**/*.yml\" \".github/**/*.md\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -24,9 +24,12 @@
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.test.json",
     "test": "jest --runInBand",
     "test:cov": "jest --runInBand --coverage",
-    "format:check": "prettier --check src test \"*.json\" \"*.js\" \".github/**/*.yml\"",
+    "format:check": "prettier --check src test scripts docs README.md CHANGELOG.md \"*.json\" \"*.js\" \".github/**/*.yml\" \".github/**/*.md\"",
     "verify": "npm run lint && npm run format:check && npm run typecheck && npm run build && npm run test:cov",
-    "prepare": "husky"
+    "prepare": "husky",
+    "report:baseline": "node scripts/project-report.cjs --baseline",
+    "report": "node scripts/project-report.cjs && node scripts/architecture-report.cjs && node scripts/file-inventory.cjs",
+    "demo:compare": "node scripts/demo-compare.cjs"
   },
   "dependencies": {
     "@nestjs-modules/mailer": "^2.0.2",

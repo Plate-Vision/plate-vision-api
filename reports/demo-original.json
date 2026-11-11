@@ -1,0 +1,19 @@
+{
+  "version": "original",
+  "checks": {
+    "unauthorizedStatus": 401,
+    "loginStatus": 201,
+    "openApiPaths": 21,
+    "processorStatus": 200,
+    "normalVehiclesCreated": 1,
+    "licenseUppercased": true,
+    "parkingRecordsCreated": 1,
+    "entryAndExitSource": "AI",
+    "matchingReadingReferences": true,
+    "chronologicalParking": true,
+    "serviceVehicleParkingRecords": 0,
+    "readingsProcessed": 3,
+    "noDataMessage": "Nenhum dado para atualizar",
+    "parkingListStatus": 200
+  }
+}
