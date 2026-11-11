@@ -1,4 +1,4 @@
-import { HttpException } from '@nestjs/common';
+import { validateParkingPeriod } from '../helpers/validate-parking-period';
 import { plainToInstance } from 'class-transformer';
 
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
@@ -23,7 +23,15 @@ export class UpdateParkingRecordManualProvider {
       uuid: data.uuid,
     });
 
-    await this.validateDate(data.data, parkingRecord);
+    const finalEntryTime =
+      data.data.entryTime !== undefined
+        ? data.data.entryTime
+        : parkingRecord.entryTime;
+    const finalExitTime =
+      data.data.exitTime !== undefined
+        ? data.data.exitTime
+        : parkingRecord.exitTime;
+    validateParkingPeriod(finalEntryTime, finalExitTime);
 
     return await this.parkingRecordRepository.transaction(async (query) => {
       const updatedParkingRecord = await query.manager.save(
@@ -32,27 +40,6 @@ export class UpdateParkingRecordManualProvider {
 
       return updatedParkingRecord;
     });
-  }
-
-  private async validateDate(
-    newValues: UpdateParkingRecordDTO,
-    originalRecord: ParkingRecordEntity,
-  ) {
-    const finalEntryTime =
-      newValues.entryTime !== undefined
-        ? newValues.entryTime
-        : originalRecord.entryTime;
-    const finalExitTime =
-      newValues.exitTime !== undefined
-        ? newValues.exitTime
-        : originalRecord.exitTime;
-
-    if (finalEntryTime && finalExitTime && finalExitTime < finalEntryTime) {
-      throw new HttpException(
-        'A data e hora de saída não pode ser menor que a data e hora de entrada',
-        412,
-      );
-    }
   }
 
   private toUpdatedParkingRecord(

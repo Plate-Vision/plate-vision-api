@@ -1,3 +1,4 @@
+import { validateParkingPeriod } from '../helpers/validate-parking-period';
 import { ParkingRecordRepository } from '@modules/parking-record/infra/repositories/parking-record.repository';
 import { ParkingRecordEntity } from '../../entities/parking-record.entity';
 import { CreateParkingRecordDTO } from '../../dtos/create-parking-record.dto';
@@ -41,7 +42,7 @@ export class CreateParkingRecordManualProvider {
       );
     }
 
-    await this.validateDate(dto);
+    validateParkingPeriod(dto.entryTime, dto.exitTime);
     await this.validateParkingRecord(dto.vehicle);
 
     if (queryRunner) {
@@ -67,15 +68,6 @@ export class CreateParkingRecordManualProvider {
       throw new HttpException(
         'Já existe um registro para esse veículo sem data e hora de saída',
         422,
-      );
-    }
-  }
-
-  private async validateDate(dto: CreateParkingRecordDTO) {
-    if (dto.entryTime && dto.exitTime && dto.exitTime < dto.entryTime) {
-      throw new HttpException(
-        'A data e hora de saída não pode ser menor que a data e hora de entrada',
-        412,
       );
     }
   }
