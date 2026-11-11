@@ -1,6 +1,6 @@
 import { VehicleRepository } from '@modules/vehicle/infra/repositories/vehicle.repository';
 import { CreateVehicleDTO } from '../../dtos/create-vehicle.dto';
-import { ILike, QueryRunner } from 'typeorm';
+import { QueryRunner } from 'typeorm';
 import { VehicleEntity } from '../../entities/vehicle.entity';
 import { EVehicleSource } from '../../enums/vehicle-source.enum';
 import { VehicleService } from '../vehicle.service';

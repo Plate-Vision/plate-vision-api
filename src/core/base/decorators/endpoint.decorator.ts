@@ -20,10 +20,8 @@ import { Abilities } from '@modules/auth/domain/decorators/ability.decorator';
 import { ERoleReference } from '@modules/role/domain/enums/role-reference.enum';
 import { EAbilityReference } from '@modules/role/domain/enums/ability-reference.enum';
 
-import { SaveFile } from '../utils/save-file';
 import { EndpointMethod } from '../enums/endpoint-method.enum';
 import { FindManyResponse } from '../utils/find-many-reponse-doc';
-import { saveFileWithFormat } from '../utils/file-validation';
 
 interface IEndpointResponse {
   status: number;

@@ -15,13 +15,15 @@ export class UpdateRoleProvider {
   public constructor(
     private readonly roleRepository: RoleRepository,
     private readonly abilityRepository: AbilityRepository,
-  ) { }
+  ) {}
 
   public async execute(uuid: string, data: UpdateRoleDTO): Promise<RoleEntity> {
     const roleFound = await this.validateRoleId(uuid);
 
     return await this.roleRepository.transaction(async (queryRunner) => {
-      await queryRunner.manager.delete(RoleAbilityEntity, { role: { id: roleFound.id } });
+      await queryRunner.manager.delete(RoleAbilityEntity, {
+        role: { id: roleFound.id },
+      });
 
       const role = this.serializeRole(data);
 

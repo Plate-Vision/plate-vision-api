@@ -46,12 +46,13 @@ export class UpsertParkingRecordIaProvider {
     dto: UpdateParkingRecordDTO,
     queryRunner?: QueryRunner,
   ) {
-    let parkingRecord: ParkingRecordEntity | null;
-
-    parkingRecord = await queryRunner.manager.findOne(ParkingRecordEntity, {
-      where: { vehicle: { id: vehicle.id } },
-      order: { id: 'DESC' },
-    });
+    const parkingRecord = await queryRunner.manager.findOne(
+      ParkingRecordEntity,
+      {
+        where: { vehicle: { id: vehicle.id } },
+        order: { id: 'DESC' },
+      },
+    );
 
     if (parkingRecord && parkingRecord.exitTime === null) {
       return this.parkingRecordService.updateIa.execute({

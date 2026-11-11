@@ -6,7 +6,6 @@ import { EnvironmentVariablesProvider } from '@core/enviroment-variables/provide
 import { BaseRepository } from '@core/database/domain/repositories/base.repository';
 import { RoleEntity } from '@modules/role/domain/entities/role.entity';
 
-
 @Injectable()
 export class RoleRepository extends BaseRepository<RoleEntity> {
   public constructor(

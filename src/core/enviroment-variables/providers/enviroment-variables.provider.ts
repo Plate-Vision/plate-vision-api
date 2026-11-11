@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { MailVariablesProvider } from './variables/mail-variables.provider';
 import { DatabaseVariablesProvider } from './variables/database-variables.provider';
 import { ApplicationVariablesProvider } from './variables/application-variables.provider';
 
