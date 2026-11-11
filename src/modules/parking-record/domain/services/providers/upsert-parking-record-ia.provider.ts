@@ -69,13 +69,13 @@ export class UpsertParkingRecordIaProvider {
   ) {
     const parkingRecord = await query.manager.save(
       ParkingRecordEntity,
-      await this.serialize(dto),
+      this.toAiEntryRecord(dto),
     );
 
     return parkingRecord;
   }
 
-  private async serialize(dto: CreateParkingRecordDTO) {
+  private toAiEntryRecord(dto: CreateParkingRecordDTO) {
     return {
       ...dto,
       vehicle: dto.vehicle,

@@ -43,13 +43,13 @@ export class CreateVehicleIaProvider {
   ) {
     const vehicle = await query.manager.save(
       VehicleEntity,
-      await this.serialize(dto),
+      this.toAiVehicle(dto),
     );
 
     return vehicle;
   }
 
-  private async serialize(dto: CreateVehicleDTO) {
+  private toAiVehicle(dto: CreateVehicleDTO) {
     return {
       ...dto,
       source: EVehicleSource.AI,

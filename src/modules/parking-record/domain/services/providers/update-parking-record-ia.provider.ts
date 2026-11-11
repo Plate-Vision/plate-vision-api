@@ -23,10 +23,7 @@ export class UpdateParkingRecordIaProvider {
 
     await this.validateDate(data.data, parkingRecord);
 
-    const serializedData = await this.serializeCustomerData(
-      parkingRecord,
-      data.data,
-    );
+    const serializedData = this.toAiExitRecord(parkingRecord, data.data);
 
     if (data.queryRunner) {
       return await data.queryRunner.manager.save(
@@ -51,7 +48,7 @@ export class UpdateParkingRecordIaProvider {
     }
   }
 
-  private async serializeCustomerData(
+  private toAiExitRecord(
     parkingRecord: ParkingRecordEntity,
     data: UpdateParkingRecordDTO,
   ) {
