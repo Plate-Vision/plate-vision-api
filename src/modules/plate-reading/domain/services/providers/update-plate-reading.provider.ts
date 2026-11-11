@@ -1,6 +1,6 @@
 import { PlateReadingRepository } from '@modules/plate-reading/infra/repositories/plate-reading.repository';
 import { PlateReadingEntity } from '../../entities/plate-reading.entity';
-import { HttpException } from '@nestjs/common';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { In, QueryRunner } from 'typeorm';
 
@@ -38,7 +38,10 @@ export class UpdatePlateReadingProvider {
       return foundPlatesReadings;
     }
 
-    throw new HttpException('Leituras de placas não encontrada', 404);
+    throw new HttpException(
+      'Leituras de placas não encontrada',
+      HttpStatus.NOT_FOUND,
+    );
   }
 
   private async saveProcessedReadings(

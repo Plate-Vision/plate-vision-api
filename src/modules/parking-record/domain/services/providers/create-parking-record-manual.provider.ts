@@ -4,7 +4,7 @@ import { ParkingRecordEntity } from '../../entities/parking-record.entity';
 import { CreateParkingRecordDTO } from '../../dtos/create-parking-record.dto';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { QueryRunner } from 'typeorm';
-import { HttpException } from '@nestjs/common';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { EParkingRecordSource } from '../../enums/parking-record-source.enum';
 import { VehicleEntity } from '@modules/vehicle/domain/entities/vehicle.entity';
 import { FindOneVehicleProvider } from '@modules/vehicle/domain/services/providers/find-one-vehicle.provider';
@@ -32,13 +32,16 @@ export class CreateParkingRecordManualProvider {
     });
 
     if (vehicle.status === EVehicleStatus.INACTIVE) {
-      throw new HttpException('Veículo inativo', 422);
+      throw new HttpException(
+        'Veículo inativo',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
     }
 
     if (vehicle.isServiceVehicle === true) {
       throw new HttpException(
         'Não é possível registrar entrada ou saída de um veículo de serviço',
-        422,
+        HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }
 
@@ -65,7 +68,7 @@ export class CreateParkingRecordManualProvider {
     if (parkingRecord && parkingRecord.exitTime === null) {
       throw new HttpException(
         'Já existe um registro para esse veículo sem data e hora de saída',
-        422,
+        HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }
   }
