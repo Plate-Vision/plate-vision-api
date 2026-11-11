@@ -72,7 +72,3 @@ git shortlog -sn original..main
 - [Seis PRs e autoria](../reports/delivery.json), [issue](https://github.com/Plate-Vision/plate-vision-api/issues/26), [comentário técnico](https://github.com/Plate-Vision/plate-vision-api/pull/29#pullrequestreview-5864129683) e [proteções](../reports/repository-state.json).
 - [Histórico e shortlog](../reports/history.txt), [CI observado](../reports/ci.json), [template](../.github/pull_request_template.md) e [revisão](../reports/review.json).
 - `git log --oneline --graph original..refactor/clean-code-project`; `git shortlog -sn original..refactor/clean-code-project`.
-
-## Roteiro de 1 minuto
-
-Mostre `original`, a branch nova e os seis PRs encadeados. Abra o comentário bloqueante de inicialização, sua correção e o resultado local; a execução remota do CI está pendente. Mostre a proteção de branches. Declare as aprovações e quotas de autoria/revisão ainda pendentes; não apresente auto-revisão como aprovação de colega.

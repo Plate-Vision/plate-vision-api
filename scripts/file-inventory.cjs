@@ -18,7 +18,7 @@ const classify = (file) => {
   if (file.startsWith('src/')) return 'Mechanical formatting or lint cleanup';
   if (file.startsWith('test/')) return 'Regression tests or test support';
   if (file.startsWith('docs/') || /^(README|CHANGELOG|task)\.md$/.test(file))
-    return 'Presentation and technical documentation';
+    return 'Refactoring and technical documentation';
   if (file.startsWith('reports/')) return 'Measured evidence';
   if (file.startsWith('scripts/')) return 'Reproducible reports';
   return 'Quality tooling, dependency lock or automation';

@@ -216,7 +216,3 @@ Ferramentas e uso de IA: [bloco 03](03-ferramentas.md). A aprovação de escopo 
 - [Baseline](../reports/baseline.json), [caracterização prévia](../reports/characterization.json), [métricas finais](../reports/final.json) e [enunciado](../task.md).
 - [Seis PRs reais](../reports/delivery.json), [testes com nomes dos cenários](../reports/test-results.json) e [comparação HTTP/PostgreSQL](../reports/demo-comparison.json).
 - `git diff original...refactor/clean-code-project -- src/modules/plate-reading src/modules/parking-record/domain/services src/modules/vehicle/domain/services`.
-
-## Roteiro de 1 minuto
-
-Mostre a tabela das cinco categorias. Abra cinco diffs curtos: lote versus leitura, fachada versus provider, validação triplicada versus helper, DTO repetido versus variável e número versus HttpStatus. Cite o teste que protege cada mudança e encerre com seis ocorrências eliminadas, uma reduzida e uma fora do recorte.

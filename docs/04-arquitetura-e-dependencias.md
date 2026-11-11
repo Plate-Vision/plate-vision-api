@@ -81,7 +81,3 @@ Global: **611 para 610 arestas** e **sete para seis componentes fortemente conec
 - [Grafo, ciclos e métricas por arquivo](../reports/architecture.json), [montagem real testada](../test/service-wiring.spec.ts) e [comparação real](../reports/demo-comparison.json).
 - [PR 3](https://github.com/Plate-Vision/plate-vision-api/pull/29), [PR 4](https://github.com/Plate-Vision/plate-vision-api/pull/30) e [helper](../src/modules/parking-record/domain/services/helpers/validate-parking-period.ts).
 - `node scripts/architecture-report.cjs`; `npm test -- test/service-wiring.spec.ts`.
-
-## Roteiro de 1 minuto
-
-Compare as setas do processador antes/depois. Explique a diferença entre fachadas públicas, providers internos e DI do Nest. Mostre a remoção do `forwardRef` de serviço e o teste que a protege. Mostre as métricas e diga explicitamente que seis componentes cíclicos de imports permanecem.

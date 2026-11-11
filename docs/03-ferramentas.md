@@ -55,7 +55,3 @@ A IA auxiliou no diagnóstico, testes de caracterização, refatorações, confi
 - [Configurações e scripts](../package.json), [CI](../.github/workflows/quality.yml), [template](../.github/pull_request_template.md) e [versões medidas](../reports/final.json).
 - [Verificação após instalação limpa](../reports/verification.txt), [audit](../reports/dependency-audit.json) e [revisão técnica](../reports/review.json).
 - [PRs e autoria](../reports/delivery.json); execuções do CI acessíveis nas abas Checks dos PRs e em [Actions](https://github.com/Plate-Vision/plate-vision-api/actions).
-
-## Roteiro de 1 minuto
-
-Abra `package.json`, os dois hooks e `quality.yml`. Mostre o linter no pre-commit e no CI, um commit inválido rejeitado, o resultado local e o threshold de 50%. Declare o uso de GPT-6/Codex e explique como a demonstração real encontrou uma falha que a revisão automatizada não detectou.

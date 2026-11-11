@@ -11,10 +11,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Jest regression tests covering plate processing, parking writes, actual Nest dependency initialization, controller delegation, reads, authentication, validation, pagination and repository transaction outcomes.
 - A 50% minimum global line coverage gate, coverage reports, a tracked dependency lockfile, and explicit runtime dependencies for existing UUID and dotenv imports.
 - Husky pre-commit lint/format checks, commit-msg Conventional Commit validation, and matching GitHub Actions quality and commit checks.
-- Six presentation blocks and their index, measured baseline/final reports, a complete file inventory and a reproducible HTTP/PostgreSQL original-versus-refactored demonstration.
+- Six refactoring documentation blocks and their index, measured baseline/final reports, a complete file inventory and a reproducible HTTP/PostgreSQL original-versus-refactored demonstration.
 - A pull request template with smell, technique, regression test, lint, coverage and peer review checklists.
 
 ### Changed
+
+- Moved presentation speaking notes and the timed agenda into an ignored local document.
 
 - Renamed pure plate and parking transformations and removed unnecessary asynchronous mapping.
 - Centralized parking date ordering validation without changing manual or AI fallback behavior.

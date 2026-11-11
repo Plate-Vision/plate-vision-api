@@ -6,19 +6,19 @@ M	.gitignore	Quality tooling, dependency lock or automation
 A	.husky/commit-msg	Quality tooling, dependency lock or automation
 A	.husky/pre-commit	Quality tooling, dependency lock or automation
 A	.prettierignore	Quality tooling, dependency lock or automation
-A	CHANGELOG.md	Presentation and technical documentation
+A	CHANGELOG.md	Refactoring and technical documentation
 A	commitlint.config.js	Quality tooling, dependency lock or automation
-A	docs/01-analise-de-smells.md	Presentation and technical documentation
-A	docs/02-cobertura-de-testes.md	Presentation and technical documentation
-A	docs/03-ferramentas.md	Presentation and technical documentation
-A	docs/04-arquitetura-e-dependencias.md	Presentation and technical documentation
-A	docs/05-repositorio.md	Presentation and technical documentation
-A	docs/06-documentacao.md	Presentation and technical documentation
-A	docs/README.md	Presentation and technical documentation
+A	docs/01-analise-de-smells.md	Refactoring and technical documentation
+A	docs/02-cobertura-de-testes.md	Refactoring and technical documentation
+A	docs/03-ferramentas.md	Refactoring and technical documentation
+A	docs/04-arquitetura-e-dependencias.md	Refactoring and technical documentation
+A	docs/05-repositorio.md	Refactoring and technical documentation
+A	docs/06-documentacao.md	Refactoring and technical documentation
+A	docs/README.md	Refactoring and technical documentation
 A	jest.config.js	Quality tooling, dependency lock or automation
 A	package-lock.json	Quality tooling, dependency lock or automation
 M	package.json	Quality tooling, dependency lock or automation
-M	README.md	Presentation and technical documentation
+M	README.md	Refactoring and technical documentation
 A	reports/architecture.json	Measured evidence
 A	reports/baseline.json	Measured evidence
 A	reports/characterization.json	Measured evidence
@@ -90,7 +90,7 @@ M	src/modules/vehicle/domain/services/providers/create-vehicle-manual.provider.t
 M	src/modules/vehicle/domain/services/providers/find-one-vehicle.provider.ts	Mechanical formatting or lint cleanup
 M	src/modules/vehicle/domain/services/providers/update-vehicle.provider.ts	Mechanical formatting or lint cleanup
 M	src/modules/vehicle/domain/services/vehicle.service.ts	Flow refactoring or service wiring
-A	task.md	Presentation and technical documentation
+A	task.md	Refactoring and technical documentation
 A	test/auth-guards.spec.ts	Regression tests or test support
 A	test/auth-services.spec.ts	Regression tests or test support
 A	test/configuration-and-validation.spec.ts	Regression tests or test support

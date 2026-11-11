@@ -11,7 +11,7 @@ API de controle de acesso veicular construída com NestJS, TypeScript e TypeORM.
 - Escopo: **627 linhas originais em 12 arquivos**, com **608 linhas em 13 arquivos** após a refatoração, incluindo o novo helper. A API original completa tem **7.564 linhas**; a aprovação desse recorte pelo professor está pendente.
 - Resultado: **185 testes**, **50,47% das linhas** e **60,19% dos branches** da API cobertos. O gate exige pelo menos 50% das linhas globais.
 
-O [índice da apresentação](docs/README.md) contém a sequência de dez minutos, os seis blocos, as evidências, as pendências acadêmicas e os links dos PRs. O [inventário completo](reports/file-inventory.tsv) identifica cada arquivo criado ou alterado. As mudanças estão no [CHANGELOG](CHANGELOG.md).
+O [índice da documentação](docs/README.md) reúne os seis blocos técnicos, as evidências, as pendências acadêmicas e os links dos PRs. O [inventário completo](reports/file-inventory.tsv) identifica cada arquivo criado ou alterado. As mudanças estão no [CHANGELOG](CHANGELOG.md).
 
 ## Instalação e execução local
 
@@ -30,7 +30,7 @@ npm run seed:run
 npm run start:dev
 ```
 
-A API usa o prefixo `/api`; o Swagger está em `/doc` e o JSON em `/doc-json`, sem o prefixo. Use a porta de `API_PORT`. O seed original cria um usuário de demonstração; use-o somente em um banco local descartável, conforme o [roteiro](docs/06-documentacao.md).
+A API usa o prefixo `/api`; o Swagger está em `/doc` e o JSON em `/doc-json`, sem o prefixo. Use a porta de `API_PORT`. O seed original cria um usuário de demonstração; use-o somente em um banco local descartável, conforme a [documentação de execução](docs/06-documentacao.md).
 
 ## Verificações
 

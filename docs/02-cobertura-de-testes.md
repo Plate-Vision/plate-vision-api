@@ -67,7 +67,3 @@ A falha de DI escapou dos testes com montagem manual e foi encontrada na demo re
 - [Resultado completo por cenário](../reports/test-results.json), [cobertura por arquivo](../reports/coverage-summary.json), [baseline de caracterização](../reports/characterization.json).
 - [Log de verificação](../reports/verification.txt), [configuração do threshold](../jest.config.js) e [demo real](../reports/demo-comparison.json).
 - `npm run test:cov`; abrir `coverage/lcov-report/index.html`. O workflow prevê a publicação da pasta `coverage`; a execução remota está pendente.
-
-## Roteiro de 1 minuto
-
-Execute os testes ou mostre o log de 185 cenários. Abra um teste de data, um de ordem transacional e o teste real de DI que detecta a falha de inicialização. Mostre a cobertura global e a tabela por módulo. Explique as exclusões e o que a cobertura parcial ainda não prova.
