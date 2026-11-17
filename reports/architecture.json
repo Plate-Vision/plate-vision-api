@@ -1,0 +1,415 @@
+{
+  "method": "Static local TypeScript import graph, including type imports. Each edge is counted once per file pair. Instability = fanOut / (fanIn + fanOut). Cycles are strongly connected components; these are not proof of runtime DI cycles.",
+  "originalCommit": "b360df12edf9c347f981130fdcd0b61266869822",
+  "before": {
+    "files": 226,
+    "localImportEdges": 611,
+    "cycleComponents": [
+      [
+        "src/modules/customer/application/decorators/customer-document-decorator.ts",
+        "src/modules/customer/application/validators/is-document.validator.ts",
+        "src/modules/customer/domain/dtos/create-customer.dto.ts"
+      ],
+      [
+        "src/modules/customer/domain/services/customer.service.ts",
+        "src/modules/customer/domain/services/providers/delete-customer.provider.ts",
+        "src/modules/customer/domain/services/providers/update-customer.provider.ts"
+      ],
+      [
+        "src/modules/occurrence/domain/services/occurrence.service.ts",
+        "src/modules/occurrence/domain/services/providers/create-occurrence.provider.ts",
+        "src/modules/occurrence/domain/services/providers/delete-occurrence.provider.ts",
+        "src/modules/occurrence/domain/services/providers/update-occurrence.provider.ts"
+      ],
+      [
+        "src/modules/parking-record/domain/services/parking-record.service.ts",
+        "src/modules/parking-record/domain/services/providers/create-parking-record-manual.provider.ts",
+        "src/modules/parking-record/domain/services/providers/delete-parking-record.provider.ts",
+        "src/modules/parking-record/domain/services/providers/update-parking-record-ia.provider.ts",
+        "src/modules/parking-record/domain/services/providers/update-parking-record-manual.provider.ts",
+        "src/modules/parking-record/domain/services/providers/upsert-parking-record-ia.provider.ts"
+      ],
+      [
+        "src/modules/plate-reading/domain/services/plate-reading.service.ts",
+        "src/modules/plate-reading/domain/services/providers/processor-plate-reading.provider.ts"
+      ],
+      [
+        "src/modules/role/domain/entities/ability.entity.ts",
+        "src/modules/role/domain/entities/role-ability.entity.ts",
+        "src/modules/role/domain/entities/role.entity.ts",
+        "src/modules/user/domain/entities/user.entity.ts"
+      ],
+      [
+        "src/modules/vehicle/domain/services/providers/create-vehicle-ia.provider.ts",
+        "src/modules/vehicle/domain/services/providers/create-vehicle-manual.provider.ts",
+        "src/modules/vehicle/domain/services/providers/delete-vehicle.provider.ts",
+        "src/modules/vehicle/domain/services/providers/update-vehicle.provider.ts",
+        "src/modules/vehicle/domain/services/vehicle.service.ts"
+      ]
+    ],
+    "metrics": [
+      {
+        "file": "src/modules/parking-record/domain/services/parking-record.service.ts",
+        "fanIn": 9,
+        "fanOut": 9,
+        "instability": 0.5,
+        "imports": [
+          "src/modules/parking-record/domain/services/providers/create-parking-record-manual.provider.ts",
+          "src/modules/parking-record/domain/services/providers/delete-parking-record.provider.ts",
+          "src/modules/parking-record/domain/services/providers/find-many-parking-record.provider.ts",
+          "src/modules/parking-record/domain/services/providers/find-one-parking-record.provider.ts",
+          "src/modules/parking-record/domain/services/providers/update-parking-record-ia.provider.ts",
+          "src/modules/parking-record/domain/services/providers/update-parking-record-manual.provider.ts",
+          "src/modules/parking-record/domain/services/providers/upsert-parking-record-ia.provider.ts",
+          "src/modules/parking-record/infra/repositories/parking-record.repository.ts",
+          "src/modules/vehicle/domain/services/vehicle.service.ts"
+        ]
+      },
+      {
+        "file": "src/modules/parking-record/domain/services/providers/create-parking-record-manual.provider.ts",
+        "fanIn": 1,
+        "fanOut": 9,
+        "instability": 0.9,
+        "imports": [
+          "src/modules/parking-record/domain/dtos/create-parking-record.dto.ts",
+          "src/modules/parking-record/domain/entities/parking-record.entity.ts",
+          "src/modules/parking-record/domain/enums/parking-record-source.enum.ts",
+          "src/modules/parking-record/domain/services/parking-record.service.ts",
+          "src/modules/parking-record/infra/repositories/parking-record.repository.ts",
+          "src/modules/user/domain/entities/user.entity.ts",
+          "src/modules/vehicle/domain/entities/vehicle.entity.ts",
+          "src/modules/vehicle/domain/enums/vehicle-status.enum.ts",
+          "src/modules/vehicle/domain/services/vehicle.service.ts"
+        ]
+      },
+      {
+        "file": "src/modules/parking-record/domain/services/providers/update-parking-record-ia.provider.ts",
+        "fanIn": 1,
+        "fanOut": 4,
+        "instability": 0.8,
+        "imports": [
+          "src/modules/parking-record/domain/dtos/update-parking-record.dto.ts",
+          "src/modules/parking-record/domain/entities/parking-record.entity.ts",
+          "src/modules/parking-record/domain/enums/parking-record-source.enum.ts",
+          "src/modules/parking-record/domain/services/parking-record.service.ts"
+        ]
+      },
+      {
+        "file": "src/modules/parking-record/domain/services/providers/update-parking-record-manual.provider.ts",
+        "fanIn": 1,
+        "fanOut": 6,
+        "instability": 0.857,
+        "imports": [
+          "src/modules/parking-record/domain/dtos/update-parking-record.dto.ts",
+          "src/modules/parking-record/domain/entities/parking-record.entity.ts",
+          "src/modules/parking-record/domain/enums/parking-record-source.enum.ts",
+          "src/modules/parking-record/domain/services/parking-record.service.ts",
+          "src/modules/parking-record/infra/repositories/parking-record.repository.ts",
+          "src/modules/user/domain/entities/user.entity.ts"
+        ]
+      },
+      {
+        "file": "src/modules/parking-record/domain/services/providers/upsert-parking-record-ia.provider.ts",
+        "fanIn": 1,
+        "fanOut": 7,
+        "instability": 0.875,
+        "imports": [
+          "src/modules/parking-record/domain/dtos/create-parking-record.dto.ts",
+          "src/modules/parking-record/domain/dtos/update-parking-record.dto.ts",
+          "src/modules/parking-record/domain/entities/parking-record.entity.ts",
+          "src/modules/parking-record/domain/enums/parking-record-source.enum.ts",
+          "src/modules/parking-record/domain/services/parking-record.service.ts",
+          "src/modules/parking-record/infra/repositories/parking-record.repository.ts",
+          "src/modules/vehicle/domain/entities/vehicle.entity.ts"
+        ]
+      },
+      {
+        "file": "src/modules/plate-reading/domain/services/plate-reading.service.ts",
+        "fanIn": 4,
+        "fanOut": 6,
+        "instability": 0.6,
+        "imports": [
+          "src/modules/parking-record/domain/services/parking-record.service.ts",
+          "src/modules/plate-reading/domain/services/providers/find-many-plate-reading.provider.ts",
+          "src/modules/plate-reading/domain/services/providers/processor-plate-reading.provider.ts",
+          "src/modules/plate-reading/domain/services/providers/update-plate-reading.provider.ts",
+          "src/modules/plate-reading/infra/repositories/plate-reading.repository.ts",
+          "src/modules/vehicle/domain/services/vehicle.service.ts"
+        ]
+      },
+      {
+        "file": "src/modules/plate-reading/domain/services/providers/find-many-plate-reading.provider.ts",
+        "fanIn": 1,
+        "fanOut": 1,
+        "instability": 0.5,
+        "imports": [
+          "src/modules/plate-reading/infra/repositories/plate-reading.repository.ts"
+        ]
+      },
+      {
+        "file": "src/modules/plate-reading/domain/services/providers/processor-plate-reading.provider.ts",
+        "fanIn": 1,
+        "fanOut": 5,
+        "instability": 0.833,
+        "imports": [
+          "src/modules/parking-record/domain/services/parking-record.service.ts",
+          "src/modules/plate-reading/domain/entities/plate-reading.entity.ts",
+          "src/modules/plate-reading/domain/services/plate-reading.service.ts",
+          "src/modules/plate-reading/infra/repositories/plate-reading.repository.ts",
+          "src/modules/vehicle/domain/services/vehicle.service.ts"
+        ]
+      },
+      {
+        "file": "src/modules/plate-reading/domain/services/providers/task.provider.ts",
+        "fanIn": 1,
+        "fanOut": 1,
+        "instability": 0.5,
+        "imports": [
+          "src/modules/plate-reading/domain/services/plate-reading.service.ts"
+        ]
+      },
+      {
+        "file": "src/modules/plate-reading/domain/services/providers/update-plate-reading.provider.ts",
+        "fanIn": 1,
+        "fanOut": 2,
+        "instability": 0.667,
+        "imports": [
+          "src/modules/plate-reading/domain/entities/plate-reading.entity.ts",
+          "src/modules/plate-reading/infra/repositories/plate-reading.repository.ts"
+        ]
+      },
+      {
+        "file": "src/modules/vehicle/domain/services/providers/create-vehicle-ia.provider.ts",
+        "fanIn": 1,
+        "fanOut": 5,
+        "instability": 0.833,
+        "imports": [
+          "src/modules/vehicle/domain/dtos/create-vehicle.dto.ts",
+          "src/modules/vehicle/domain/entities/vehicle.entity.ts",
+          "src/modules/vehicle/domain/enums/vehicle-source.enum.ts",
+          "src/modules/vehicle/domain/services/vehicle.service.ts",
+          "src/modules/vehicle/infra/repositories/vehicle.repository.ts"
+        ]
+      },
+      {
+        "file": "src/modules/vehicle/domain/services/vehicle.service.ts",
+        "fanIn": 12,
+        "fanOut": 8,
+        "instability": 0.4,
+        "imports": [
+          "src/modules/customer/domain/services/customer.service.ts",
+          "src/modules/vehicle/domain/services/providers/create-vehicle-ia.provider.ts",
+          "src/modules/vehicle/domain/services/providers/create-vehicle-manual.provider.ts",
+          "src/modules/vehicle/domain/services/providers/delete-vehicle.provider.ts",
+          "src/modules/vehicle/domain/services/providers/find-many.vehicle.provider.ts",
+          "src/modules/vehicle/domain/services/providers/find-one-vehicle.provider.ts",
+          "src/modules/vehicle/domain/services/providers/update-vehicle.provider.ts",
+          "src/modules/vehicle/infra/repositories/vehicle.repository.ts"
+        ]
+      }
+    ]
+  },
+  "after": {
+    "files": 227,
+    "localImportEdges": 610,
+    "cycleComponents": [
+      [
+        "src/modules/customer/application/decorators/customer-document-decorator.ts",
+        "src/modules/customer/application/validators/is-document.validator.ts",
+        "src/modules/customer/domain/dtos/create-customer.dto.ts"
+      ],
+      [
+        "src/modules/customer/domain/services/customer.service.ts",
+        "src/modules/customer/domain/services/providers/delete-customer.provider.ts",
+        "src/modules/customer/domain/services/providers/update-customer.provider.ts"
+      ],
+      [
+        "src/modules/occurrence/domain/services/occurrence.service.ts",
+        "src/modules/occurrence/domain/services/providers/create-occurrence.provider.ts",
+        "src/modules/occurrence/domain/services/providers/delete-occurrence.provider.ts",
+        "src/modules/occurrence/domain/services/providers/update-occurrence.provider.ts"
+      ],
+      [
+        "src/modules/parking-record/domain/services/parking-record.service.ts",
+        "src/modules/parking-record/domain/services/providers/delete-parking-record.provider.ts"
+      ],
+      [
+        "src/modules/role/domain/entities/ability.entity.ts",
+        "src/modules/role/domain/entities/role-ability.entity.ts",
+        "src/modules/role/domain/entities/role.entity.ts",
+        "src/modules/user/domain/entities/user.entity.ts"
+      ],
+      [
+        "src/modules/vehicle/domain/services/providers/create-vehicle-manual.provider.ts",
+        "src/modules/vehicle/domain/services/providers/delete-vehicle.provider.ts",
+        "src/modules/vehicle/domain/services/providers/update-vehicle.provider.ts",
+        "src/modules/vehicle/domain/services/vehicle.service.ts"
+      ]
+    ],
+    "metrics": [
+      {
+        "file": "src/modules/parking-record/domain/services/parking-record.service.ts",
+        "fanIn": 4,
+        "fanOut": 9,
+        "instability": 0.692,
+        "imports": [
+          "src/modules/parking-record/domain/services/providers/create-parking-record-manual.provider.ts",
+          "src/modules/parking-record/domain/services/providers/delete-parking-record.provider.ts",
+          "src/modules/parking-record/domain/services/providers/find-many-parking-record.provider.ts",
+          "src/modules/parking-record/domain/services/providers/find-one-parking-record.provider.ts",
+          "src/modules/parking-record/domain/services/providers/update-parking-record-ia.provider.ts",
+          "src/modules/parking-record/domain/services/providers/update-parking-record-manual.provider.ts",
+          "src/modules/parking-record/domain/services/providers/upsert-parking-record-ia.provider.ts",
+          "src/modules/parking-record/infra/repositories/parking-record.repository.ts",
+          "src/modules/vehicle/domain/services/vehicle.service.ts"
+        ]
+      },
+      {
+        "file": "src/modules/parking-record/domain/services/providers/create-parking-record-manual.provider.ts",
+        "fanIn": 1,
+        "fanOut": 10,
+        "instability": 0.909,
+        "imports": [
+          "src/modules/parking-record/domain/dtos/create-parking-record.dto.ts",
+          "src/modules/parking-record/domain/entities/parking-record.entity.ts",
+          "src/modules/parking-record/domain/enums/parking-record-source.enum.ts",
+          "src/modules/parking-record/domain/services/helpers/validate-parking-period.ts",
+          "src/modules/parking-record/domain/services/providers/find-one-parking-record.provider.ts",
+          "src/modules/parking-record/infra/repositories/parking-record.repository.ts",
+          "src/modules/user/domain/entities/user.entity.ts",
+          "src/modules/vehicle/domain/entities/vehicle.entity.ts",
+          "src/modules/vehicle/domain/enums/vehicle-status.enum.ts",
+          "src/modules/vehicle/domain/services/providers/find-one-vehicle.provider.ts"
+        ]
+      },
+      {
+        "file": "src/modules/parking-record/domain/services/providers/update-parking-record-ia.provider.ts",
+        "fanIn": 2,
+        "fanOut": 5,
+        "instability": 0.714,
+        "imports": [
+          "src/modules/parking-record/domain/dtos/update-parking-record.dto.ts",
+          "src/modules/parking-record/domain/entities/parking-record.entity.ts",
+          "src/modules/parking-record/domain/enums/parking-record-source.enum.ts",
+          "src/modules/parking-record/domain/services/helpers/validate-parking-period.ts",
+          "src/modules/parking-record/domain/services/providers/find-one-parking-record.provider.ts"
+        ]
+      },
+      {
+        "file": "src/modules/parking-record/domain/services/providers/update-parking-record-manual.provider.ts",
+        "fanIn": 1,
+        "fanOut": 7,
+        "instability": 0.875,
+        "imports": [
+          "src/modules/parking-record/domain/dtos/update-parking-record.dto.ts",
+          "src/modules/parking-record/domain/entities/parking-record.entity.ts",
+          "src/modules/parking-record/domain/enums/parking-record-source.enum.ts",
+          "src/modules/parking-record/domain/services/helpers/validate-parking-period.ts",
+          "src/modules/parking-record/domain/services/providers/find-one-parking-record.provider.ts",
+          "src/modules/parking-record/infra/repositories/parking-record.repository.ts",
+          "src/modules/user/domain/entities/user.entity.ts"
+        ]
+      },
+      {
+        "file": "src/modules/parking-record/domain/services/providers/upsert-parking-record-ia.provider.ts",
+        "fanIn": 2,
+        "fanOut": 7,
+        "instability": 0.778,
+        "imports": [
+          "src/modules/parking-record/domain/dtos/create-parking-record.dto.ts",
+          "src/modules/parking-record/domain/dtos/update-parking-record.dto.ts",
+          "src/modules/parking-record/domain/entities/parking-record.entity.ts",
+          "src/modules/parking-record/domain/enums/parking-record-source.enum.ts",
+          "src/modules/parking-record/domain/services/providers/update-parking-record-ia.provider.ts",
+          "src/modules/parking-record/infra/repositories/parking-record.repository.ts",
+          "src/modules/vehicle/domain/entities/vehicle.entity.ts"
+        ]
+      },
+      {
+        "file": "src/modules/plate-reading/domain/services/plate-reading.service.ts",
+        "fanIn": 3,
+        "fanOut": 6,
+        "instability": 0.667,
+        "imports": [
+          "src/modules/parking-record/domain/services/parking-record.service.ts",
+          "src/modules/plate-reading/domain/services/providers/find-many-plate-reading.provider.ts",
+          "src/modules/plate-reading/domain/services/providers/processor-plate-reading.provider.ts",
+          "src/modules/plate-reading/domain/services/providers/update-plate-reading.provider.ts",
+          "src/modules/plate-reading/infra/repositories/plate-reading.repository.ts",
+          "src/modules/vehicle/domain/services/vehicle.service.ts"
+        ]
+      },
+      {
+        "file": "src/modules/plate-reading/domain/services/providers/find-many-plate-reading.provider.ts",
+        "fanIn": 2,
+        "fanOut": 1,
+        "instability": 0.333,
+        "imports": [
+          "src/modules/plate-reading/infra/repositories/plate-reading.repository.ts"
+        ]
+      },
+      {
+        "file": "src/modules/plate-reading/domain/services/providers/processor-plate-reading.provider.ts",
+        "fanIn": 1,
+        "fanOut": 6,
+        "instability": 0.857,
+        "imports": [
+          "src/modules/parking-record/domain/services/providers/upsert-parking-record-ia.provider.ts",
+          "src/modules/plate-reading/domain/entities/plate-reading.entity.ts",
+          "src/modules/plate-reading/domain/services/providers/find-many-plate-reading.provider.ts",
+          "src/modules/plate-reading/domain/services/providers/update-plate-reading.provider.ts",
+          "src/modules/plate-reading/infra/repositories/plate-reading.repository.ts",
+          "src/modules/vehicle/domain/services/providers/create-vehicle-ia.provider.ts"
+        ]
+      },
+      {
+        "file": "src/modules/plate-reading/domain/services/providers/task.provider.ts",
+        "fanIn": 1,
+        "fanOut": 1,
+        "instability": 0.5,
+        "imports": [
+          "src/modules/plate-reading/domain/services/plate-reading.service.ts"
+        ]
+      },
+      {
+        "file": "src/modules/plate-reading/domain/services/providers/update-plate-reading.provider.ts",
+        "fanIn": 2,
+        "fanOut": 2,
+        "instability": 0.5,
+        "imports": [
+          "src/modules/plate-reading/domain/entities/plate-reading.entity.ts",
+          "src/modules/plate-reading/infra/repositories/plate-reading.repository.ts"
+        ]
+      },
+      {
+        "file": "src/modules/vehicle/domain/services/providers/create-vehicle-ia.provider.ts",
+        "fanIn": 2,
+        "fanOut": 5,
+        "instability": 0.714,
+        "imports": [
+          "src/modules/vehicle/domain/dtos/create-vehicle.dto.ts",
+          "src/modules/vehicle/domain/entities/vehicle.entity.ts",
+          "src/modules/vehicle/domain/enums/vehicle-source.enum.ts",
+          "src/modules/vehicle/domain/services/providers/find-one-vehicle.provider.ts",
+          "src/modules/vehicle/infra/repositories/vehicle.repository.ts"
+        ]
+      },
+      {
+        "file": "src/modules/vehicle/domain/services/vehicle.service.ts",
+        "fanIn": 9,
+        "fanOut": 8,
+        "instability": 0.471,
+        "imports": [
+          "src/modules/customer/domain/services/customer.service.ts",
+          "src/modules/vehicle/domain/services/providers/create-vehicle-ia.provider.ts",
+          "src/modules/vehicle/domain/services/providers/create-vehicle-manual.provider.ts",
+          "src/modules/vehicle/domain/services/providers/delete-vehicle.provider.ts",
+          "src/modules/vehicle/domain/services/providers/find-many.vehicle.provider.ts",
+          "src/modules/vehicle/domain/services/providers/find-one-vehicle.provider.ts",
+          "src/modules/vehicle/domain/services/providers/update-vehicle.provider.ts",
+          "src/modules/vehicle/infra/repositories/vehicle.repository.ts"
+        ]
+      }
+    ]
+  }
+}

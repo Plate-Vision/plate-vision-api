@@ -1,0 +1,271 @@
+{
+  "originalCommit": "b360df12edf9c347f981130fdcd0b61266869822",
+  "characterizationCommit": "5151995a5d2694ae5be3893e8cd0927427135af1",
+  "description": "Characterization tests introduced before semantic refactoring; original repository had no suite.",
+  "command": "npx jest --runInBand --coverage --json",
+  "tests": 53,
+  "passed": 53,
+  "suites": 3,
+  "success": true,
+  "globalCoverage": {
+    "lines": {
+      "total": 2326,
+      "covered": 476,
+      "skipped": 0,
+      "pct": 20.46
+    },
+    "statements": {
+      "total": 2490,
+      "covered": 514,
+      "skipped": 0,
+      "pct": 20.64
+    },
+    "functions": {
+      "total": 488,
+      "covered": 62,
+      "skipped": 0,
+      "pct": 12.7
+    },
+    "branches": {
+      "total": 415,
+      "covered": 86,
+      "skipped": 0,
+      "pct": 20.72
+    },
+    "branchesTrue": {
+      "total": 0,
+      "covered": 0,
+      "skipped": 0,
+      "pct": "Unknown"
+    }
+  },
+  "assertions": [
+    {
+      "file": "test/parking-record.spec.ts",
+      "tests": [
+        {
+          "name": "CreateParkingRecordManualProvider saves a manual entry in its own transaction",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider uses an existing transaction and records a manual exit source",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider rejects an inactive vehicle before checking parking records",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider rejects a service vehicle",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider rejects an exit before entry",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider accepts equal entry and exit dates",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider rejects a previous parking record with a null exit",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider preserves acceptance of a previous exit 2026-01-01T13:00:00.000Z",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider preserves acceptance of a previous exit undefined",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider propagates save failures",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider updates the record, tracks the user and marks the source manual",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider preserves the original clearing of an omitted exit date",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider allows explicit null to clear exit even when the stored dates would conflict",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider checks an omitted exit against the original date before clearing it",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider checks an updated entry against a stored exit",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider rejects an earlier exit date without saving",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider propagates a lookup failure without starting a transaction",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider keeps original entry fields while setting the AI exit",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider keeps the original exit reading for falsy id undefined",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider keeps the original exit reading for falsy id 0",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider keeps the original exit reading for falsy id null",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider rejects dates before the original entry",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider uses the stored exit when a new exit is null",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider preserves the no-runner behavior without saving",
+          "status": "passed"
+        },
+        {
+          "name": "UpsertParkingRecordIaProvider creates an AI entry when no parking record exists",
+          "status": "passed"
+        },
+        {
+          "name": "UpsertParkingRecordIaProvider closes the latest open record using the same transaction",
+          "status": "passed"
+        },
+        {
+          "name": "UpsertParkingRecordIaProvider creates a new entry when latest exit is 2026-01-01T13:00:00.000Z",
+          "status": "passed"
+        },
+        {
+          "name": "UpsertParkingRecordIaProvider creates a new entry when latest exit is undefined",
+          "status": "passed"
+        },
+        {
+          "name": "UpsertParkingRecordIaProvider preserves the original TypeError when a runner is omitted",
+          "status": "passed"
+        },
+        {
+          "name": "UpsertParkingRecordIaProvider propagates an update failure without creating another record",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/plate-reading.spec.ts",
+      "tests": [
+        {
+          "name": "FindManyPlateReadingProvider fetches unprocessed readings in ascending order",
+          "status": "passed"
+        },
+        {
+          "name": "FindManyPlateReadingProvider returns an empty array without treating it as missing data",
+          "status": "passed"
+        },
+        {
+          "name": "FindManyPlateReadingProvider propagates repository failures",
+          "status": "passed"
+        },
+        {
+          "name": "UpdatePlateReadingProvider marks readings as processed with the caller transaction",
+          "status": "passed"
+        },
+        {
+          "name": "UpdatePlateReadingProvider starts a transaction when no runner is supplied",
+          "status": "passed"
+        },
+        {
+          "name": "UpdatePlateReadingProvider saves an empty result as an empty batch",
+          "status": "passed"
+        },
+        {
+          "name": "UpdatePlateReadingProvider preserves the original missing-readings error",
+          "status": "passed"
+        },
+        {
+          "name": "UpdatePlateReadingProvider propagates save failures to the transaction owner",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider avoids opening a transaction for an empty batch",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider processes readings sequentially using the same transaction",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider skips parking for ineligible vehicle null but marks readings",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider skips parking for ineligible vehicle {\"id\": 8, \"isServiceVehicle\": true} but marks readings",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider skips parking for ineligible vehicle {\"id\": 8} but marks readings",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider converts a transaction failure into the original HTTP error",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider preserves a lookup failure outside the transaction error boundary",
+          "status": "passed"
+        },
+        {
+          "name": "TaskProvider runs the processor and logs its result",
+          "status": "passed"
+        },
+        {
+          "name": "TaskProvider skips overlap and permits execution after completion",
+          "status": "passed"
+        },
+        {
+          "name": "TaskProvider logs failures and releases the overlap lock for the next run",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/vehicle-ia.spec.ts",
+      "tests": [
+        {
+          "name": "CreateVehicleIaProvider reuses an existing vehicle without saving",
+          "status": "passed"
+        },
+        {
+          "name": "CreateVehicleIaProvider normalizes the new plate and records AI as its source",
+          "status": "passed"
+        },
+        {
+          "name": "CreateVehicleIaProvider uses the caller runner for lookup and save",
+          "status": "passed"
+        },
+        {
+          "name": "CreateVehicleIaProvider propagates lookup failures without opening a transaction",
+          "status": "passed"
+        },
+        {
+          "name": "CreateVehicleIaProvider propagates save failures to the transaction owner",
+          "status": "passed"
+        }
+      ]
+    }
+  ]
+}

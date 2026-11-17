@@ -1,0 +1,21 @@
+{
+  "command": "npm audit --json",
+  "lockfile": "package-lock.json",
+  "vulnerabilities": {
+    "info": 0,
+    "low": 11,
+    "moderate": 51,
+    "high": 13,
+    "critical": 0,
+    "total": 75
+  },
+  "dependencies": {
+    "prod": 409,
+    "dev": 625,
+    "optional": 240,
+    "peer": 11,
+    "peerOptional": 0,
+    "total": 1273
+  },
+  "note": "Existing dependency vulnerabilities are recorded; broad version upgrades are outside the behavior-preserving refactoring scope."
+}

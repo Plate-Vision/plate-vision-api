@@ -1,0 +1,45 @@
+{
+  "originalCommit": "b360df12edf9c347f981130fdcd0b61266869822",
+  "refactoredCommit": "bdaa0846226353bde62607c968f0ac4f448edd5a",
+  "postgresImage": "sha256:e3d24f6906d0760bf4da0dae872415391ededefad23fd471c47dc53b0ddf3c42",
+  "method": "Exact original source and refactored source share locked dependencies and a disposable local PostgreSQL database. APIs run sequentially; scenarios use distinct synthetic plates. No OCR engine is started.",
+  "checksMatch": true,
+  "original": {
+    "version": "original",
+    "checks": {
+      "unauthorizedStatus": 401,
+      "loginStatus": 201,
+      "openApiPaths": 21,
+      "processorStatus": 200,
+      "normalVehiclesCreated": 1,
+      "licenseUppercased": true,
+      "parkingRecordsCreated": 1,
+      "entryAndExitSource": "AI",
+      "matchingReadingReferences": true,
+      "chronologicalParking": true,
+      "serviceVehicleParkingRecords": 0,
+      "readingsProcessed": 3,
+      "noDataMessage": "Nenhum dado para atualizar",
+      "parkingListStatus": 200
+    }
+  },
+  "refactored": {
+    "version": "refactored",
+    "checks": {
+      "unauthorizedStatus": 401,
+      "loginStatus": 201,
+      "openApiPaths": 21,
+      "processorStatus": 200,
+      "normalVehiclesCreated": 1,
+      "licenseUppercased": true,
+      "parkingRecordsCreated": 1,
+      "entryAndExitSource": "AI",
+      "matchingReadingReferences": true,
+      "chronologicalParking": true,
+      "serviceVehicleParkingRecords": 0,
+      "readingsProcessed": 3,
+      "noDataMessage": "Nenhum dado para atualizar",
+      "parkingListStatus": 200
+    }
+  }
+}

@@ -64,22 +64,24 @@ export class ProcessorPlateReadingProvider {
       queryRunner,
     });
 
-    if (vehicle && vehicle.isServiceVehicle === false) {
-      const parkingEntryData = {
-        vehicle,
-        entryTime: plate.createdAt,
-        entryReadingId: plate.id,
-      };
-
-      await this.upsertParkingRecord.execute({
-        dto: parkingEntryData,
-        dtoUpdate: {
-          ...parkingEntryData,
-          exitTime: plate.createdAt,
-          exitReadingId: plate.id,
-        },
-        queryRunner,
-      });
+    if (!vehicle || vehicle.isServiceVehicle !== false) {
+      return;
     }
+
+    const parkingEntryData = {
+      vehicle,
+      entryTime: plate.createdAt,
+      entryReadingId: plate.id,
+    };
+
+    await this.upsertParkingRecord.execute({
+      dto: parkingEntryData,
+      dtoUpdate: {
+        ...parkingEntryData,
+        exitTime: plate.createdAt,
+        exitReadingId: plate.id,
+      },
+      queryRunner,
+    });
   }
 }

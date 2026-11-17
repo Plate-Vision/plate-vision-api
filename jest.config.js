@@ -18,5 +18,6 @@ module.exports = {
     '!src/**/*.d.ts',
   ],
   coverageReporters: ['text', 'json-summary', 'json', 'lcov'],
+  coverageThreshold: { global: { lines: 50 } },
   clearMocks: true,
 };

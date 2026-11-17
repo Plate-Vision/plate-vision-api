@@ -33,13 +33,11 @@ export class UpdateParkingRecordManualProvider {
         : parkingRecord.exitTime;
     validateParkingPeriod(finalEntryTime, finalExitTime);
 
-    return await this.parkingRecordRepository.transaction(async (query) => {
-      const updatedParkingRecord = await query.manager.save(
+    return this.parkingRecordRepository.transaction((query) =>
+      query.manager.save(
         this.toUpdatedParkingRecord(parkingRecord, data.data, data.authUser),
-      );
-
-      return updatedParkingRecord;
-    });
+      ),
+    );
   }
 
   private toUpdatedParkingRecord(

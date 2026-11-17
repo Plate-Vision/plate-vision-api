@@ -73,17 +73,15 @@ export class CreateParkingRecordManualProvider {
     }
   }
 
-  private async saveParkingRecordWithTransaction(
+  private saveParkingRecordWithTransaction(
     dto: CreateParkingRecordDTO,
     authUser: UserEntity,
     query: QueryRunner,
   ) {
-    const parkingRecord = await query.manager.save(
+    return query.manager.save(
       ParkingRecordEntity,
       this.toManualParkingRecord(dto, authUser),
     );
-
-    return parkingRecord;
   }
 
   private toManualParkingRecord(

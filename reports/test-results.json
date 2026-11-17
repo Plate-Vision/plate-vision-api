@@ -1,0 +1,840 @@
+{
+  "command": "npm run test:cov",
+  "sourceCommit": "bdaa0846226353bde62607c968f0ac4f448edd5a",
+  "numTotalTests": 185,
+  "numPassedTests": 185,
+  "numTotalTestSuites": 15,
+  "success": true,
+  "suites": [
+    {
+      "file": "test/delete-providers.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "parking deletion soft deletes the located entity in a transaction",
+          "status": "passed"
+        },
+        {
+          "name": "parking deletion does not start a transaction when lookup fails",
+          "status": "passed"
+        },
+        {
+          "name": "parking deletion propagates deletion failures instead of reporting success",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle deletion soft deletes the located entity in a transaction",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle deletion does not start a transaction when lookup fails",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle deletion propagates deletion failures instead of reporting success",
+          "status": "passed"
+        },
+        {
+          "name": "customer deletion soft deletes the located entity in a transaction",
+          "status": "passed"
+        },
+        {
+          "name": "customer deletion does not start a transaction when lookup fails",
+          "status": "passed"
+        },
+        {
+          "name": "customer deletion propagates deletion failures instead of reporting success",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/vehicle-list.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "Vehicle list uses default ordering and includes customer relations",
+          "status": "passed"
+        },
+        {
+          "name": "Vehicle list preserves search OR clauses, status, service flag and explicit pagination",
+          "status": "passed"
+        },
+        {
+          "name": "Vehicle list defaults a custom sort to ascending and returns the empty-list message",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/parking-list.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "Parking list filters loads customer relations with default ordering and no filters",
+          "status": "passed"
+        },
+        {
+          "name": "Parking list filters applies vehicle, sources, UTC date ranges, ordering and pagination",
+          "status": "passed"
+        },
+        {
+          "name": "Parking list filters defaults a requested sort field to ascending order",
+          "status": "passed"
+        },
+        {
+          "name": "Parking list filters returns the existing empty-list message with zero pages",
+          "status": "passed"
+        },
+        {
+          "name": "Parking list filters propagates storage failures",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/auth-services.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "LoginProvider authenticates a stored password and returns the reset flag",
+          "status": "passed"
+        },
+        {
+          "name": "LoginProvider rejects missing users without issuing tokens",
+          "status": "passed"
+        },
+        {
+          "name": "LoginProvider rejects a wrong password",
+          "status": "passed"
+        },
+        {
+          "name": "LoginProvider rejects an inactive account after password verification",
+          "status": "passed"
+        },
+        {
+          "name": "TokenProvider signs and verifies actual JWTs with distinct access and refresh lifetimes",
+          "status": "passed"
+        },
+        {
+          "name": "TokenProvider returns the existing forbidden-token error for invalid JWTs",
+          "status": "passed"
+        },
+        {
+          "name": "TokenRefreshProvider issues new tokens only after validating the stored account status",
+          "status": "passed"
+        },
+        {
+          "name": "TokenRefreshProvider rejects stored account null with HTTP404",
+          "status": "passed"
+        },
+        {
+          "name": "TokenRefreshProvider rejects stored account {\"status\": \"INACTIVE\"} with HTTP403",
+          "status": "passed"
+        },
+        {
+          "name": "TokenRefreshProvider preserves token verification failure without querying accounts",
+          "status": "passed"
+        },
+        {
+          "name": "PasswordResetProvider hashes the new password and clears the reset flag for the verified user",
+          "status": "passed"
+        },
+        {
+          "name": "PasswordResetProvider rejects missing users before hashing",
+          "status": "passed"
+        },
+        {
+          "name": "PasswordRecoveryProvider preserves the unimplemented mail error after creating a recovery token",
+          "status": "passed"
+        },
+        {
+          "name": "PasswordRecoveryProvider rejects an unknown email before token creation",
+          "status": "passed"
+        },
+        {
+          "name": "PasswordHelper hashes asynchronously and checks both matching and wrong passwords",
+          "status": "passed"
+        },
+        {
+          "name": "PasswordHelper rejects missing passwords for hashing",
+          "status": "passed"
+        },
+        {
+          "name": "PasswordHelper returns false for incomplete credentials \"\"/\"hash\"",
+          "status": "passed"
+        },
+        {
+          "name": "PasswordHelper returns false for incomplete credentials \"password\"/\"\"",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/transactions.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "Repository transaction lifecycle connects, starts, commits and releases resources in order",
+          "status": "passed"
+        },
+        {
+          "name": "Repository transaction lifecycle rolls back a callback failure and releases resources before rethrowing",
+          "status": "passed"
+        },
+        {
+          "name": "Repository transaction lifecycle rolls back a failed commit without hiding the original error",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/controllers.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "parking controller preserves route and authentication guard metadata",
+          "status": "passed"
+        },
+        {
+          "name": "parking controller forwards pagination filters and returns the list payload",
+          "status": "passed"
+        },
+        {
+          "name": "parking controller preserves the find-one argument shape",
+          "status": "passed"
+        },
+        {
+          "name": "parking controller passes the request body and authenticated user on creation",
+          "status": "passed"
+        },
+        {
+          "name": "parking controller passes the UUID, changes and user on update",
+          "status": "passed"
+        },
+        {
+          "name": "parking controller forwards deletion and preserves service failures",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle controller preserves route and authentication guard metadata",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle controller forwards pagination filters and returns the list payload",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle controller preserves the find-one argument shape",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle controller passes the request body and authenticated user on creation",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle controller passes the UUID, changes and user on update",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle controller forwards deletion and preserves service failures",
+          "status": "passed"
+        },
+        {
+          "name": "customer controller preserves route and authentication guard metadata",
+          "status": "passed"
+        },
+        {
+          "name": "customer controller forwards pagination filters and returns the list payload",
+          "status": "passed"
+        },
+        {
+          "name": "customer controller preserves the find-one argument shape",
+          "status": "passed"
+        },
+        {
+          "name": "customer controller passes the request body and authenticated user on creation",
+          "status": "passed"
+        },
+        {
+          "name": "customer controller passes the UUID, changes and user on update",
+          "status": "passed"
+        },
+        {
+          "name": "customer controller forwards deletion and preserves service failures",
+          "status": "passed"
+        },
+        {
+          "name": "Plate reading controller retains its authenticated route and returns processor output",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/configuration-and-validation.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "Environment configuration maps application and database settings from ConfigService",
+          "status": "passed"
+        },
+        {
+          "name": "Environment configuration falls back to process.env with and without ConfigService",
+          "status": "passed"
+        },
+        {
+          "name": "Environment configuration reports the first missing required variable",
+          "status": "passed"
+        },
+        {
+          "name": "Environment configuration builds database options without schema synchronization",
+          "status": "passed"
+        },
+        {
+          "name": "DTO validator pipe passes primitive or unspecified metatype [Function String] through",
+          "status": "passed"
+        },
+        {
+          "name": "DTO validator pipe passes primitive or unspecified metatype [Function Boolean] through",
+          "status": "passed"
+        },
+        {
+          "name": "DTO validator pipe passes primitive or unspecified metatype [Function Number] through",
+          "status": "passed"
+        },
+        {
+          "name": "DTO validator pipe passes primitive or unspecified metatype [Function Array] through",
+          "status": "passed"
+        },
+        {
+          "name": "DTO validator pipe passes primitive or unspecified metatype [Function Object] through",
+          "status": "passed"
+        },
+        {
+          "name": "DTO validator pipe passes primitive or unspecified metatype undefined through",
+          "status": "passed"
+        },
+        {
+          "name": "DTO validator pipe returns a valid DTO body unchanged after validation",
+          "status": "passed"
+        },
+        {
+          "name": "DTO validator pipe reports invalid DTOs using the existing HTTP409 contract",
+          "status": "passed"
+        },
+        {
+          "name": "Multipart JSON field parser parses configured JSON fields and keeps other values intact",
+          "status": "passed"
+        },
+        {
+          "name": "Multipart JSON field parser logs malformed JSON and still delegates to the handler",
+          "status": "passed"
+        },
+        {
+          "name": "Multipart JSON field parser allows requests without a body",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/plate-reading.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "FindManyPlateReadingProvider fetches unprocessed readings in ascending order",
+          "status": "passed"
+        },
+        {
+          "name": "FindManyPlateReadingProvider returns an empty array without treating it as missing data",
+          "status": "passed"
+        },
+        {
+          "name": "FindManyPlateReadingProvider propagates repository failures",
+          "status": "passed"
+        },
+        {
+          "name": "UpdatePlateReadingProvider marks readings as processed with the caller transaction",
+          "status": "passed"
+        },
+        {
+          "name": "UpdatePlateReadingProvider starts a transaction when no runner is supplied",
+          "status": "passed"
+        },
+        {
+          "name": "UpdatePlateReadingProvider saves an empty result as an empty batch",
+          "status": "passed"
+        },
+        {
+          "name": "UpdatePlateReadingProvider preserves the original missing-readings error",
+          "status": "passed"
+        },
+        {
+          "name": "UpdatePlateReadingProvider propagates save failures to the transaction owner",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider avoids opening a transaction for an empty batch",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider processes readings sequentially using the same transaction",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider skips parking for ineligible vehicle null but marks readings",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider skips parking for ineligible vehicle {\"id\": 8, \"isServiceVehicle\": true} but marks readings",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider skips parking for ineligible vehicle {\"id\": 8} but marks readings",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider converts a transaction failure into the original HTTP error",
+          "status": "passed"
+        },
+        {
+          "name": "ProcessorPlateReadingProvider preserves a lookup failure outside the transaction error boundary",
+          "status": "passed"
+        },
+        {
+          "name": "TaskProvider runs the processor and logs its result",
+          "status": "passed"
+        },
+        {
+          "name": "TaskProvider skips overlap and permits execution after completion",
+          "status": "passed"
+        },
+        {
+          "name": "TaskProvider logs failures and releases the overlap lock for the next run",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/service-wiring.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "Service composition processes an AI entry through the real vehicle, parking and reading providers",
+          "status": "passed"
+        },
+        {
+          "name": "Nest dependency initialization initializes every provider before processing the first reading",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/auth-guards.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "AuthGuard rejects missing or malformed authorization undefined",
+          "status": "passed"
+        },
+        {
+          "name": "AuthGuard rejects missing or malformed authorization \"Basic credentials\"",
+          "status": "passed"
+        },
+        {
+          "name": "AuthGuard rejects missing or malformed authorization \"Bearer\"",
+          "status": "passed"
+        },
+        {
+          "name": "AuthGuard verifies the bearer token and attaches the stored user",
+          "status": "passed"
+        },
+        {
+          "name": "AuthGuard normalizes token failures to HTTP401 without a user query",
+          "status": "passed"
+        },
+        {
+          "name": "AuthGuard normalizes an unknown token user to HTTP401",
+          "status": "passed"
+        },
+        {
+          "name": "RoleGuard permits routes with role requirements undefined",
+          "status": "passed"
+        },
+        {
+          "name": "RoleGuard permits routes with role requirements []",
+          "status": "passed"
+        },
+        {
+          "name": "RoleGuard permits a matching role",
+          "status": "passed"
+        },
+        {
+          "name": "RoleGuard rejects a role outside the allowed set",
+          "status": "passed"
+        },
+        {
+          "name": "AbilityGuard rejects users without role abilities undefined",
+          "status": "passed"
+        },
+        {
+          "name": "AbilityGuard rejects users without role abilities {}",
+          "status": "passed"
+        },
+        {
+          "name": "AbilityGuard rejects users without role abilities {\"role\": [Object]}",
+          "status": "passed"
+        },
+        {
+          "name": "AbilityGuard permits routes without required abilities after the profile check",
+          "status": "passed"
+        },
+        {
+          "name": "AbilityGuard rejects missing required abilities",
+          "status": "passed"
+        },
+        {
+          "name": "AbilityGuard permits matching abilities without action restrictions",
+          "status": "passed"
+        },
+        {
+          "name": "AbilityGuard permits the authorized action CREATE",
+          "status": "passed"
+        },
+        {
+          "name": "AbilityGuard permits the authorized action READ",
+          "status": "passed"
+        },
+        {
+          "name": "AbilityGuard permits the authorized action UPDATE",
+          "status": "passed"
+        },
+        {
+          "name": "AbilityGuard permits the authorized action DELETE",
+          "status": "passed"
+        },
+        {
+          "name": "AbilityGuard rejects unsupported or denied action UNKNOWN",
+          "status": "passed"
+        },
+        {
+          "name": "AbilityGuard rejects unsupported or denied action DELETE",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/parking-record.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "CreateParkingRecordManualProvider saves a manual entry in its own transaction",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider uses an existing transaction and records a manual exit source",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider rejects an inactive vehicle before checking parking records",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider rejects a service vehicle",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider rejects an exit before entry",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider accepts equal entry and exit dates",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider rejects a previous parking record with a null exit",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider preserves acceptance of a previous exit 2026-01-01T13:00:00.000Z",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider preserves acceptance of a previous exit undefined",
+          "status": "passed"
+        },
+        {
+          "name": "CreateParkingRecordManualProvider propagates save failures",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider updates the record, tracks the user and marks the source manual",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider preserves the original clearing of an omitted exit date",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider allows explicit null to clear exit even when the stored dates would conflict",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider checks an omitted exit against the original date before clearing it",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider checks an updated entry against a stored exit",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider rejects an earlier exit date without saving",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordManualProvider propagates a lookup failure without starting a transaction",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider keeps original entry fields while setting the AI exit",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider keeps the original exit reading for falsy id undefined",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider keeps the original exit reading for falsy id 0",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider keeps the original exit reading for falsy id null",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider rejects dates before the original entry",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider uses the stored exit when a new exit is null",
+          "status": "passed"
+        },
+        {
+          "name": "UpdateParkingRecordIaProvider preserves the no-runner behavior without saving",
+          "status": "passed"
+        },
+        {
+          "name": "UpsertParkingRecordIaProvider creates an AI entry when no parking record exists",
+          "status": "passed"
+        },
+        {
+          "name": "UpsertParkingRecordIaProvider closes the latest open record using the same transaction",
+          "status": "passed"
+        },
+        {
+          "name": "UpsertParkingRecordIaProvider creates a new entry when latest exit is 2026-01-01T13:00:00.000Z",
+          "status": "passed"
+        },
+        {
+          "name": "UpsertParkingRecordIaProvider creates a new entry when latest exit is undefined",
+          "status": "passed"
+        },
+        {
+          "name": "UpsertParkingRecordIaProvider preserves the original TypeError when a runner is omitted",
+          "status": "passed"
+        },
+        {
+          "name": "UpsertParkingRecordIaProvider propagates an update failure without creating another record",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/read-providers.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "vehicle read provider rejects an invalid UUID without querying storage",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle read provider queries by UUID and returns the existing entity",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle read provider rejects a missing UUID result",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle read provider finds by ID with the repository outside a transaction",
+          "status": "passed"
+        },
+        {
+          "name": "vehicle read provider uses the supplied runner and rejects missing IDs",
+          "status": "passed"
+        },
+        {
+          "name": "customer read provider rejects an invalid UUID without querying storage",
+          "status": "passed"
+        },
+        {
+          "name": "customer read provider queries by UUID and returns the existing entity",
+          "status": "passed"
+        },
+        {
+          "name": "customer read provider rejects a missing UUID result",
+          "status": "passed"
+        },
+        {
+          "name": "customer read provider finds by ID with the repository outside a transaction",
+          "status": "passed"
+        },
+        {
+          "name": "customer read provider uses the supplied runner and rejects missing IDs",
+          "status": "passed"
+        },
+        {
+          "name": "parking read provider rejects an invalid UUID without querying storage",
+          "status": "passed"
+        },
+        {
+          "name": "parking read provider queries by UUID and returns the existing entity",
+          "status": "passed"
+        },
+        {
+          "name": "parking read provider rejects a missing UUID result",
+          "status": "passed"
+        },
+        {
+          "name": "parking read provider finds by ID with the repository outside a transaction",
+          "status": "passed"
+        },
+        {
+          "name": "parking read provider uses the supplied runner and rejects missing IDs",
+          "status": "passed"
+        },
+        {
+          "name": "Vehicle license plate lookup matches plates case-insensitively and returns undefined when absent",
+          "status": "passed"
+        },
+        {
+          "name": "Latest parking record lookup uses transaction=false and orders the last vehicle record by descending ID",
+          "status": "passed"
+        },
+        {
+          "name": "Latest parking record lookup uses transaction=true and orders the last vehicle record by descending ID",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/vehicle-ia.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "CreateVehicleIaProvider reuses an existing vehicle without saving",
+          "status": "passed"
+        },
+        {
+          "name": "CreateVehicleIaProvider normalizes the new plate and records AI as its source",
+          "status": "passed"
+        },
+        {
+          "name": "CreateVehicleIaProvider uses the caller runner for lookup and save",
+          "status": "passed"
+        },
+        {
+          "name": "CreateVehicleIaProvider propagates lookup failures without opening a transaction",
+          "status": "passed"
+        },
+        {
+          "name": "CreateVehicleIaProvider propagates save failures to the transaction owner",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/pagination.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "Shared pagination provider uses one-based pages and returns the existing rounded page count",
+          "status": "passed"
+        },
+        {
+          "name": "Shared pagination provider preserves Math.round rather than rounding incomplete pages upward",
+          "status": "passed"
+        },
+        {
+          "name": "Shared pagination provider omits pagination calls when take is absent",
+          "status": "passed"
+        },
+        {
+          "name": "Shared pagination provider returns one page for an empty result",
+          "status": "passed"
+        },
+        {
+          "name": "Shared pagination provider builds term filters for local, joined and expression fields",
+          "status": "passed"
+        },
+        {
+          "name": "Shared pagination provider builds a value filter for id",
+          "status": "passed"
+        },
+        {
+          "name": "Shared pagination provider builds a value filter for customer.name",
+          "status": "passed"
+        },
+        {
+          "name": "Shared pagination provider normalizes scalar filters and skips an empty list",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "test/document-validator.spec.ts",
+      "status": "passed",
+      "tests": [
+        {
+          "name": "Customer document validator validates type FI and document 123.456.789-01 as true",
+          "status": "passed"
+        },
+        {
+          "name": "Customer document validator validates type FI and document 123 as false",
+          "status": "passed"
+        },
+        {
+          "name": "Customer document validator validates type JU and document 12.345.678/0001-90 as true",
+          "status": "passed"
+        },
+        {
+          "name": "Customer document validator validates type JU and document 123 as false",
+          "status": "passed"
+        },
+        {
+          "name": "Customer document validator validates type unknown and document 123 as false",
+          "status": "passed"
+        },
+        {
+          "name": "Customer document validator validates type undefined and document 123 as true",
+          "status": "passed"
+        },
+        {
+          "name": "Customer document validator validates type FI and document  as true",
+          "status": "passed"
+        },
+        {
+          "name": "Customer document validator explains a rejected document for FI",
+          "status": "passed"
+        },
+        {
+          "name": "Customer document validator explains a rejected document for JU",
+          "status": "passed"
+        },
+        {
+          "name": "Customer document validator explains a rejected document for unknown",
+          "status": "passed"
+        }
+      ]
+    }
+  ]
+}
