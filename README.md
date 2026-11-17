@@ -7,7 +7,7 @@ API de controle de acesso veicular construída com NestJS, TypeScript e TypeORM.
 - Estado original congelado: [`original` em `b360df1`](https://github.com/Plate-Vision/plate-vision-api/tree/original).
 - Estado refatorado: [`refactor/clean-code-project`](https://github.com/Plate-Vision/plate-vision-api/tree/refactor/clean-code-project).
 - A `main` permanece no commit original. Os seis PRs estão encadeados para revisão; não foram mesclados.
-- Equipe: Arthur Ghizi, Augusto Preis e Gabriel Jorge.
+- Equipe: Arthur Ghizi, Augusto Preis, Gabriel Jorge e Cristoffer Figueiredo.
 - Escopo: **627 linhas originais em 12 arquivos**, com **608 linhas em 13 arquivos** após a refatoração, incluindo o novo helper. A API original completa tem **7.564 linhas**; a aprovação desse recorte pelo professor está pendente.
 - Resultado: **185 testes**, **50,47% das linhas** e **60,19% dos branches** da API cobertos. O gate exige pelo menos 50% das linhas globais.
 

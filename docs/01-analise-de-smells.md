@@ -2,7 +2,7 @@
 
 ## Identificação e baseline anterior à refatoração
 
-Equipe: Arthur Ghizi, Augusto Preis e Gabriel Jorge. [Repositório público](https://github.com/Plate-Vision/plate-vision-api). Original congelado: [`b360df12edf9c347f981130fdcd0b61266869822`](https://github.com/Plate-Vision/plate-vision-api/commit/b360df12edf9c347f981130fdcd0b61266869822). A descrição do domínio e a stack estão no [README](../README.md). O scope foi escolhido pelo usuário; a aprovação do professor permanece pendente.
+Equipe: Arthur Ghizi, Augusto Preis, Gabriel Jorge e Cristoffer Figueiredo. [Repositório público](https://github.com/Plate-Vision/plate-vision-api). Original congelado: [`b360df12edf9c347f981130fdcd0b61266869822`](https://github.com/Plate-Vision/plate-vision-api/commit/b360df12edf9c347f981130fdcd0b61266869822). A descrição do domínio e a stack estão no [README](../README.md). O scope foi escolhido pelo usuário; a aprovação do professor permanece pendente.
 
 A medição inicial com `cloc` 2.06 contou o TypeScript de `src/`, excluindo testes, dependências, gerados e lockfiles. A API completa tem 7.564 linhas, inclusive migrations/seeds; mesmo sem essas pastas tem 6.958 linhas. Não há redução artificial da contagem total para enquadrar o projeto. O recorte de 627 linhas inclui 12 arquivos; os caminhos exatos estão em `scope.paths` no [baseline](../reports/baseline.json).
 

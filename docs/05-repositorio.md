@@ -27,7 +27,7 @@ Os commits usam Conventional Commits. O commit inicial separa a preparação mec
 
 O comentário está registrado pela mesma conta `Arthu085` que abriu o PR e documenta uma revisão técnica automatizada. **Não é revisão independente de colega nem aprovação humana.** O [relatório de revisão](../reports/review.json) distingue essas condições. A primeira revisão automatizada não identificou a falha; a demonstração real a encontrou antes da publicação, levando ao teste adicional e à correção.
 
-A equipe informada tem três integrantes, mas todos os seis PRs desta entrega foram criados pela mesma conta. Ainda faltam pelo menos dois PRs autorais por integrante e pelo menos duas revisões reais de colegas por integrante, com comentário substantivo classificado e aprovação em cada PR. Não foram inventados autores, revisores, aprovações ou datas de merge.
+A equipe informada tem quatro integrantes, mas todos os seis PRs desta entrega foram criados pela mesma conta. Ainda faltam pelo menos dois PRs autorais por integrante e pelo menos duas revisões reais de colegas por integrante, com comentário substantivo classificado e aprovação em cada PR. Não foram inventados autores, revisores, aprovações ou datas de merge.
 
 ## CI, hooks e proteção
 

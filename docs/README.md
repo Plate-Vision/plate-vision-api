@@ -1,6 +1,6 @@
 # Documentação da refatoração de Clean Code
 
-Equipe: **Arthur Ghizi, Augusto Preis e Gabriel Jorge**. Repositório público: [Plate-Vision/plate-vision-api](https://github.com/Plate-Vision/plate-vision-api). Conta que criou os commits e PRs desta entrega: `Arthu085`; os usuários GitHub dos demais integrantes não foram informados.
+Equipe: **Arthur Ghizi, Augusto Preis, Gabriel Jorge e Cristoffer Figueiredo**. Repositório público: [Plate-Vision/plate-vision-api](https://github.com/Plate-Vision/plate-vision-api). Conta que criou os commits e PRs desta entrega: `Arthu085`; os usuários GitHub dos demais integrantes não foram informados.
 
 A API controla acesso veicular e estacionamento com NestJS, TypeScript e TypeORM/PostgreSQL. O recorte cobre leitura de placas, criação de veículo pela IA, criação/atualização de estacionamento e montagem desses serviços. OCR, autenticação, ocorrências, schema e novos recursos não são refatorados funcionalmente; há testes adicionais de comportamentos existentes para medir cobertura global.
 

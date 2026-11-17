@@ -48,7 +48,7 @@ Ferramenta: **Codex, baseado em GPT-6**, com agentes de implementação e revis�
 
 A IA auxiliou no diagnóstico, testes de caracterização, refatorações, configuração de gates, inspeção de diffs, comparação HTTP/PostgreSQL e redação dos documentos. O código foi verificado por lint, typecheck, testes e execução real. A revisão automatizada inicial não encontrou o problema de inicialização; a demo HTTP o expôs, um teste com DI real o reproduziu, e a injeção foi corrigida. Isso evidencia a limitação dos mocks e da revisão automatizada isolada.
 
-**Revisão por integrante ainda pendente.** A conta de entrega é `Arthu085`; os documentos não afirmam que Augusto ou Gabriel revisaram ou aprovaram código. Cada integrante precisa ler o diff, executar os testes, explicar as mudanças e registrar suas revisões reais antes da entrega acadêmica.
+**Revisão por integrante ainda pendente.** A conta de entrega é `Arthu085`; os documentos não afirmam que Augusto, Gabriel ou Cristoffer revisaram ou aprovaram código. Cada integrante precisa ler o diff, executar os testes, explicar as mudanças e registrar suas revisões reais antes da entrega acadêmica.
 
 ## Evidências
 

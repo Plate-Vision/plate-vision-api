@@ -3,7 +3,8 @@
   "team": [
     "Arthur Ghizi",
     "Augusto Preis",
-    "Gabriel Jorge"
+    "Gabriel Jorge",
+    "Cristoffer Figueiredo"
   ],
   "originalCommit": "b360df12edf9c347f981130fdcd0b61266869822",
   "refactoredBranch": "refactor/clean-code-project",
